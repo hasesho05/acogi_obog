@@ -1,12 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',  // 静的エクスポートを有効
-  // distDir: 'out',    // 出力ディレクトリを指定
+  output: 'export',
+  
+  // 静的エクスポート用の画像設定
   images: {
-    unoptimized: true, // 画像最適化を無効（静的サイト用）
+    unoptimized: true,
   },
+  
+  // トレイリングスラッシュ
   trailingSlash: true,
-
+  
+  // 出力ディレクトリ指定（オプション）
+  distDir: 'out',
 };
 
 export default nextConfig;

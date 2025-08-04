@@ -1,260 +1,156 @@
-# メインページ作成チケット
-## 龍谷大学アコースティックギターサークルOBOG演奏会 2025
+EventInformation - Timeline形式の改善案
+🎯 改善コンセプト
+現在のシンプルなカード形式から、Timeline形式で当日スケジュールを表示することで、より情報豊富で視覚的に魅力的なセクションに変更する。
 
-### 📋 チケット概要
-龍谷大学アコースティックギターサークルOBOG演奏会 2025年のメインページ（トップページ）を作成する。モダンなデザインとアニメーション効果を活用し、来訪者に印象的な体験を提供する。
+🛠️ 必要な作業
+1. Aceternity UI Timeline コンポーネントの追加
+bashnpx shadcn@latest add https://ui.aceternity.com/registry/timeline.json
+2. 改善されたコンポーネント構成
+タイトル部分
 
----
+{props.date} と {props.dayOfWeek} をセクションのメインタイトルとして表示
+より目立つデザインに変更
 
-## 🎫 チケット #2: メインページの実装
-**優先度: 最高 | 見積時間: 3-4時間**
+🎨 デザイン仕様
+レイアウト構成
++----------------------------------+
+|           開催情報               |
+|    2025年10月12日（日）          |
++----------------------------------+
+|                                  |
+|  13:30 ●━━━ 開場                |
+|         受付開始・会場準備完了    |
+|                                  |
+|  14:00 ●━━━ 開演・第1部          |
+|         OBOG演奏者による...      |
+|                                  |
+|  15:00 ●━━━ 休憩                |
+|         歓談タイム・写真撮影      |
+|                                  |
+|  15:30 ●━━━ 第2部              |
+|         合奏・特別企画           |
+|                                  |
+|  17:00 ●━━━ 終演予定            |
+|         お疲れ様でした！         |
++----------------------------------+
+カラーパレット
 
-### 📝 作業内容
-Aceternity UIコンポーネントを活用したインタラクティブなメインページの実装
+Timeline線: #6a8359 (accent色)
+時間表示: #9f8f7c (secondary色)
+タイトル: #6a8359 (accent色)
+説明文: #9f8f7c (secondary色)
+背景: #ede5d8 (tertiary色)
 
-### ✅ 受け入れ条件
-- [ ] レスポンシブデザインに対応している（モバイル・タブレット・デスクトップ）
-- [ ] 全セクションが正常に表示される
-- [ ] アニメーション効果が適切に動作する
-- [ ] 動画ファイルが正常に再生される
-- [ ] GoogleMapが正しく表示される
+アニメーション効果
 
----
-
-## 🎨 デザイン要件
-
-### カラーパレット（既存設定を使用）
-- **Primary**: #f2ece7（背景・ベース）
-- **Secondary**: #9f8f7c（テキスト・枠線）
-- **Tertiary**: #ede5d8（セクション背景）
-- **Accent**: #6a8359（差し色・強調）
-
-### レスポンシブブレークポイント
-- Mobile: ~768px
-- Tablet: 768px~1024px
-- Desktop: 1024px~
-
----
-
-## 📱 セクション構成
-
-### 1. Hero Section（メインビジュアル）
-#### 使用コンポーネント
-- **Images Slider**: https://ui.aceternity.com/components/images-slider
-- **Typewriter Effect**: https://ui.aceternity.com/components/typewriter-effect
-
-#### 要件
-- [ ] 動画ファイルを背景として使用
-  - `/movies/hero1.webm`
-  - `/movies/hero2.webm`
-  - 順番にスライド表示（自動切り替え）
-- [ ] Typewriter Effectで以下のテキストを表示
-  - "龍谷大学"
-  - "アコースティックギターサークル"
-  - "OBOG演奏会 2025"
-- [ ] フルスクリーン表示（viewport height 100%）
-- [ ] 動画の音声はミュート
-- [ ] 動画は自動再生・ループ
-- [ ] モバイルでも動画が適切に表示される
-
-#### デザイン仕様
-- 動画上にオーバーレイ（半透明の暗いフィルター）
-- テキストは中央配置
-- Typewriter Effectの色: 白文字（視認性確保）
-- スライドの切り替え時間: 5-7秒
-
-### 2. Event Information Section（開催情報）
-#### 要件
-- [ ] 開催日時の表示
-  - **日付**: 2025年10月12日（日）
-  - 大きく目立つフォント
-  - カウントダウンタイマー（オプション）
-- [ ] 視覚的に魅力的なカード形式で表示
-- [ ] アニメーション：スクロール時にフェードイン
-
-#### デザイン仕様
-- カード背景: tertiary色
-- テキスト色: secondary色
-- アクセント色で日付を強調
-
-### 3. Venue Information Section（会場情報）
-#### 要件
-- [ ] 店舗画像の表示（後で追加予定）
-- [ ] 店舗情報
-  - **店名**: Second Rooms
-  - **住所**: 京都府向日市寺戸町西田中瀬3-4 FORUM東向日1 3F
-  - **交通手段**: 東向日駅から84m
-- [ ] Google Map埋め込み
-  - インタラクティブマップ
-  - マーカーで位置表示
-  - 住所クリックでGoogleマップアプリ起動
-- [ ] アクセス情報を見やすく整理
-
-#### デザイン仕様
-- 2カラムレイアウト（デスクトップ）
-- 左側: 店舗情報・画像
-- 右側: Google Map
-- モバイル: 縦積みレイアウト
-
-### 4. Past Event Photos Section（昨年の様子）
-#### 使用コンポーネント
-- **Parallax Scroll**: https://ui.aceternity.com/components/parallax-scroll
-
-#### 要件
-- [ ] 昨年の写真を使用: `/images/image1-12.png`
-- [ ] Parallax Scrollエフェクトで表示
-- [ ] セクションタイトル: "昨年の演奏会の様子"
-- [ ] 写真をグリッド形式で配置
-- [ ] ホバー効果でズーム
-
-#### デザイン仕様
-- 写真は適切なアスペクト比でトリミング
-- グリッドレイアウト（3カラム → 2カラム → 1カラム）
-- パララックス効果でスクロールに応じて動く
-
-### 5. Call to Action Section（出演者募集）
-#### 要件
-- [ ] 出演者募集の案内文
-  - "出演者募集中！"のキャッチコピー
-  - 参加条件や詳細（簡潔に）
-- [ ] Instagramアカウントへのリンク
-  - Instagram アイコン付きボタン
-  - 外部リンクとして開く
-- [ ] コンタクト情報
-- [ ] 目立つCTAボタン
-
-#### デザイン仕様
-- 背景: accent色でアクセント
-- テキスト: 白文字で視認性確保
-- ボタン: ホバー時のアニメーション効果
-
----
-
-## 🛠️ 技術要件
-
-### 必要なファイル
-#### 動画ファイル
-- [ ] `/public/movies/hero1.webm` を配置
-- [ ] `/public/movies/hero2.webm` を配置
-- [ ] 動画の最適化（ファイルサイズ・品質）
-
-#### 画像ファイル
-- [ ] `/public/images/image1-12.png` を配置（昨年の写真）
-- [ ] 店舗画像（後で追加予定、placeholder対応）
+スクロール時に各タイムラインアイテムが順次フェードイン
+ホバー時にタイムラインドットが拡大
+プログレッシブアニメーション（上から下へ順番に表示）
 
 
+📱 レスポンシブ対応
+Desktop (1024px~)
 
-### 依存関係
-- [ ] `framer-motion` （既にインストール済み）
-- [ ] `lucide-react` （アイコン用、既にインストール済み）
-- [ ] Google Maps API（必要に応じて）
+Timeline を中央配置
+左側に時間、右側に内容
+余白を十分に確保
 
----
+Tablet (768px~1024px)
 
-## 📋 実装タスク詳細
+Timeline の幅を調整
+フォントサイズを適切に縮小
+アイコンサイズの調整
 
-### Phase 1: 基本構造とHero Section
-1. [ ] `app/page.tsx` でメインページの基本構造を作成
-2. [ ] Images Slider コンポーネントを設置
-3. [ ] 動画ファイルの配置と表示確認
-4. [ ] Typewriter Effect コンポーネントの実装
-5. [ ] レスポンシブ対応の確認
+Mobile (~768px)
 
-### Phase 2: Event・Venue Information
-1. [ ] 開催情報セクションの実装
-2. [ ] 会場情報セクションの作成
-3. [ ] Google Map の埋め込み
-4. [ ] レスポンシブレイアウトの調整
+Timeline を縦方向にコンパクトに
+時間と内容を縦積み
+タッチ操作に配慮したサイズ
 
-### Phase 3: Photo Gallery・CTA
-1. [ ] Parallax Scroll コンポーネントの実装
-2. [ ] 昨年の写真表示
-3. [ ] 出演者募集セクションの作成
-4. [ ] Instagram リンクの実装
 
-### Phase 4: 最適化・調整
-1. [ ] パフォーマンス最適化
-2. [ ] アニメーション調整
-3. [ ] クロスブラウザ確認
-4. [ ] モバイル表示の最終調整
+🔧 実装サンプルコード
+typescript"use client";
 
----
+import type { EventInformationProps } from "@/domain/entities/home";
+import { motion } from "framer-motion";
+import { Timeline } from "@/components/ui/timeline";
 
-## 🎯 Google Map埋め込み仕様
+const EventInformation = (props: EventInformationProps) => {
+  const scheduleData = [
+    {
+      time: "13:00",
+      title: "開場", 
+      description: "受付開始・会場準備完了",
+      icon: "🚪"
+    },
+    {
+      time: "14:00",
+      title: "開演・第1部",
+      description: "演奏者による懐かしの楽曲をお届け",
+      icon: "🎸" 
+    },
+    {
+      time: "15:00",
+      title: "休憩",
+      description: "歓談・カレータイム",
+      icon: "☕"
+    },
+    {
+      time: "15:30", 
+      title: "第2部",
+      description: "特別企画・サプライズ演奏",
+      icon: "🎵"
+    },
+    {
+      time: "17:00",
+      title: "終演予定", 
+      description: "お疲れ様でした！アフターパーティーもあります",
+      icon: "👏"
+    }
+  ];
 
-### 住所情報
-- **店名**: Second Rooms
-- **住所**: 京都府向日市寺戸町西田中瀬3-4 FORUM東向日1 3F
-- **最寄り駅**: 東向日駅から84m
+  return (
+    <motion.section
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      viewport={{ once: true }}
+      className="py-20 px-4 md:px-8 max-w-7xl mx-auto"
+    >
+      {/* タイトル部分 */}
+      <div className="text-center mb-16">
+        <motion.h2 
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="text-3xl md:text-5xl font-bold mb-4 text-[#9f8f7c]"
+        >
+          開催情報
+        </motion.h2>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          className="inline-block bg-[#6a8359] text-white px-8 py-4 rounded-2xl shadow-lg"
+        >
+          <p className="text-2xl md:text-3xl font-bold">
+            {props.date}
+          </p>
+          <p className="text-lg md:text-xl mt-1">
+            {props.dayOfWeek}
+          </p>
+        </motion.div>
+      </div>
 
-### Map要件
-- [ ] インタラクティブマップ
-- [ ] 店舗位置にマーカー表示
-- [ ] ズーム機能
-- [ ] 住所クリックでGoogleマップアプリ起動
-- [ ] レスポンシブサイズ調整
+      {/* Timeline部分 */}
+      <div className="bg-[#ede5d8] rounded-3xl p-8 md:p-12 shadow-xl">
+        <h3 className="text-2xl md:text-3xl font-bold text-center mb-12 text-[#6a8359]">
+          当日のスケジュール
+        </h3>
+        <Timeline data={scheduleData} />
+      </div>
+    </motion.section>
+  );
+};
 
-### 実装オプション
-1. **Google Maps Embed API** (推奨)
-   - 無料枠内で利用
-   - シンプルな埋め込み
-2. **react-google-maps** ライブラリ
-   - より高度なカスタマイズ可能
-
----
-
-## 📱 レスポンシブ要件
-
-### Mobile (〜768px)
-- [ ] Hero動画を適切なアスペクト比で表示
-- [ ] Typewriter Effectのフォントサイズ調整
-- [ ] 各セクションの縦積みレイアウト
-- [ ] タッチ操作に対応したインタラクション
-
-### Tablet (768px〜1024px)
-- [ ] 2カラムレイアウトの調整
-- [ ] 動画とテキストのバランス
-- [ ] 適切な余白・パディング
-
-### Desktop (1024px〜)
-- [ ] フルワイドレイアウト
-- [ ] パララックス効果の最適化
-- [ ] ホバー効果の実装
-
----
-
----
-
-## 🚀 デプロイ前チェックリスト
-
-- [ ] 全ての動画・画像ファイルが正しく配置されている
-- [ ] レスポンシブデザインが全デバイスで正常
-- [ ] パフォーマンスが良好（Core Web Vitals）
-- [ ] SEO要素が適切に設定されている
-- [ ] アクセシビリティが考慮されている
-- [ ] 全リンクが正常に動作する
-
----
-
-## 💡 今後の拡張予定
-
-- 店舗画像の追加
-- 出演者情報の詳細ページ
-- チケット予約機能
-- SNS連携強化
-- 多言語対応（日本語・英語）
-
----
-
-## 📞 連絡先・参考資料
-
-### 参考サイト
-- Aceternity UI Components: https://ui.aceternity.com/components
-- Images Slider: https://ui.aceternity.com/components/images-slider
-- Typewriter Effect: https://ui.aceternity.com/components/typewriter-effect
-- Parallax Scroll: https://ui.aceternity.com/components/parallax-scroll
-
-### 会場情報
-- Second Rooms 公式情報
-- 東向日駅周辺マップ
-- アクセス情報の詳細
+export default EventInformation;

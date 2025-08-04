@@ -10,7 +10,6 @@ export const VideoSlider = ({
   overlayClassName,
   className,
   autoplay = true,
-  direction = "up",
 }: {
   videos: string[];
   children: React.ReactNode;
@@ -18,7 +17,7 @@ export const VideoSlider = ({
   overlayClassName?: string;
   className?: string;
   autoplay?: boolean;
-  direction?: "up" | "down";
+
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -41,28 +40,6 @@ export const VideoSlider = ({
     };
   }, [autoplay, videos.length]);
 
-  const slideVariants = {
-    initial: {
-      opacity: 0,
-      scale: 1.1,
-    },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 1,
-        ease: [0.645, 0.045, 0.355, 1.0],
-      },
-    },
-    exit: {
-      opacity: 0,
-      scale: 0.95,
-      transition: {
-        duration: 1,
-      },
-    },
-  };
-
   return (
     <div
       className={cn(
@@ -77,7 +54,6 @@ export const VideoSlider = ({
           initial="initial"
           animate="visible"
           exit="exit"
-          variants={slideVariants}
           className="absolute inset-0 w-full h-full object-cover z-0"
           autoPlay
           muted

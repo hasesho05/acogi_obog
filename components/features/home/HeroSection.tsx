@@ -13,7 +13,6 @@ const HeroSection = (props: HeroSectionProps) => {
       overlayClassName="bg-black/50"
       videos={props.videos}
       autoplay={true}
-      direction="up"
     >
       <motion.div
         initial={{

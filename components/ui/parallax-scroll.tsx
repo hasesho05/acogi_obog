@@ -34,10 +34,10 @@ export const ParallaxScroll = ({
       ref={gridRef}
     >
       <div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start  max-w-5xl mx-auto gap-10 py-40 px-10"
+        className="grid grid-cols-3 items-start max-w-5xl mx-auto gap-2 sm:gap-4 md:gap-6 lg:gap-10 py-40 px-4 sm:px-6 md:px-10"
         ref={gridRef}
       >
-        <div className="grid gap-10">
+        <div className="grid gap-2 sm:gap-4 md:gap-6 lg:gap-10">
           {firstPart.map((el, idx) => (
             <motion.div
               style={{ y: translateFirst }} // Apply the translateY motion value here
@@ -45,7 +45,7 @@ export const ParallaxScroll = ({
             >
               <img
                 src={el}
-                className="h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="h-32 sm:h-48 md:h-64 lg:h-80 w-full object-cover object-center rounded-lg !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
@@ -53,12 +53,12 @@ export const ParallaxScroll = ({
             </motion.div>
           ))}
         </div>
-        <div className="grid gap-10">
+        <div className="grid gap-2 sm:gap-4 md:gap-6 lg:gap-10">
           {secondPart.map((el, idx) => (
             <motion.div style={{ y: translateSecond }} key={"grid-2" + idx}>
               <img
                 src={el}
-                className="h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="h-32 sm:h-48 md:h-64 lg:h-80 w-full object-cover object-center rounded-lg !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"
@@ -66,12 +66,12 @@ export const ParallaxScroll = ({
             </motion.div>
           ))}
         </div>
-        <div className="grid gap-10">
+        <div className="grid gap-2 sm:gap-4 md:gap-6 lg:gap-10">
           {thirdPart.map((el, idx) => (
             <motion.div style={{ y: translateThird }} key={"grid-3" + idx}>
               <img
                 src={el}
-                className="h-80 w-full object-cover object-left-top rounded-lg gap-10 !m-0 !p-0"
+                className="h-32 sm:h-48 md:h-64 lg:h-80 w-full object-cover object-center rounded-lg !m-0 !p-0"
                 height="400"
                 width="400"
                 alt="thumbnail"

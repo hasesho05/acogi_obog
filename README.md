@@ -14,7 +14,6 @@
 ## 📁 ディレクトリ構成（DDD準拠）
 
 ```
-src/
 ├── app/                    # App Router
 │   ├── page.tsx           # トップページ
 │   ├── concerts/          # 演奏会関連ページ

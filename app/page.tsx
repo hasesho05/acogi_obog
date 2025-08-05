@@ -3,12 +3,13 @@ import EventInformation from "@/components/features/home/EventInformation";
 import VenueInformation from "@/components/features/home/VenueInformation";
 import PastEventPhotos from "@/components/features/home/PastEventPhotos";
 import CallToAction from "@/components/features/home/CallToAction";
+import { ScrollTransition } from "@/components/features/home/ScrollTransition";
 
 const HomePage = () => {
   // Hero section data
   const heroData = {
     videos: ["/movies/hero1.webm", "/movies/hero2.webm", "/movies/hero3.webm", "/movies/hero4.webm"],
-    typewriterTexts: ["龍谷大学", "アコースティックギターサークル", "OBOG演奏会 2025"],
+    typewriterTexts: ["龍谷大学", "アコギサークル", "OBOG演奏会 2025"],
   };
 
   // Event information data
@@ -37,12 +38,24 @@ const HomePage = () => {
   };
 
   return (
-    <main className="min-h-screen bg-[#f2ece7]">
+    <main className="min-h-screen bg-primary">
       <HeroSection {...heroData} />
-      <EventInformation {...eventData} />
-      <VenueInformation {...venueData} />
-      <PastEventPhotos {...pastEventData} />
-      <CallToAction {...ctaData} />
+      
+      <ScrollTransition>
+        <EventInformation {...eventData} />
+      </ScrollTransition>
+      
+      <ScrollTransition>
+        <VenueInformation {...venueData} />
+      </ScrollTransition>
+      
+      <ScrollTransition>
+        <PastEventPhotos {...pastEventData} />
+      </ScrollTransition>
+      
+      <ScrollTransition>
+        <CallToAction {...ctaData} />
+      </ScrollTransition>
     </main>
   );
 };

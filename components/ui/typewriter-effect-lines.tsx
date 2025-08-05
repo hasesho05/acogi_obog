@@ -9,35 +9,43 @@ export const TypewriterEffectLines = ({
   className,
   lineClassName,
   cursorClassName,
+  speed = 0.1,
 }: {
   lines: string[];
   className?: string;
   lineClassName?: string;
   cursorClassName?: string;
+  speed?: number;
 }) => {
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
 
   useEffect(() => {
     if (isInView) {
-      const animateLines = async () => {
-        for (let i = 0; i < lines.length; i++) {
+      const animateText = async () => {
+        for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
+          const chars = lines[lineIndex].split("");
+          
+          // Animate each character in the line
           await animate(
-            `.line-${i}`,
+            `.line-${lineIndex} .char`,
             {
-              width: "100%",
               opacity: 1,
+              display: "inline-block",
             },
             {
-              duration: 2,
-              ease: "easeInOut",
+              duration: speed,
+              delay: stagger(speed, { startDelay: 0.1 }),
             }
           );
+          
+          // Small pause between lines
+          await new Promise(resolve => setTimeout(resolve, 300));
         }
       };
-      animateLines();
+      animateText();
     }
-  }, [isInView, animate, lines.length]);
+  }, [isInView, animate, lines, speed]);
 
   return (
     <div ref={scope} className={cn("flex flex-col items-center", className)}>
@@ -49,18 +57,17 @@ export const TypewriterEffectLines = ({
             lineClassName
           )}
         >
-          <motion.div
-            className={`line-${lineIndex} overflow-hidden`}
-            initial={{
-              width: "0%",
-              opacity: 0,
-            }}
-            style={{
-              whiteSpace: "nowrap",
-            }}
-          >
-            <span className="inline-block">{line}</span>
-          </motion.div>
+          <div className={`line-${lineIndex} flex`}>
+            {line.split("").map((char, charIndex) => (
+              <motion.span
+                key={`char-${charIndex}`}
+                className="char opacity-0 hidden text-white/60"
+                initial={{ opacity: 0 }}
+              >
+                {char === " " ? "\u00A0" : char}
+              </motion.span>
+            ))}
+          </div>
           {lineIndex === lines.length - 1 && (
             <motion.span
               initial={{
@@ -75,7 +82,7 @@ export const TypewriterEffectLines = ({
                 repeatType: "reverse",
               }}
               className={cn(
-                "inline-block ml-1 w-[4px] h-8 md:h-12 bg-[#9f8f7c]",
+                "inline-block ml-1 w-[4px] h-8 md:h-12 bg-white",
                 cursorClassName
               )}
             />

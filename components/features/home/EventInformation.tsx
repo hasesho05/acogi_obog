@@ -118,17 +118,13 @@ const EventInformation = (props: EventInformationProps) => {
   ];
 
   return (
-    <section className="py-20 px-4 md:px-8 max-w-7xl mx-auto">
+    <section className="py-10 px-4 md:px-8 max-w-[1000px] mx-auto">
       {/* セクションヘッダー */}
       <motion.div
-        initial={{ opacity: 0, y: -30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="text-center mb-16"
+        className="text-center mb-2"
       >
         <motion.h2 
-          className="text-2xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-[#6a8359] to-[#9f8f7c] bg-clip-text text-transparent"
+          className="text-2xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent"
         >
           開催情報
         </motion.h2>
@@ -146,7 +142,7 @@ const EventInformation = (props: EventInformationProps) => {
           className="lg:col-span-1"
         >
           {/* 日付カード */}
-          <div className="bg-gradient-to-br from-[#6a8359] to-[#9f8f7c] rounded-3xl p-8 text-white shadow-2xl mb-6 transform hover:scale-105 transition-transform duration-300">
+          <div className="bg-gradient-to-br from-accent to-secondary rounded-3xl p-8 text-white shadow-2xl mb-6 transform hover:scale-105 transition-transform duration-300">
             <div className="flex items-center mb-4">
               <Calendar className="w-8 h-8 mr-3" />
               <span className="text-lg font-medium">開催日</span>
@@ -156,75 +152,64 @@ const EventInformation = (props: EventInformationProps) => {
             </div>
             
             {/* カウントダウン要素 */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.5 }}
+            <div
               className="mt-6 pt-6 border-t border-white/20"
             >
               <div className="text-sm opacity-80 mb-1">開催まで</div>
               <div className={`text-2xl font-bold ${getCountdownColor()}`}>
                 {getCountdownMessage()}
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* 統計情報カード */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
             {eventStats.map((stat, index) => (
-              <motion.div
+              <div
                 key={stat.description}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-                viewport={{ once: true }}
-                className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-[#ede5d8]"
+                className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 border border-tertiary"
               >
-                <div className="flex items-center mb-2 text-[#6a8359]">
+                <div className="flex items-center mb-2 text-accent">
                   {stat.icon}
                 </div>
-                <div className="text-lg font-bold text-[#9f8f7c] mb-1">
+                <div className="text-lg font-bold text-secondary mb-1">
                   {stat.value}
                 </div>
-                <div className="text-xs text-[#9f8f7c]/50 mt-1">
+                <div className="text-xs text-secondary/50 mt-1">
                   {stat.description}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </motion.div>
 
         {/* 右側: タイムライン */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true }}
+        <div
           className="lg:col-span-2"
         >
-          <div className="bg-gradient-to-br from-[#f2ece7] to-[#ede5d8] rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm border border-white/20">
+          <div className="bg-gradient-to-br from-primary to-tertiary rounded-3xl p-8 md:p-12 shadow-2xl backdrop-blur-sm border border-white/20">
             <div
               className="mb-4"
             >
-              <h3 className="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-[#6a8359] to-[#9f8f7c] bg-clip-text text-transparent">
+              <h3 className="text-xl md:text-2xl font-bold text-center mb-4 bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
                 当日のスケジュール
               </h3>
-              <div className="w-24 h-1 bg-gradient-to-r from-[#6a8359] to-[#9f8f7c] mx-auto rounded-full"></div>
+              <div className="w-24 h-1 bg-gradient-to-r from-accent to-secondary mx-auto rounded-full"></div>
             </div>
 
             <ScheduleTimeline data={scheduleData} />
 
             {/* 追加情報 */}
             <div
-              className="mt-8 pt-8 border-t border-[#9f8f7c]/20"
+              className="mt-8 pt-8 border-t border-secondary/20"
             >
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="bg-white/50 rounded-2xl p-6 backdrop-blur-sm">
-                  <h4 className="font-bold text-[#6a8359] mb-3 flex items-center">
+                  <h4 className="font-bold text-accent mb-3 flex items-center">
                     <Music className="w-5 h-5 mr-2" />
                     演奏予定楽曲
                   </h4>
-                  <ul className="text-sm text-[#9f8f7c] space-y-1">
+                  <ul className="text-sm text-secondary space-y-1">
                     <li>• J-POP名曲集</li>
                     <li>• ロックミュージック</li>
                     <li>• オリジナル楽曲</li>
@@ -233,11 +218,11 @@ const EventInformation = (props: EventInformationProps) => {
                 </div>
                 
                 <div className="bg-white/50 rounded-2xl p-6 backdrop-blur-sm">
-                  <h4 className="font-bold text-[#6a8359] mb-3 flex items-center">
+                  <h4 className="font-bold text-accent mb-3 flex items-center">
                     <Users className="w-5 h-5 mr-2" />
                     注意事項
                   </h4>
-                  <ul className="text-sm text-[#9f8f7c] space-y-1">
+                  <ul className="text-sm text-secondary space-y-1">
                     <li>• 開場15分前より受付開始</li>
                     <li>• 飲食物の持ち込み不可</li>
                     <li>• 駐車場はございません</li>
@@ -246,13 +231,13 @@ const EventInformation = (props: EventInformationProps) => {
               </div>
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* 装飾的要素 */}
       <div className="absolute inset-0 -z-10 overflow-hidden pointer-events-none">
-        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-[#6a8359]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#9f8f7c]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-accent/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/5 rounded-full blur-3xl"></div>
       </div>
     </section>
   );

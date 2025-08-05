@@ -32,7 +32,7 @@ export const VideoSlider = ({
     if (autoplay) {
       interval = setInterval(() => {
         handleNext();
-      }, 7000); // 7秒ごとに切り替え
+      }, 5000); // 5秒ごとに切り替え
     }
 
     return () => {
@@ -68,7 +68,7 @@ export const VideoSlider = ({
         />
       )}
       
-      <div className="relative z-20">
+      <div className="relative z-20 w-full h-full flex items-center justify-center">
         {children}
       </div>
     </div>

@@ -38,23 +38,23 @@ const VenueInformation = (props: VenueInformationProps) => {
   ];
 
   return (
-    <section className="py-20 px-4 md:px-8 bg-gradient-to-br from-[#f2ece7] to-[#ede5d8] relative overflow-hidden">
+    <section className="py-6 px-4 md:px-8 bg-gradient-to-br from-primary to-tertiary relative overflow-hidden">
       {/* 装飾的背景 */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#6a8359]/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-[#9f8f7c]/5 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-[1000px] mx-auto">
         {/* セクションヘッダー */}
         <motion.div
-          initial={{ opacity: 0, y: -30 }}
+          initial={{ opacity: 0, y: -10 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.4 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-4"
         >
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-[#6a8359] to-[#9f8f7c] bg-clip-text text-transparent">
+          <h2 className="text-2xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
             会場情報
           </h2>
         </motion.div>
@@ -64,9 +64,9 @@ const VenueInformation = (props: VenueInformationProps) => {
           
           {/* 左側: 会場画像スライダー */}
           <motion.div
-            initial={{ opacity: 0, x: -50 }}
+            initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
@@ -94,39 +94,39 @@ const VenueInformation = (props: VenueInformationProps) => {
 
           {/* 右側: 基本情報カード */}
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
+            initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
             className="lg:col-span-1"
           >
             <div className="bg-white/80 backdrop-blur-sm rounded-3xl py-10 px-8 shadow-2xl border border-white/20 h-fit">
-              <h3 className="text-xl md:text-2xl font-bold mb-6 text-[#6a8359]">
+              <h3 className="text-xl md:text-2xl font-bold mb-6 text-accent">
                 {props.name}
               </h3>
               
               <div className="space-y-6">
                 <div className="flex items-start">
-                  <MapPin className="w-6 h-6 text-[#6a8359] mr-3 mt-1 flex-shrink-0" />
+                  <MapPin className="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-[#9f8f7c] font-bold mb-2">住所</p>
-                    <p className="text-[#9f8f7c] leading-relaxed">{props.address}</p>
+                    <p className="text-secondary font-bold mb-2">住所</p>
+                    <p className="text-secondary leading-relaxed">{props.address}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start">
-                  <Train className="w-6 h-6 text-[#6a8359] mr-3 mt-1 flex-shrink-0" />
+                  <Train className="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-[#9f8f7c] font-bold mb-2">アクセス</p>
-                    <p className="text-[#9f8f7c] leading-relaxed">{props.access}</p>
+                    <p className="text-secondary font-bold mb-2">アクセス</p>
+                    <p className="text-secondary leading-relaxed">{props.access}</p>
                   </div>
                 </div>
 
                 <div className="flex items-start">
-                  <Clock className="w-6 h-6 text-[#6a8359] mr-3 mt-1 flex-shrink-0" />
+                  <Clock className="w-6 h-6 text-accent mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <p className="text-[#9f8f7c] font-bold mb-2">営業時間</p>
-                    <p className="text-[#9f8f7c] leading-relaxed">
+                    <p className="text-secondary font-bold mb-2">営業時間</p>
+                    <p className="text-secondary leading-relaxed">
                       11:30〜22:00<br />
                       （ラストオーダー 21:30）
                     </p>
@@ -140,7 +140,7 @@ const VenueInformation = (props: VenueInformationProps) => {
                 href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(props.address)}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block w-full mt-8 px-6 py-4 bg-gradient-to-r from-[#6a8359] to-[#9f8f7c] text-white rounded-2xl hover:from-[#5a7349] hover:to-[#8f7f6c] transition-all duration-300 text-center font-bold shadow-lg"
+                className="inline-block w-full mt-8 px-6 py-4 bg-gradient-to-r from-accent to-secondary text-white rounded-2xl hover:from-accent/90 hover:to-secondary/90 transition-all duration-300 text-center font-bold shadow-lg"
               >
                 Google Mapで開く
               </motion.a>
@@ -150,13 +150,13 @@ const VenueInformation = (props: VenueInformationProps) => {
 
         {/* Google Map */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
           viewport={{ once: true }}
           className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-2xl border border-white/20"
         >
-          <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 text-[#6a8359]">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mb-8 text-accent">
             アクセスマップ
           </h3>
           <div className="h-[450px] rounded-2xl overflow-hidden shadow-lg">
@@ -173,24 +173,24 @@ const VenueInformation = (props: VenueInformationProps) => {
           
           {/* 交通案内 */}
           <div className="mt-8 grid md:grid-cols-2 gap-6">
-            <div className="bg-[#f2ece7] rounded-2xl p-6">
-              <h4 className="font-bold text-[#6a8359] mb-3 flex items-center">
+            <div className="bg-primary rounded-2xl p-6">
+              <h4 className="font-bold text-accent mb-3 flex items-center">
                 <Train className="w-5 h-5 mr-2" />
                 電車でお越しの方
               </h4>
-              <ul className="text-sm text-[#9f8f7c] space-y-2">
+              <ul className="text-sm text-secondary space-y-2">
                 <li>• 東向日駅下車 徒歩1分</li>
                 <li>• 阪急京都線をご利用ください</li>
                 <li>• 駅から非常に近く便利です</li>
               </ul>
             </div>
             
-            <div className="bg-[#f2ece7] rounded-2xl p-6">
-              <h4 className="font-bold text-[#6a8359] mb-3 flex items-center">
+            <div className="bg-primary rounded-2xl p-6">
+              <h4 className="font-bold text-accent mb-3 flex items-center">
                 <MapPin className="w-5 h-5 mr-2" />
                 お車でお越しの方
               </h4>
-              <ul className="text-sm text-[#9f8f7c] space-y-2">
+              <ul className="text-sm text-secondary space-y-2">
                 <li>• 駐車場はございません</li>
                 <li>• 近隣のコインパーキングをご利用ください</li>
                 <li>• 公共交通機関でのお越しを推奨</li>

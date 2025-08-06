@@ -110,10 +110,12 @@ const Page = async (props: {
 ### Color Scheme
 The project uses a warm, acoustic-themed color palette:
 ```css
---color-primary: #f2ece7     /* Main background */
---color-secondary: #9f8f7c   /* Text and borders */
---color-tertiary: #ede5d8    /* Section backgrounds */
---color-accent: #6a8359      /* Accent color */
+--color-primary: #fff5f0        /* ウォームホワイト（背景） */
+--color-secondary: #d4502c      /* バーントオレンジ（メイン） */
+--color-tertiary: #fae8e0       /* ライトピーチ（セクション背景） */
+--color-accent: #e07548         /* サーモンオレンジ（アクセント） */
+--color-dark: #8b3a1e           /* ダークオレンジ（テキスト用） */
+--color-light: #ff9671          /* ライトオレンジ（ハイライト） */
 ```
 
 ### UI Libraries Integration

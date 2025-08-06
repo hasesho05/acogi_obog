@@ -1,51 +1,94 @@
 "use client";
 
-import type { CallToActionProps } from "@/domain/entities/home";
-import { motion } from "framer-motion";
-import { Instagram } from "lucide-react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Instagram, ArrowRight, Music, Users, CheckCircle } from "lucide-react";
+import { useRef } from "react";
 
-const CallToAction = (props: CallToActionProps) => {
+const CallToAction = () => {
+  const ctaInfo = {
+    title: "出演者募集中！",
+    description: "龍谷大学アコギサークルの皆様、一緒に最高の奏会を作りましょう！詳細はInstagramでご確認ください。",
+    instagramUrl: "https://www.instagram.com/"
+  };
+  const containerRef = useRef<HTMLDivElement>(null);
+  
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "center center"]
+  });
+  
+  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+
   return (
-    <section className="py-6 px-4 md:px-8 bg-gradient-to-br from-primary to-tertiary relative overflow-hidden">
-      {/* 装飾的背景 */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/3 left-1/3 w-80 h-80 bg-accent/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-1/3 right-1/3 w-64 h-64 bg-secondary/5 rounded-full blur-3xl"></div>
+    <section ref={containerRef} className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
+      {/* シンプルな背景 */}
+      <div className="absolute inset-0">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-tertiary/10 to-tertiary/20" />
       </div>
 
-      <div className="max-w-[1000px] mx-auto">
-        {/* セクションヘッダー */}
-        <div
-          className="text-center mb-4"
-        >
-          <h2 className="text-2xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-accent to-secondary bg-clip-text text-transparent">
-            {props.title}
-          </h2>
-        </div>
-
-        {/* CTAカード */}
+      <motion.div 
+        style={{ scale }}
+        className="relative max-w-5xl mx-auto"
+      >
+        {/* メインCTAカード */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="bg-white/80 backdrop-blur-sm rounded-3xl py-12 px-8 shadow-2xl border border-white/20 text-center"
+          className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
         >
-          <p className="text-lg md:text-xl text-secondary mb-8 max-w-2xl mx-auto leading-relaxed">
-            {props.description}
-          </p>
+          {/* ヘッダー部分 */}
+          <div className="bg-gradient-to-r from-secondary to-accent p-8 md:p-12 text-white text-center">
+            <Music className="w-12 h-12 mx-auto mb-4 opacity-90" />
+            <h2 className="text-3xl md:text-3xl font-bold mb-4">
+              {ctaInfo.title}
+            </h2>
+            <p className="text-lg opacity-90 max-w-2xl mx-auto">
+              {ctaInfo.description}
+            </p>
+          </div>
           
-          <a
-            href={props.instagramUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-accent to-secondary text-white rounded-2xl hover:from-accent/90 hover:to-secondary/90 transition-all duration-300 font-bold shadow-lg"
-          >
-            <Instagram className="w-6 h-6 mr-3" />
-            Instagramで詳細を見る
-          </a>
+          {/* コンテンツ部分 */}
+          <div className="p-8 md:p-12">
+            {/* 特徴リスト */}
+            <div className="grid md:grid-cols-3 gap-4 mb-8">
+              {[
+                { icon: <Users className="w-4 h-4" />, text: "OBOG歓迎" },
+                { icon: <Music className="w-4 h-4" />, text: "経験不問" },
+                { icon: <CheckCircle className="w-4 h-4" />, text: "楽しい雰囲気" }
+              ].map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-lg"
+                >
+                  <span className="text-secondary">{item.icon}</span>
+                  <span className="text-sm font-semibold text-gray-700">{item.text}</span>
+                </div>
+              ))}
+            </div>
+            
+            {/* CTAボタン */}
+            <motion.a
+              href={ctaInfo.instagramUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="flex items-center justify-center gap-3 w-full px-8 py-4 bg-gradient-to-r from-secondary to-accent text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-shadow"
+            >
+              <Instagram className="w-5 h-5" />
+              <span>Instagramで詳細を見る</span>
+              <ArrowRight className="w-5 h-5" />
+            </motion.a>
+            
+            {/* 補足テキスト */}
+            <p className="text-center text-sm text-gray-500 mt-6">
+              お気軽にDMでお問い合わせください
+            </p>
+          </div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };

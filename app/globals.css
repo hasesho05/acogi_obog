@@ -2,11 +2,13 @@
 
 /* カスタムテーマ設定 */
 @theme {
-  /* カラーパレット */
-  --color-primary: #f2ece7;
-  --color-secondary: #9f8f7c;
-  --color-tertiary: #ede5d8;
-  --color-accent: #6a8359;
+  /* カラーパレット - 赤みのあるオレンジ系 */
+  --color-primary: #fff5f0;        /* ウォームホワイト（背景） */
+  --color-secondary: #d4502c;      /* バーントオレンジ（メイン） */
+  --color-tertiary: #fae8e0;       /* ライトピーチ（セクション背景） */
+  --color-accent: #e07548;         /* サーモンオレンジ（アクセント） */
+  --color-dark: #8b3a1e;           /* ダークオレンジ（テキスト用） */
+  --color-light: #ff9671;          /* ライトオレンジ（ハイライト） */
   
   /* ブレークポイント */
   --breakpoint-3xl: 1920px;
@@ -14,15 +16,163 @@
   /* フォント */
   --font-family-display: "Inter", "sans-serif";
   
-  /* カスタムアニメーション */
-  --ease-fluid: cubic-bezier(0.3, 0, 0, 1);
-  --ease-snappy: cubic-bezier(0.2, 0, 0, 1);
+  /* カスタムアニメーション - より控えめに */
+  --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-snappy: cubic-bezier(0.3, 0, 0.2, 1);
 }
 
-/* カスタムベーススタイルがあれば */
+/* カスタムベーススタイル */
 @layer base {
   body {
     font-family: var(--font-family-display);
     background-color: var(--color-primary);
+    overflow-x: hidden;
+  }
+  
+  /* スムーススクロール */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* カスタムユーティリティクラス */
+@layer utilities {
+  /* グラデーションアニメーション - より控えめに */
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradient 6s ease infinite;
+  }
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+  
+  /* パルスアニメーション（カスタム） - より控えめに */
+  .animate-pulse-slow {
+    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* フロートアニメーション - より控えめに */
+  .animate-float {
+    animation: float 8s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  
+  /* グロー効果 - より控えめに */
+  .glow {
+    box-shadow: 0 0 15px rgba(224, 117, 72, 0.3),
+                0 0 30px rgba(212, 80, 44, 0.2),
+                0 0 45px rgba(224, 117, 72, 0.1);
+  }
+  
+  /* テキストグラデーション */
+  .text-gradient {
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 50%, var(--color-dark) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  /* ガラスモーフィズム - より繊細に */
+  .glassmorphism {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  /* ネオモーフィズム - より繊細に */
+  .neumorphism {
+    background: linear-gradient(145deg, #ffffff, #f5f5f5);
+    box-shadow: 10px 10px 30px #e0e0e0,
+                -10px -10px 30px #ffffff;
+  }
+  
+  /* アニメーション遅延 */
+  .animation-delay-100 {
+    animation-delay: 100ms;
+  }
+  
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+  
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+  
+  .animation-delay-2000 {
+    animation-delay: 2000ms;
+  }
+  
+  /* スクロールバーのカスタマイズ - より控えめに */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--color-primary);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--color-secondary);
+    border-radius: 4px;
+    opacity: 0.8;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-dark);
+  }
+  
+  /* セレクションカラー - より控えめに */
+  ::selection {
+    background-color: var(--color-secondary);
+    color: white;
+    opacity: 0.9;
+  }
+  
+  ::-moz-selection {
+    background-color: var(--color-secondary);
+    color: white;
+    opacity: 0.9;
+  }
+  
+  /* フォーカスアウトライン - より控えめに */
+  *:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(212, 80, 44, 0.2);
+  }
+  
+  /* トランジション設定 - より自然に */
+  * {
+    transition-timing-function: var(--ease-fluid);
+    transition-duration: 200ms;
+  }
+}
+
+/* アニメーション最適化 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

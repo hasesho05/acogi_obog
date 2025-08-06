@@ -11,7 +11,10 @@ export const TypewriterEffectLines = ({
   cursorClassName,
   speed = 0.1,
 }: {
-  lines: string[];
+  lines: Array<{
+    text: string;
+    className?: string;
+  }>;
   className?: string;
   lineClassName?: string;
   cursorClassName?: string;
@@ -24,7 +27,6 @@ export const TypewriterEffectLines = ({
     if (isInView) {
       const animateText = async () => {
         for (let lineIndex = 0; lineIndex < lines.length; lineIndex++) {
-          const chars = lines[lineIndex].split("");
           
           // Animate each character in the line
           await animate(
@@ -54,11 +56,12 @@ export const TypewriterEffectLines = ({
           key={`line-${lineIndex}`}
           className={cn(
             "flex items-center justify-center mb-2",
-            lineClassName
+            lineClassName,
+            line.className
           )}
         >
           <div className={`line-${lineIndex} flex`}>
-            {line.split("").map((char, charIndex) => (
+            {line.text.split("").map((char, charIndex) => (
               <motion.span
                 key={`char-${charIndex}`}
                 className="char opacity-0 hidden text-white/60"

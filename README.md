@@ -88,7 +88,7 @@ const MyComponent = ({ title, description, isVisible }: {
   // ...
 };
 
-// ❌ 禁止: インライン型定義
+// ✅ 推奨: インライン型定義
 const MyComponent = (props: {
   title: string;
   description: string;
@@ -102,13 +102,6 @@ const MyComponent = (props: {
   );
 };
 
-// ✅ 推奨: domain層で型定義してimport
-// domain/entities/component.ts
-export type ComponentProps = {
-  title: string;
-  description: string;
-  isVisible: boolean;
-};
 
 // components/MyComponent.tsx
 import type { ComponentProps } from '@/domain/entities/component';

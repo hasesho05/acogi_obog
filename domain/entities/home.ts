@@ -1,27 +1,11 @@
-// Home page related types
-export interface HeroSectionProps {
-  videos: string[];
-  typewriterTexts: string[];
+// UI component types
+export interface LazyImageProps {
+  src: string;
+  alt: string;
+  index: number;
+  onLoad?: () => void;
 }
 
-export interface EventInformationProps {
-  date: string;
-}
-
-export interface VenueInformationProps {
-  name: string;
-  address: string;
-  access: string;
-  mapUrl?: string;
-}
-
-export interface PastEventPhotosProps {
+export interface OptimizedGalleryProps {
   images: string[];
-  title: string;
-}
-
-export interface CallToActionProps {
-  title: string;
-  description: string;
-  instagramUrl: string;
 }

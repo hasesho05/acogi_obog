@@ -1,94 +1,142 @@
-"use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Instagram, ArrowRight, Music, Users, CheckCircle } from "lucide-react";
-import { useRef } from "react";
+import { Instagram, ArrowRight, Music, Users, CheckCircle, Sparkles, Heart, Star } from "lucide-react";
+import { CTAButton } from "./CallToAction/CTAButton";
+
 
 const CallToAction = () => {
   const ctaInfo = {
     title: "出演者募集中！",
-    description: "龍谷大学アコギサークルの皆様、一緒に最高の奏会を作りましょう！詳細はInstagramでご確認ください。",
+    subtitle: "一緒に最高の音楽を奏でよう",
+    description: "龍谷大学アコギサークルOBOGの皆様、懐かしの仲間と共に素敵な演奏会を作りませんか？",
     instagramUrl: "https://www.instagram.com/"
   };
-  const containerRef = useRef<HTMLDivElement>(null);
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "center center"]
-  });
-  
-  const scale = useTransform(scrollYProgress, [0, 0.5], [0.95, 1]);
+
+  const features = [
+    { 
+      icon: <Users className="w-5 h-5" />, 
+      text: "OBOG歓迎",
+      description: "卒業年度不問"
+    },
+    { 
+      icon: <Music className="w-5 h-5" />, 
+      text: "経験不問",
+      description: "ブランクOK"
+    },
+    { 
+      icon: <Heart className="w-5 h-5" />, 
+      text: "楽しい雰囲気",
+      description: "アットホーム"
+    }
+  ];
+
+  const benefits = [
+    "懐かしの仲間との再会",
+    "新しい音楽仲間との出会い",
+    "ステージでの演奏機会",
+    "思い出作り"
+  ];
 
   return (
-    <section ref={containerRef} className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
-      {/* シンプルな背景 */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-tertiary/10 to-tertiary/20" />
+    <section className="relative py-20 md:py-32 px-4 md:px-8 bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
+      {/* 装飾的な背景要素 */}
+      <div className="absolute inset-0 pointer-events-none">
+        {/* グラデーションオーバーレイ */}
+        <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-accent/5" />
+        
+        {/* 装飾的な円 */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-gradient-to-tr from-accent/10 to-secondary/10 rounded-full blur-3xl" />
+        
+        {/* パターン背景 */}
+        <div className="absolute inset-0 opacity-[0.02]" style={{
+          backgroundImage: `radial-gradient(circle at 2px 2px, var(--secondary) 1px, transparent 1px)`,
+          backgroundSize: '32px 32px'
+        }} />
       </div>
 
-      <motion.div 
-        style={{ scale }}
-        className="relative max-w-5xl mx-auto"
-      >
+      <div className="relative max-w-5xl mx-auto">
+
         {/* メインCTAカード */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden"
-        >
-          {/* ヘッダー部分 */}
-          <div className="bg-gradient-to-r from-secondary to-accent p-8 md:p-12 text-white text-center">
-            <Music className="w-12 h-12 mx-auto mb-4 opacity-90" />
-            <h2 className="text-3xl md:text-3xl font-bold mb-4">
-              {ctaInfo.title}
-            </h2>
-            <p className="text-lg opacity-90 max-w-2xl mx-auto">
-              {ctaInfo.description}
-            </p>
+        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden fade-in-up animation-delay-200">
+          {/* ヘッダー部分 - グラデーション強化 */}
+          <div className="relative bg-gradient-to-br from-secondary via-secondary/90 to-accent p-10 md:p-16 text-white text-center overflow-hidden">
+            {/* 装飾的なパターン */}
+            <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0" style={{
+                backgroundImage: `linear-gradient(45deg, transparent 48%, white 49%, white 51%, transparent 52%)`,
+                backgroundSize: '20px 20px'
+              }} />
+            </div>
+            
+            <div className="relative">
+              {/* アイコンバッジ */}
+              <div className="inline-flex p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
+                <Music className="w-8 h-8" />
+              </div>
+              
+              <h2 className="text-3xl md:text-4xl font-bold mb-2">
+                {ctaInfo.title}
+              </h2>
+              <p className="text-xl md:text-2xl font-light mb-4 opacity-95">
+                {ctaInfo.subtitle}
+              </p>
+              <p className="text-base md:text-lg opacity-90 max-w-2xl mx-auto leading-relaxed">
+                {ctaInfo.description}
+              </p>
+            </div>
           </div>
           
           {/* コンテンツ部分 */}
-          <div className="p-8 md:p-12">
-            {/* 特徴リスト */}
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
-              {[
-                { icon: <Users className="w-4 h-4" />, text: "OBOG歓迎" },
-                { icon: <Music className="w-4 h-4" />, text: "経験不問" },
-                { icon: <CheckCircle className="w-4 h-4" />, text: "楽しい雰囲気" }
-              ].map((item, index) => (
+          <div className="p-8 md:p-12 bg-gradient-to-b from-gray-50/50 to-white">
+            {/* 特徴カード - デザイン改善 */}
+            <div className="grid md:grid-cols-3 gap-4 mb-10">
+              {features.map((item, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-center gap-2 p-3 bg-gray-50 rounded-lg"
+                  className="group relative bg-white hover:bg-gradient-to-br hover:from-secondary/5 hover:to-accent/5 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-secondary/20"
                 >
-                  <span className="text-secondary">{item.icon}</span>
-                  <span className="text-sm font-semibold text-gray-700">{item.text}</span>
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <div className="p-3 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl text-secondary group-hover:scale-110 transition-transform">
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="font-bold text-gray-800 mb-1">{item.text}</p>
+                      <p className="text-xs text-gray-500">{item.description}</p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
+
+            {/* ベネフィットリスト */}
+            <div className="mb-10 p-6 bg-gradient-to-r from-primary/5 to-transparent rounded-2xl">
+              <p className="text-sm font-semibold text-gray-600 mb-3 text-center">こんな方におすすめ</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {benefits.map((benefit, index) => (
+                  <div key={index} className="flex items-center gap-2 text-sm text-gray-700">
+                    <Star className="w-3 h-3 text-accent flex-shrink-0" />
+                    <span>{benefit}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
             
-            {/* CTAボタン */}
-            <motion.a
-              href={ctaInfo.instagramUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex items-center justify-center gap-3 w-full px-8 py-4 bg-gradient-to-r from-secondary to-accent text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <Instagram className="w-5 h-5" />
-              <span>Instagramで詳細を見る</span>
-              <ArrowRight className="w-5 h-5" />
-            </motion.a>
-            
-            {/* 補足テキスト */}
-            <p className="text-center text-sm text-gray-500 mt-6">
-              お気軽にDMでお問い合わせください
-            </p>
+            {/* CTAボタン - クライアントコンポーネント */}
+            <CTAButton instagramUrl={ctaInfo.instagramUrl} />
+          
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+
+        <div className="mt-8 text-center fade-in-up animation-delay-400">
+          <div className="inline-flex items-center gap-2 text-sm text-gray-500">
+            <div className="flex -space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full border-2 border-white" />
+              <div className="w-8 h-8 bg-gradient-to-br from-accent to-secondary rounded-full border-2 border-white" />
+              <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full border-2 border-white" />
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
   );
 };

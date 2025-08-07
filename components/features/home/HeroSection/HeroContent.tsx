@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, MotionValue } from "framer-motion";
 import { Sparkles } from "lucide-react";
 
 const typewriterTexts = [
@@ -16,8 +16,16 @@ const messages = {
   ]
 };
 
+// インライン型定義
 export const HeroContent = (props: {
-  animations: any;
+  animations: {
+    titleY: MotionValue<number>;
+    titleOpacity: MotionValue<number>;
+    titleScale: MotionValue<number>;
+    subtitleY: MotionValue<number>;
+    subtitleOpacity: MotionValue<number>;
+    subtitleScale: MotionValue<number>;
+  };
   isLoaded: boolean;
 }) => {
   return (
@@ -32,14 +40,17 @@ export const HeroContent = (props: {
       <SubtitleSection
         animations={props.animations}
       />
-
     </div>
   );
 };
 
-// タイトルセクション
+// タイトルセクション - インライン型定義
 const TitleSection = (props: {
-  animations: any;
+  animations: {
+    titleY: MotionValue<number>;
+    titleOpacity: MotionValue<number>;
+    titleScale: MotionValue<number>;
+  };
   isLoaded: boolean;
 }) => (
   <motion.div
@@ -47,7 +58,6 @@ const TitleSection = (props: {
       y: props.animations.titleY,
       opacity: props.animations.titleOpacity,
       scale: props.animations.titleScale,
-      x: props.animations.isMobile ? 0 : props.animations.springX,
     }}
     className="absolute"
   >
@@ -73,16 +83,19 @@ const TitleSection = (props: {
   </motion.div>
 );
 
-// サブタイトルセクション
+// サブタイトルセクション - インライン型定義
 const SubtitleSection = (props: {
-  animations: any;
+  animations: {
+    subtitleY: MotionValue<number>;
+    subtitleOpacity: MotionValue<number>;
+    subtitleScale: MotionValue<number>;
+  };
 }) => (
   <motion.div
     style={{
       y: props.animations.subtitleY,
       opacity: props.animations.subtitleOpacity,
       scale: props.animations.subtitleScale,
-      x: props.animations.isMobile ? 0 : props.animations.springXHalf,
     }}
     className="absolute text-center px-4"
   >
@@ -111,5 +124,3 @@ const SubtitleSection = (props: {
     </motion.div>
   </motion.div>
 );
-
-

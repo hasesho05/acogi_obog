@@ -5,10 +5,10 @@ import { HeroContent } from "./HeroSection/HeroContent";
 import { HeroOverlay } from "./HeroSection/HeroOverlay";
 import { HeroUI } from "./HeroSection/HeroUI";
 import { useHeroAnimation } from "./HeroSection/useHeroAnimation";
-import { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback, memo } from "react";
 import { LoadingScreen } from "./HeroSection/LoadingScreen";
 
-const HeroSection = () => {
+const HeroSection = memo(() => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);
@@ -27,7 +27,7 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative h-[300vh]">
+    <div ref={containerRef} className="relative h-[400vh]">
       {/* ローディング画面 */}
       <LoadingScreen isLoaded={isLoaded} />
 
@@ -46,7 +46,7 @@ const HeroSection = () => {
           isMobile={animations.isMobile}
         />
 
-        {/* メインコンテンツ */}
+        {/* メインコンテンツ - 最適化版 */}
         <HeroContent
           animations={animations}
           isLoaded={isLoaded}
@@ -59,6 +59,7 @@ const HeroSection = () => {
       </div>
     </div>
   );
-};
+});
+
 
 export default HeroSection;

@@ -2,6 +2,7 @@
 import { Calendar, Clock, MapPin, Users, Music, ChevronRight, CheckCircle } from "lucide-react";
 import { ScheduleTimeline } from "./EventInfomation/ScheduleTimeline";
 import { MobileSchedule } from "./EventInfomation/MobileSchedule";
+import SectionHeader from '../../ui/section-header';
 
 interface EventStat {
   icon: React.ReactNode;
@@ -18,35 +19,35 @@ interface InfoSection {
 // 静的データ
 const scheduleData = [
   {
-    time: "13:30",
+    time: "11:00",
     title: "開場",
     description: "受付開始",
     icon: "door",
     details: ["受付・名札配布", "ウェルカムドリンク", "BGM演奏"]
   },
   {
-    time: "14:00",
+    time: "11:30",
     title: "第1部",
-    description: "OBOG演奏",
+    description: "演奏会",
     icon: "music",
     details: ["ソロ演奏", "デュエット", "バンド演奏"]
   },
   {
-    time: "15:00",
+    time: "12:30",
     title: "休憩",
     description: "歓談タイム",
     icon: "coffee",
     details: ["フリートーク", "記念撮影", "軽食"]
   },
   {
-    time: "15:30",
+    time: "13:00",
     title: "第2部",
-    description: "特別企画",
+    description: "演奏会",
     icon: "party",
-    details: ["全員合奏", "サプライズ", "ゲスト演奏"]
+    details: ["ソロ演奏", "デュエット", "バンド演奏"]
   },
   {
-    time: "17:00",
+    time: "15:00",
     title: "終演",
     description: "フィナーレ",
     icon: "camera",
@@ -57,8 +58,8 @@ const scheduleData = [
 const eventStats: EventStat[] = [
   { icon: <Users className="w-5 h-5" />, value: "15+", label: "演奏者" },
   { icon: <Music className="w-5 h-5" />, value: "20+", label: "楽曲" },
-  { icon: <Clock className="w-5 h-5" />, value: "4h", label: "時間" },
-  { icon: <MapPin className="w-5 h-5" />, value: "駅近", label: "アクセス" }
+  { icon: <Clock className="w-5 h-5" />, value: "3.5h", label: "時間" },
+  { icon: <MapPin className="w-5 h-5" />, value: "¥1,700", label: "料金" }
 ];
 
 const infoSections: InfoSection[] = [
@@ -70,14 +71,12 @@ const infoSections: InfoSection[] = [
   {
     title: "ご案内",
     icon: <CheckCircle className="w-5 h-5" />,
-    items: ["開場15分前より受付開始", "飲食物の持ち込み不可", "駐車場はございません", "写真撮影OK"]
+    items: ["料金: ¥1,700 + 1ドリンク(¥500)", "飲食物の持ち込み不可", "駐車場はございません", "写真撮影OK"]
   }
 ];
 
 const EventInformation = () => {
   const date = "2025年10月12日(日)";
-  const eventDate = new Date(2025, 9, 12);
-
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary to-white">
       {/* シンプルな背景 */}
@@ -88,14 +87,6 @@ const EventInformation = () => {
       </div>
 
       <div className="relative max-w-5xl mx-auto">
-        {/* セクションヘッダー */}
-        <div className="text-center mb-12 md:mb-16 fade-in-up">
-          <h2 className="text-3xl md:text-3xl font-bold text-dark mb-4">
-            開催情報
-          </h2>
-          <div className="w-12 h-1 bg-secondary mx-auto rounded-full" />
-        </div>
-
         {/* メインコンテンツ */}
         <div className="space-y-12 md:space-y-16">
           {/* 日付とカウントダウン */}
@@ -103,7 +94,7 @@ const EventInformation = () => {
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
               <div className="bg-gradient-to-r from-secondary to-accent p-6 md:p-8 text-white text-center">
                 <Calendar className="w-10 md:w-12 h-10 md:h-12 mx-auto mb-4 opacity-90" />
-                <div className="text-2xl md:text-3xl font-bold mb-2">
+                <div className="text-xl md:text-2xl font-bold mb-2">
                   {date}
                 </div>
               </div>
@@ -114,8 +105,8 @@ const EventInformation = () => {
                   {eventStats.map((stat, index) => (
                     <div key={index} className="text-center">
                       <div className="text-secondary mb-1">{stat.icon}</div>
-                      <div className="text-sm font-bold text-dark">{stat.value}</div>
-                      <div className="text-xs text-gray-500">{stat.label}</div>
+                      <div className="text-xs font-bold text-dark">{stat.value}</div>
+                      <div className="text-[10px] text-gray-500">{stat.label}</div>
                     </div>
                   ))}
                 </div>
@@ -125,9 +116,13 @@ const EventInformation = () => {
 
           {/* スケジュール */}
           <div className="fade-in-up animation-delay-400">
-            <h3 className="text-2xl md:text-3xl font-bold text-center text-dark mb-8 md:mb-10">
-              タイムスケジュール
-            </h3>
+            <div className="text-center mb-8 md:mb-10">
+              <SectionHeader
+                icon={<Clock className="w-4 h-4" />}
+                title="タイムスケジュール"
+                subtitle="TIME SCHEDULE"
+              />
+            </div>
 
             {/* デスクトップ版：クライアントコンポーネント */}
             <div className="hidden md:block">
@@ -151,13 +146,13 @@ const EventInformation = () => {
                   <div className="p-2 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg text-secondary">
                     {section.icon}
                   </div>
-                  <h4 className="text-lg font-bold text-dark">{section.title}</h4>
+                  <h4 className="text-base font-bold text-dark">{section.title}</h4>
                 </div>
                 <ul className="space-y-3">
                   {section.items.map((item, i) => (
                     <li key={i} className="flex items-start gap-2">
                       <ChevronRight className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-gray-700">{item}</span>
+                      <span className="text-xs text-gray-700">{item}</span>
                     </li>
                   ))}
                 </ul>

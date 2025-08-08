@@ -9,25 +9,40 @@ export const VideoBackground = (props: {
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // 動画のロードと準備完了の通知
+  // 動画のロードと準備完了の通知（最適化）
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
 
+    let isLoaded = false;
+    
     const handleCanPlay = () => {
-      props.onVideoReady();
+      if (!isLoaded) {
+        isLoaded = true;
+        props.onVideoReady();
+      }
     };
 
-    // canplaythroughイベントを使用
+    // 複数のイベントをリッスンして確実性を向上
     video.addEventListener('canplaythrough', handleCanPlay);
+    video.addEventListener('loadeddata', handleCanPlay);
 
-    // フォールバック: 3秒後に強制的に準備完了とする
+    // 既に再生可能な状態の場合は即座に実行
+    if (video.readyState >= 3) {
+      handleCanPlay();
+    }
+
+    // フォールバック: 2秒に短縮
     const fallbackTimer = setTimeout(() => {
-      props.onVideoReady();
-    }, 3000);
+      if (!isLoaded) {
+        isLoaded = true;
+        props.onVideoReady();
+      }
+    }, 2000);
 
     return () => {
       video.removeEventListener('canplaythrough', handleCanPlay);
+      video.removeEventListener('loadeddata', handleCanPlay);
       clearTimeout(fallbackTimer);
     };
   }, [props.onVideoReady]);
@@ -35,7 +50,7 @@ export const VideoBackground = (props: {
   return (
     <motion.div 
       style={{ scale: props.videoScale }}
-      className="absolute inset-0"
+      className="absolute inset-0 will-change-transform"
     >
       <video
         ref={videoRef}

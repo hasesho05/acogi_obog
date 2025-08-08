@@ -6,7 +6,7 @@ const PastEventPhotos = () => {
   const images = Array.from({ length: 22 }, (_, i) => `/images/image${i + 1}.jpg`);
   const stats = [
     { icon: <Camera className="w-5 h-5" />, value: "100+", label: "写真" },
-    { icon: <Users className="w-5 h-5" />, value: "50+", label: "参加者" },
+    { icon: <Users className="w-5 h-5" />, value: "20+", label: "参加者" },
     { icon: <Heart className="w-5 h-5" />, value: "∞", label: "思い出" }
   ];
 

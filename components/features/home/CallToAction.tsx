@@ -1,5 +1,5 @@
 
-import { Instagram, ArrowRight, Music, Users, CheckCircle, Sparkles, Heart, Star } from "lucide-react";
+import { Music, Users, Heart, Star } from "lucide-react";
 import { CTAButton } from "./CallToAction/CTAButton";
 
 
@@ -14,7 +14,7 @@ const CallToAction = () => {
   const features = [
     { 
       icon: <Users className="w-5 h-5" />, 
-      text: "OBOG歓迎",
+      text: "誰でも歓迎",
       description: "卒業年度不問"
     },
     { 
@@ -37,7 +37,7 @@ const CallToAction = () => {
   ];
 
   return (
-    <section className="relative py-20 md:py-32 px-4 md:px-8 bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
+    <section className="relative py-12 md:py-16 px-4 md:px-8 bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
       {/* 装飾的な背景要素 */}
       <div className="absolute inset-0 pointer-events-none">
         {/* グラデーションオーバーレイ */}
@@ -59,7 +59,7 @@ const CallToAction = () => {
         {/* メインCTAカード */}
         <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden fade-in-up animation-delay-200">
           {/* ヘッダー部分 - グラデーション強化 */}
-          <div className="relative bg-gradient-to-br from-secondary via-secondary/90 to-accent p-10 md:p-16 text-white text-center overflow-hidden">
+          <div className="relative bg-gradient-to-br from-secondary via-secondary/90 to-accent p-6 md:p-10 text-white text-center overflow-hidden">
             {/* 装飾的なパターン */}
             <div className="absolute inset-0 opacity-10">
               <div className="absolute inset-0" style={{
@@ -70,38 +70,38 @@ const CallToAction = () => {
             
             <div className="relative">
               {/* アイコンバッジ */}
-              <div className="inline-flex p-4 bg-white/10 backdrop-blur-sm rounded-2xl mb-6">
-                <Music className="w-8 h-8" />
+              <div className="inline-flex p-3 bg-white/10 backdrop-blur-sm rounded-xl mb-4">
+                <Music className="w-6 h-6" />
               </div>
               
-              <h2 className="text-3xl md:text-4xl font-bold mb-2">
+              <h2 className="text-2xl md:text-3xl font-bold mb-2">
                 {ctaInfo.title}
               </h2>
-              <p className="text-xl md:text-2xl font-light mb-4 opacity-95">
+              <p className="text-lg md:text-xl font-light mb-4 opacity-95">
                 {ctaInfo.subtitle}
               </p>
-              <p className="text-base md:text-lg opacity-90 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-sm md:text-base opacity-90 max-w-2xl mx-auto leading-relaxed">
                 {ctaInfo.description}
               </p>
             </div>
           </div>
           
           {/* コンテンツ部分 */}
-          <div className="p-8 md:p-12 bg-gradient-to-b from-gray-50/50 to-white">
+          <div className="p-6 md:p-8 bg-gradient-to-b from-gray-50/50 to-white">
             {/* 特徴カード - デザイン改善 */}
-            <div className="grid md:grid-cols-3 gap-4 mb-10">
+            <div className="grid md:grid-cols-3 gap-3 mb-6">
               {features.map((item, index) => (
                 <div
                   key={index}
-                  className="group relative bg-white hover:bg-gradient-to-br hover:from-secondary/5 hover:to-accent/5 p-5 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-secondary/20"
+                  className="group relative bg-white hover:bg-gradient-to-br hover:from-secondary/5 hover:to-accent/5 p-3 rounded-xl shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-secondary/20"
                 >
                   <div className="flex flex-col items-center text-center gap-2">
-                    <div className="p-3 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-xl text-secondary group-hover:scale-110 transition-transform">
+                    <div className="p-2 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-lg text-secondary group-hover:scale-110 transition-transform">
                       {item.icon}
                     </div>
                     <div>
-                      <p className="font-bold text-gray-800 mb-1">{item.text}</p>
-                      <p className="text-xs text-gray-500">{item.description}</p>
+                      <p className="text-sm font-bold text-gray-800 mb-1">{item.text}</p>
+                      <p className="text-[10px] text-gray-500">{item.description}</p>
                     </div>
                   </div>
                 </div>
@@ -109,11 +109,11 @@ const CallToAction = () => {
             </div>
 
             {/* ベネフィットリスト */}
-            <div className="mb-10 p-6 bg-gradient-to-r from-primary/5 to-transparent rounded-2xl">
-              <p className="text-sm font-semibold text-gray-600 mb-3 text-center">こんな方におすすめ</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-transparent rounded-xl">
+              <p className="text-xs font-semibold text-gray-600 mb-3 text-center">こんな方におすすめ</p>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
                 {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-2 text-sm text-gray-700">
+                  <div key={index} className="flex items-center gap-2 text-xs text-gray-700">
                     <Star className="w-3 h-3 text-accent flex-shrink-0" />
                     <span>{benefit}</span>
                   </div>

@@ -3,6 +3,7 @@
 import { Camera, Users, Heart, Loader2, LucideIcon } from "lucide-react";
 import { useState, useEffect } from "react";
 import OptimizedGallery from "@/components/ui/optimized-gallery";
+import SectionHeader from "../../ui/section-header";
 
 interface Stat {
   icon: React.ReactElement<LucideIcon>;
@@ -52,15 +53,11 @@ const PastEventPhotosClient = ({ title, images, stats }: PastEventPhotosClientPr
 
       <div className="relative max-w-5xl mx-auto">
         {/* セクションヘッダー */}
-        <div className="text-center mb-12 md:mb-16 fade-in-up">
-          <h2 className="text-3xl md:text-3xl font-bold text-dark mb-4">
-            {title}
-          </h2>
-          <div className="w-12 h-1 bg-secondary mx-auto rounded-full mb-6" />
-          <p className="text-gray-600 max-w-2xl mx-auto">
-            笑顔と音楽があふれた素敵な時間。今年も新たな思い出を一緒に作りましょう。
-          </p>
-        </div>
+        <SectionHeader
+          icon={<Camera className="w-4 h-4" />}
+          title={title}
+          subtitle="PAST EVENT PHOTOS"
+        />
 
         {/* フォトギャラリー */}
         <div
@@ -88,8 +85,8 @@ const PastEventPhotosClient = ({ title, images, stats }: PastEventPhotosClientPr
               <div className="inline-flex p-2 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-lg text-secondary mb-3">
                 {stat.icon}
               </div>
-              <div className="text-2xl font-bold text-dark">{stat.value}</div>
-              <div className="text-sm text-gray-600">{stat.label}</div>
+              <div className="text-xl font-bold text-dark">{stat.value}</div>
+              <div className="text-xs text-gray-600">{stat.label}</div>
             </div>
           ))}
         </div>

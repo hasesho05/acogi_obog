@@ -19,6 +19,18 @@
   /* カスタムアニメーション - より控えめに */
   --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-snappy: cubic-bezier(0.3, 0, 0.2, 1);
+  
+  /* フォントサイズを小さくカスタマイズ */
+  --font-size-xs: 0.625rem;      /* 10px */
+  --font-size-sm: 0.75rem;       /* 12px */
+  --font-size-base: 0.875rem;    /* 14px */
+  --font-size-lg: 1rem;          /* 16px */
+  --font-size-xl: 1.125rem;      /* 18px */
+  --font-size-2xl: 1.25rem;      /* 20px */
+  --font-size-3xl: 1.5rem;       /* 24px */
+  --font-size-4xl: 1.875rem;     /* 30px */
+  --font-size-5xl: 2.25rem;      /* 36px */
+  --font-size-6xl: 3rem;         /* 48px */
 }
 
 /* カスタムベーススタイル */
@@ -58,6 +70,18 @@
   /* パルスアニメーション（カスタム） - より控えめに */
   .animate-pulse-slow {
     animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  /* パルスアニメーション（ping） */
+  @keyframes ping {
+    75%, 100% {
+      transform: scale(2);
+      opacity: 0;
+    }
+  }
+  
+  .animate-ping {
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
   
   /* フロートアニメーション - より控えめに */
@@ -117,6 +141,18 @@
     animation-delay: 400ms;
   }
   
+  .animation-delay-600 {
+    animation-delay: 600ms;
+  }
+  
+  .animation-delay-700 {
+    animation-delay: 700ms;
+  }
+  
+  .animation-delay-800 {
+    animation-delay: 800ms;
+  }
+  
   .animation-delay-2000 {
     animation-delay: 2000ms;
   }
@@ -167,7 +203,67 @@
   }
 }
 
-/* アニメーション最適化 */
+/* フェードインアニメーション */
+
+/* フェードイン（下から上）アニメーション */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* フェードインアニメーション（シンプル） */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* アニメーションクラス */
+.fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Intersection Observer使用時のクラス */
+.fade-in-up-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-up-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* モバイル用の軽量版 */
+@media (max-width: 768px) {
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px); /* モバイルでは移動距離を短く */
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}
+
+/* アニメーション最適化 - prefers-reduced-motion対応 */
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.01ms !important;
@@ -175,199 +271,7 @@
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* app/globals.css に追加 */
-
-/* フェードイン（下から上）アニメーション */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* フェードインアニメーション（シンプル） */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* アニメーションクラス */
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* アニメーション遅延クラス */
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
-
-.animation-delay-600 {
-  animation-delay: 600ms;
-}
-
-.animation-delay-700 {
-  animation-delay: 700ms;
-}
-
-.animation-delay-800 {
-  animation-delay: 800ms;
-}
-
-/* Intersection Observer使用時のクラス（オプション） */
-.fade-in-up-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in-up-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* モバイル用の軽量版（オプション） */
-@media (max-width: 768px) {
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px); /* モバイルでは移動距離を短く */
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
-
-/* prefers-reduced-motion対応 */
-@media (prefers-reduced-motion: reduce) {
-  .fade-in-up,
-  .animate-fadeIn,
-  .fade-in-up-scroll {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
   
-  .fade-in-up-scroll.visible {
-    transition: none;
-  }
-}
-
-/* app/globals.css に追加 */
-
-/* フェードイン（下から上）アニメーション */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* フェードインアニメーション（シンプル） */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-/* アニメーションクラス */
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-  opacity: 0;
-}
-
-.animate-fadeIn {
-  animation: fadeIn 0.3s ease-in-out;
-}
-
-/* アニメーション遅延クラス */
-.animation-delay-200 {
-  animation-delay: 200ms;
-}
-
-.animation-delay-400 {
-  animation-delay: 400ms;
-}
-
-.animation-delay-600 {
-  animation-delay: 600ms;
-}
-
-.animation-delay-700 {
-  animation-delay: 700ms;
-}
-
-.animation-delay-800 {
-  animation-delay: 800ms;
-}
-
-/* Intersection Observer使用時のクラス（オプション） */
-.fade-in-up-scroll {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
-}
-
-.fade-in-up-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* モバイル用の軽量版（オプション） */
-@media (max-width: 768px) {
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px); /* モバイルでは移動距離を短く */
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-}
-
-/* パルスアニメーション */
-@keyframes ping {
-  75%, 100% {
-    transform: scale(2);
-    opacity: 0;
-  }
-}
-
-.animate-ping {
-  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-}
-
-/* prefers-reduced-motion対応 */
-@media (prefers-reduced-motion: reduce) {
   .fade-in-up,
   .animate-fadeIn,
   .fade-in-up-scroll,

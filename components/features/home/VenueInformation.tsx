@@ -1,5 +1,6 @@
 import { MapPin, Train, Clock, Building, Coffee, Wifi, Volume2 } from "lucide-react";
 import VenueInformationClient from './VenueInformationClient';
+import SectionHeader from '../../ui/section-header';
 
 const VenueInformation = () => {
   const venueInfo = {
@@ -40,18 +41,17 @@ const VenueInformation = () => {
   return (
     <section className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
       {/* セクションヘッダー */}
-      <div className="text-center mb-12 md:mb-16 fade-in-up">
-        <h2 className="text-3xl md:text-3xl font-bold text-dark mb-4">
-          会場情報
-        </h2>
-        <div className="w-12 h-1 bg-secondary mx-auto rounded-full" />
-      </div>
+      <SectionHeader
+        icon={<MapPin className="w-4 h-4" />}
+        title="会場情報"
+        subtitle="VENUE INFORMATION"
+      />
 
       {/* メインコンテンツ */}
       <div className="space-y-12 md:space-y-16">
-        {/* 会場名と画像 */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* 左側：会場情報 */}
+        {/* 会場名と画像 - 縦並びレイアウト */}
+        <div className="max-w-4xl mx-auto space-y-8">
+          {/* 会場情報セクション */}
           <div className="space-y-6">
             {/* 会場名カード */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
@@ -60,7 +60,7 @@ const VenueInformation = () => {
                   <MapPin className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <h3 className="text-2xl md:text-3xl font-bold text-dark mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold text-dark mb-2">
                     {venueInfo.name}
                   </h3>
                   <p className="text-gray-600">Music & Dining Space</p>
@@ -72,45 +72,45 @@ const VenueInformation = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-1">住所</p>
-                    <p className="text-sm text-gray-600">{venueInfo.address}</p>
+                    <p className="text-xs font-semibold text-gray-700 mb-1">住所</p>
+                    <p className="text-xs text-gray-600">{venueInfo.address}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <Train className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-1">アクセス</p>
-                    <p className="text-sm text-gray-600">{venueInfo.access}</p>
+                    <p className="text-xs font-semibold text-gray-700 mb-1">アクセス</p>
+                    <p className="text-xs text-gray-600">{venueInfo.access}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-sm font-semibold text-gray-700 mb-1">営業時間</p>
-                    <p className="text-sm text-gray-600">11:30〜22:00（L.O. 21:30）</p>
+                    <p className="text-xs font-semibold text-gray-700 mb-1">営業時間</p>
+                    <p className="text-xs text-gray-600">11:30〜22:00（L.O. 21:30）</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* 特徴グリッド */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
               {venueFeatures.map((feature, index) => (
                 <div
                   key={index}
-                  className={`bg-white rounded-xl p-4 border border-gray-100 shadow-md fade-in-up animation-delay-${(index + 2) * 200}`}
+                  className={`bg-gradient-to-br from-white to-tertiary/30 rounded-xl p-4 border border-secondary/10 shadow-md hover:shadow-lg transition-shadow duration-300 fade-in-up animation-delay-${(index + 2) * 200}`}
                 >
                   <div className="text-secondary mb-2">{feature.icon}</div>
-                  <h4 className="text-sm font-bold text-dark mb-1">{feature.title}</h4>
-                  <p className="text-xs text-gray-600">{feature.description}</p>
+                  <h4 className="text-xs font-bold text-dark mb-1">{feature.title}</h4>
+                  <p className="text-[10px] text-gray-600">{feature.description}</p>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* 右側：インタラクティブ要素 */}
+          {/* インタラクティブ要素セクション */}
           <VenueInformationClient 
             venueInfo={venueInfo}
             venueImages={venueImages}

@@ -23,9 +23,9 @@ export const CTAButton = ({ instagramUrl }: CTAButtonProps) => {
         onMouseDown={() => setIsPressed(true)}
         onMouseUp={() => setIsPressed(false)}
         className={`
-          relative flex items-center justify-center gap-3 w-full px-8 py-5 
+          relative flex items-center justify-center gap-2 w-full px-6 py-3 
           bg-gradient-to-r from-secondary to-accent text-white 
-          rounded-2xl font-bold text-lg shadow-lg 
+          rounded-xl font-bold text-sm shadow-lg whitespace-nowrap 
           transition-all duration-300 overflow-hidden
           ${isHovered ? 'shadow-2xl transform -translate-y-0.5' : 'shadow-lg'}
           ${isPressed ? 'transform translate-y-0 shadow-md' : ''}
@@ -39,18 +39,18 @@ export const CTAButton = ({ instagramUrl }: CTAButtonProps) => {
         `} />
         
         {/* ボタンコンテンツ */}
-        <Instagram className="w-5 h-5 relative z-10" />
+        <Instagram className="w-4 h-4 relative z-10" />
         <span className="relative z-10">Instagramで詳細を見る</span>
         <ArrowRight className={`
-          w-5 h-5 relative z-10 transition-transform duration-300
+          w-4 h-4 relative z-10 transition-transform duration-300
           ${isHovered ? 'translate-x-1' : ''}
         `} />
       </a>
 
       {/* パルスアニメーション */}
-      <div className="relative mt-4">
+      <div className="relative mt-2">
         <div className="absolute inset-0 flex justify-center">
-          <div className="w-2 h-2 bg-secondary rounded-full animate-ping" />
+          <div className="w-1.5 h-1.5 bg-secondary rounded-full animate-ping" />
         </div>
       </div>
     </>

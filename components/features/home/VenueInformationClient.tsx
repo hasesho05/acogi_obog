@@ -37,7 +37,8 @@ const VenueInformationClient = (props: VenueInformationClientProps) => {
   return (
     <div>
       {/* 右側：画像スライダー */}
-      <div className="relative h-[400px] md:h-[500px] fade-in-up animation-delay-200">
+      <div className="max-w-3xl mx-auto">
+        <div className="relative h-[400px] md:h-[500px] fade-in-up animation-delay-200">
           <div className="relative h-full rounded-2xl overflow-hidden shadow-2xl">
             {/* 画像 */}
             {venueImages.map((image, index) => (
@@ -100,8 +101,9 @@ const VenueInformationClient = (props: VenueInformationClientProps) => {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* マップセクション */}
+      {/* マップセクション */}
         <div className="fade-in-up animation-delay-400">
           <div className="flex justify-center gap-2 my-4">
             <button
@@ -179,7 +181,7 @@ const VenueInformationClient = (props: VenueInformationClientProps) => {
           href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(venueInfo.address)}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-8 w-full flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-secondary to-accent text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
+          className="mt-8 max-w-3xl w-full mx-auto flex items-center justify-center gap-2 px-6 py-3 bg-gradient-to-r from-secondary to-accent text-white rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105"
         >
           <Navigation className="w-4 h-4" />
           Google Mapで開く

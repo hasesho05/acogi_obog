@@ -1,163 +1,166 @@
 
-import { Calendar, Clock, MapPin, Users, Music, ChevronRight, CheckCircle } from "lucide-react";
-import { ScheduleTimeline } from "./EventInfomation/ScheduleTimeline";
-import { MobileSchedule } from "./EventInfomation/MobileSchedule";
+import { Calendar, Clock, MapPin, Ticket, CalendarCheck, AlertCircle, CheckCircle2 } from "lucide-react";
 import SectionHeader from '../../ui/section-header';
 
-interface EventStat {
-  icon: React.ReactNode;
-  value: string;
-  label: string;
-}
-
-interface InfoSection {
-  title: string;
-  icon: React.ReactNode;
-  items: string[];
-}
-
-// 静的データ
-const scheduleData = [
-  {
-    time: "11:00",
-    title: "開場",
-    description: "受付開始",
-    icon: "door",
-    details: ["受付・名札配布", "ウェルカムドリンク", "BGM演奏"]
-  },
-  {
-    time: "11:30",
-    title: "第1部",
-    description: "演奏会",
-    icon: "music",
-    details: ["ソロ演奏", "デュエット", "バンド演奏"]
-  },
-  {
-    time: "12:30",
-    title: "休憩",
-    description: "歓談タイム",
-    icon: "coffee",
-    details: ["フリートーク", "記念撮影", "軽食"]
-  },
-  {
-    time: "13:00",
-    title: "第2部",
-    description: "演奏会",
-    icon: "party",
-    details: ["ソロ演奏", "デュエット", "バンド演奏"]
-  },
-  {
-    time: "15:00",
-    title: "終演",
-    description: "フィナーレ",
-    icon: "camera",
-    details: ["全体写真", "アンコール", "次回予告"]
-  }
-];
-
-const eventStats: EventStat[] = [
-  { icon: <Users className="w-5 h-5" />, value: "15+", label: "演奏者" },
-  { icon: <Music className="w-5 h-5" />, value: "20+", label: "楽曲" },
-  { icon: <Clock className="w-5 h-5" />, value: "3.5h", label: "時間" },
-  { icon: <MapPin className="w-5 h-5" />, value: "¥1,700", label: "料金" }
-];
-
-const infoSections: InfoSection[] = [
-  {
-    title: "演奏予定",
-    icon: <Music className="w-5 h-5" />,
-    items: ["J-POP名曲集", "ロックナンバー", "オリジナル楽曲", "特別合奏曲"]
-  },
-  {
-    title: "ご案内",
-    icon: <CheckCircle className="w-5 h-5" />,
-    items: ["料金: ¥1,700 + 1ドリンク(¥500)", "飲食物の持ち込み不可", "駐車場はございません", "写真撮影OK"]
-  }
-];
-
 const EventInformation = () => {
-  const date = "2025年10月12日(日)";
   return (
-    <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary to-white">
-      {/* シンプルな背景 */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="absolute inset-0 bg-gradient-to-b from-secondary via-transparent to-transparent" />
-        </div>
-      </div>
-
+    <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white">
       <div className="relative max-w-5xl mx-auto">
-        {/* メインコンテンツ */}
-        <div className="space-y-12 md:space-y-16">
-          {/* 日付とカウントダウン */}
-          <div className="max-w-xl mx-auto fade-in-up animation-delay-200">
-            <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
-              <div className="bg-gradient-to-r from-secondary to-accent p-6 md:p-8 text-white text-center">
-                <Calendar className="w-10 md:w-12 h-10 md:h-12 mx-auto mb-4 opacity-90" />
-                <div className="text-xl md:text-2xl font-bold mb-2">
-                  {date}
-                </div>
-              </div>
+        <div className="text-center mb-12">
+          <SectionHeader
+            icon={<Calendar className="w-5 h-5" />}
+            title="演奏会情報"
+            subtitle="EVENT INFORMATION"
+          />
+        </div>
+
+        <div className="space-y-8">
+          {/* 参加者向け重要情報カード */}
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-gradient-to-br from-secondary/5 to-accent/5 rounded-3xl p-8 md:p-10 border border-secondary/20">
+              <h3 className="text-2xl font-bold text-dark mb-6 text-center">参加をご検討の方へ</h3>
               
-              {/* ステータスバー */}
-              <div className="bg-gray-50 px-6 py-4">
-                <div className="grid grid-cols-4 gap-4">
-                  {eventStats.map((stat, index) => (
-                    <div key={index} className="text-center">
-                      <div className="text-secondary mb-1">{stat.icon}</div>
-                      <div className="text-xs font-bold text-dark">{stat.value}</div>
-                      <div className="text-[10px] text-gray-500">{stat.label}</div>
+              {/* 基本情報グリッド */}
+              <div className="grid md:grid-cols-2 gap-6 mb-8">
+                <div className="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-secondary/10 rounded-xl">
+                      <CalendarCheck className="w-6 h-6 text-secondary" />
                     </div>
-                  ))}
+                    <div>
+                      <p className="font-bold text-dark mb-1">開催日時</p>
+                      <p className="text-lg font-semibold text-secondary mb-2">2025年10月12日(日)</p>
+                      <p className="text-sm text-gray-600">11:00 開場 / 11:30 開演</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-sm">
+                  <div className="flex items-start gap-4">
+                    <div className="p-3 bg-secondary/10 rounded-xl">
+                      <Ticket className="w-6 h-6 text-secondary" />
+                    </div>
+                    <div>
+                      <p className="font-bold text-dark mb-1">参加費</p>
+                      <p className="text-lg font-semibold text-secondary mb-2">¥1,700 + 1ドリンク</p>
+                      <p className="text-sm text-gray-600">ドリンク代 ¥500</p>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* スケジュール */}
-          <div className="fade-in-up animation-delay-400">
-            <div className="text-center mb-8 md:mb-10">
-              <SectionHeader
-                icon={<Clock className="w-4 h-4" />}
-                title="タイムスケジュール"
-                subtitle="TIME SCHEDULE"
-              />
-            </div>
-
-            {/* デスクトップ版：クライアントコンポーネント */}
-            <div className="hidden md:block">
-              <ScheduleTimeline scheduleData={scheduleData} />
-            </div>
-
-            {/* モバイル版：静的表示 */}
-            <div className="md:hidden">
-              <MobileSchedule scheduleData={scheduleData} />
-            </div>
-          </div>
-
-          {/* 追加情報（静的） */}
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {infoSections.map((section, index) => (
-              <div
-                key={index}
-                className={`bg-white rounded-2xl shadow-lg border border-gray-100 p-6 md:p-8 fade-in-up animation-delay-${600 + index * 100}`}
-              >
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="p-2 bg-gradient-to-r from-secondary/10 to-accent/10 rounded-lg text-secondary">
-                    {section.icon}
-                  </div>
-                  <h4 className="text-base font-bold text-dark">{section.title}</h4>
+              {/* 重要ポイント */}
+              <div className="bg-white rounded-2xl p-6 mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <CheckCircle2 className="w-5 h-5 text-secondary" />
+                  <p className="font-bold text-dark">どなたでも参加できます！</p>
                 </div>
-                <ul className="space-y-3">
-                  {section.items.map((item, i) => (
-                    <li key={i} className="flex items-start gap-2">
-                      <ChevronRight className="w-4 h-4 text-accent mt-0.5 flex-shrink-0" />
-                      <span className="text-xs text-gray-700">{item}</span>
-                    </li>
-                  ))}
+                <ul className="space-y-3 text-sm text-gray-700">
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    <span>ギター好きなら誰でも大歓迎！初めての方もお気軽にどうぞ</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    <span>演奏を聴くだけでもOK！素敵な音楽をお楽しみください</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="text-secondary mt-1">•</span>
+                    <span>アットホームな雰囲気で、音楽好きの仲間と交流できます</span>
+                  </li>
                 </ul>
               </div>
-            ))}
+
+              {/* 申込締切 */}
+              <div className="bg-accent/10 rounded-2xl p-6 border border-accent/30">
+                <div className="flex items-center gap-3 mb-3">
+                  <AlertCircle className="w-5 h-5 text-accent" />
+                  <p className="font-bold text-dark">参加申込締切</p>
+                </div>
+                <p className="text-lg font-semibold text-accent mb-2">9月9日まで</p>
+                <p className="text-sm text-gray-700">
+                  迷っている方はInstagramのDMでお気軽にご相談ください！<br />
+                  どんな質問でもお答えします。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 当日の流れ */}
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-white rounded-3xl shadow-lg p-8 md:p-10 border border-gray-100">
+              <h3 className="text-xl font-bold text-dark mb-6 flex items-center gap-3">
+                <Clock className="w-6 h-6 text-secondary" />
+                当日のプログラム
+              </h3>
+              
+              <div className="space-y-4">
+                <div className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-20 text-right">
+                    <span className="text-sm font-semibold text-secondary">11:00</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-dark">開場・受付開始</p>
+                    <p className="text-sm text-gray-600 mt-1">ウェルカムドリンクでお出迎え</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-20 text-right">
+                    <span className="text-sm font-semibold text-secondary">11:30</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-dark">第1部 演奏会</p>
+                    <p className="text-sm text-gray-600 mt-1">ソロ・デュエット・バンド演奏など</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-20 text-right">
+                    <span className="text-sm font-semibold text-secondary">12:30</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-dark">休憩・交流タイム</p>
+                    <p className="text-sm text-gray-600 mt-1">軽食を楽しみながら音楽談義</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-20 text-right">
+                    <span className="text-sm font-semibold text-secondary">13:00</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-dark">第2部 演奏会</p>
+                    <p className="text-sm text-gray-600 mt-1">様々なジャンルの演奏をお楽しみください</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 items-start">
+                  <div className="flex-shrink-0 w-20 text-right">
+                    <span className="text-sm font-semibold text-secondary">15:00</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="font-semibold text-dark">終演</p>
+                    <p className="text-sm text-gray-600 mt-1">全体写真撮影・次回のお知らせ</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* その他の情報 */}
+          <div className="max-w-3xl mx-auto">
+            <div className="bg-gray-50 rounded-2xl p-6 md:p-8">
+              <h4 className="font-bold text-dark mb-4 flex items-center gap-2">
+                <MapPin className="w-5 h-5 text-secondary" />
+                会場について
+              </h4>
+              <ul className="space-y-2 text-sm text-gray-700">
+                <li>• 駐車場はございません（公共交通機関をご利用ください）</li>
+                <li>• 飲食物の持ち込みはご遠慮ください</li>
+                <li>• 写真撮影OK！思い出を残しましょう</li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

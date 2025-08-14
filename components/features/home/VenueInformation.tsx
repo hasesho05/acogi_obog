@@ -50,9 +50,9 @@ const VenueInformation = () => {
       {/* メインコンテンツ */}
       <div className="space-y-12 md:space-y-16">
         {/* 会場名と画像 - 縦並びレイアウト */}
-        <div className="max-w-4xl mx-auto space-y-8">
+        <div className="max-w-5xl mx-auto space-y-8">
           {/* 会場情報セクション */}
-          <div className="space-y-6">
+          <div className="space-y-6 max-w-3xl mx-auto">
             {/* 会場名カード */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
               <div className="flex items-start gap-4 mb-6">

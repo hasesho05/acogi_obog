@@ -60,7 +60,7 @@ const VenueInformation = () => {
                   <MapPin className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <h3 className="text-xl md:text-2xl font-bold text-dark mb-2">
+                  <h3 className="text-lg md:text-2xl font-bold text-dark mb-2">
                     {venueInfo.name}
                   </h3>
                   <p className="text-gray-600">Music & Dining Space</p>
@@ -72,24 +72,24 @@ const VenueInformation = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-1">住所</p>
-                    <p className="text-xs text-gray-600">{venueInfo.address}</p>
+                    <p className="text-[10px] md:text-xs font-semibold text-gray-700 mb-1">住所</p>
+                    <p className="text-[10px] md:text-xs text-gray-600">{venueInfo.address}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <Train className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-1">アクセス</p>
-                    <p className="text-xs text-gray-600">{venueInfo.access}</p>
+                    <p className="text-[10px] md:text-xs font-semibold text-gray-700 mb-1">アクセス</p>
+                    <p className="text-[10px] md:text-xs text-gray-600">{venueInfo.access}</p>
                   </div>
                 </div>
                 
                 <div className="flex items-start gap-3">
                   <Clock className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-xs font-semibold text-gray-700 mb-1">営業時間</p>
-                    <p className="text-xs text-gray-600">11:30〜22:00（L.O. 21:30）</p>
+                    <p className="text-[10px] md:text-xs font-semibold text-gray-700 mb-1">営業時間</p>
+                    <p className="text-[10px] md:text-xs text-gray-600">11:30〜22:00（L.O. 21:30）</p>
                   </div>
                 </div>
               </div>
@@ -103,8 +103,8 @@ const VenueInformation = () => {
                   className={`bg-gradient-to-br from-white to-tertiary/30 rounded-xl p-4 border border-secondary/10 shadow-md hover:shadow-lg transition-shadow duration-300 fade-in-up animation-delay-${(index + 2) * 200}`}
                 >
                   <div className="text-secondary mb-2">{feature.icon}</div>
-                  <h4 className="text-xs font-bold text-dark mb-1">{feature.title}</h4>
-                  <p className="text-[10px] text-gray-600">{feature.description}</p>
+                  <h4 className="text-[10px] md:text-xs font-bold text-dark mb-1">{feature.title}</h4>
+                  <p className="text-[8px] md:text-[10px] text-gray-600">{feature.description}</p>
                 </div>
               ))}
             </div>

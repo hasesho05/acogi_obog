@@ -65,7 +65,7 @@ const OptimizedGallery = (props: OptimizedGalleryProps) => {
         </div>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 p-4">
         {displayImages.map((image, index) => (
           <LazyImage
             key={`${image}-${index}`}

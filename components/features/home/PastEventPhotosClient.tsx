@@ -85,8 +85,8 @@ const PastEventPhotosClient = ({ title, images, stats }: PastEventPhotosClientPr
               <div className="inline-flex p-2 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-lg text-secondary mb-3">
                 {stat.icon}
               </div>
-              <div className="text-xl font-bold text-dark">{stat.value}</div>
-              <div className="text-xs text-gray-600">{stat.label}</div>
+              <div className="text-lg md:text-xl font-bold text-dark">{stat.value}</div>
+              <div className="text-[10px] md:text-xs text-gray-600">{stat.label}</div>
             </div>
           ))}
         </div>

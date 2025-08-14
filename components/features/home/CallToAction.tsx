@@ -6,8 +6,8 @@ import { CTAButton } from "./CallToAction/CTAButton";
 const CallToAction = () => {
   const ctaInfo = {
     title: "出演者募集中！",
-    subtitle: "一緒に最高の音楽を奏でよう",
-    description: "龍谷大学アコギサークルOBOGの皆様、懐かしの仲間と共に素敵な演奏会を作りませんか？",
+    subtitle: "一緒に楽しい会にしましょう！",
+    description: "ギターに自信がなくても大丈夫！代わりに伴奏を用意します。",
     instagramUrl: "https://www.instagram.com/"
   };
 
@@ -29,12 +29,6 @@ const CallToAction = () => {
     }
   ];
 
-  const benefits = [
-    "懐かしの仲間との再会",
-    "新しい音楽仲間との出会い",
-    "ステージでの演奏機会",
-    "思い出作り"
-  ];
 
   return (
     <section className="relative py-12 md:py-16 px-4 md:px-8 max-w-3xl mx-auto bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
@@ -73,13 +67,13 @@ const CallToAction = () => {
                 <Music className="w-6 h-6" />
               </div>
               
-              <h2 className="text-2xl md:text-3xl font-bold mb-2">
+              <h2 className="text-xl md:text-3xl font-bold mb-2">
                 {ctaInfo.title}
               </h2>
-              <p className="text-lg md:text-xl font-light mb-4 opacity-95">
+              <p className="text-base md:text-xl font-light mb-4 opacity-95">
                 {ctaInfo.subtitle}
               </p>
-              <p className="text-sm md:text-base opacity-90 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-xs md:text-base opacity-90 max-w-2xl mx-auto leading-relaxed">
                 {ctaInfo.description}
               </p>
             </div>
@@ -99,35 +93,21 @@ const CallToAction = () => {
                       {item.icon}
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-gray-800 mb-1">{item.text}</p>
-                      <p className="text-[10px] text-gray-500">{item.description}</p>
+                      <p className="text-xs md:text-sm font-bold text-gray-800 mb-1">{item.text}</p>
+                      <p className="text-[8px] md:text-[10px] text-gray-500">{item.description}</p>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* ベネフィットリスト */}
-            <div className="mb-6 p-4 bg-gradient-to-r from-primary/5 to-transparent rounded-xl">
-              <p className="text-xs font-semibold text-gray-600 mb-3 text-center">こんな方におすすめ</p>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {benefits.map((benefit, index) => (
-                  <div key={index} className="flex items-center gap-2 text-xs text-gray-700">
-                    <Star className="w-3 h-3 text-accent flex-shrink-0" />
-                    <span>{benefit}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
             
             {/* CTAボタン - クライアントコンポーネント */}
             <CTAButton instagramUrl={ctaInfo.instagramUrl} />
-          
           </div>
         </div>
 
         <div className="mt-8 text-center fade-in-up animation-delay-400">
-          <div className="inline-flex items-center gap-2 text-sm text-gray-500">
+          <div className="inline-flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <div className="flex -space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full border-2 border-white" />
               <div className="w-8 h-8 bg-gradient-to-br from-accent to-secondary rounded-full border-2 border-white" />

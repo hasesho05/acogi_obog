@@ -39,7 +39,7 @@ const VenueInformation = () => {
   ];
 
   return (
-    <section className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
+    <section id="venue" className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
       {/* セクションヘッダー */}
       <SectionHeader
         icon={<MapPin className="w-4 h-4" />}
@@ -72,8 +72,8 @@ const VenueInformation = () => {
                 <div className="flex items-start gap-3">
                   <MapPin className="w-5 h-5 text-secondary mt-1" />
                   <div>
-                    <p className="text-[10px] md:text-xs font-semibold text-gray-700 mb-1">住所</p>
-                    <p className="text-[10px] md:text-xs text-gray-600">{venueInfo.address}</p>
+                    <p className="text-xs md:text-sm font-semibold text-gray-700 mb-1">住所</p>
+                    <p className="text-xs md:text-sm text-gray-600">{venueInfo.address}</p>
                   </div>
                 </div>
                 
@@ -103,8 +103,8 @@ const VenueInformation = () => {
                   className={`bg-gradient-to-br from-white to-tertiary/30 rounded-xl p-4 border border-secondary/10 shadow-md hover:shadow-lg transition-shadow duration-300 fade-in-up animation-delay-${(index + 2) * 200}`}
                 >
                   <div className="text-secondary mb-2">{feature.icon}</div>
-                  <h4 className="text-[10px] md:text-xs font-bold text-dark mb-1">{feature.title}</h4>
-                  <p className="text-[8px] md:text-[10px] text-gray-600">{feature.description}</p>
+                  <h4 className="text-xs md:text-sm font-bold text-dark mb-1">{feature.title}</h4>
+                  <p className="text-[10px] md:text-xs text-gray-600">{feature.description}</p>
                 </div>
               ))}
             </div>

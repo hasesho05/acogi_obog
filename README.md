@@ -129,69 +129,6 @@ const MyComponent = () => {
 };
 ```
 
-### 4. Server Component vs Client Component
-
-#### Server Component（デフォルト）
-```typescript
-// domain/entities/concert.ts
-export type Concert = {
-  id: string;
-  title: string;
-  date: string;
-  venue: string;
-  description: string;
-};
-
-// app/concerts/page.tsx
-import { getConcerts } from '@/lib/dal';
-import type { Concert } from '@/domain/entities/concert';
-
-type ConcertsPageProps = {
-  concerts: Concert[];
-};
-
-const ConcertsPage = async () => {
-  const concerts = await getConcerts();
-  
-  return (
-    <div>
-      {concerts.map((concert) => (
-        <ConcertCard key={concert.id} concert={concert} />
-      ))}
-    </div>
-  );
-};
-
-export default ConcertsPage;
-```
-
-#### Client Component
-```typescript
-'use client';
-
-import { useState } from 'react';
-
-// domain/entities/component.ts
-export type InteractiveButtonProps = {
-  label: string;
-};
-
-// components/ui/InteractiveButton.tsx
-import type { InteractiveButtonProps } from '@/domain/entities/component';
-
-const InteractiveButton = (props: InteractiveButtonProps) => {
-  const [isClicked, setIsClicked] = useState(false);
-  
-  return (
-    <button onClick={() => setIsClicked(!isClicked)}>
-      {props.label} {isClicked ? '✓' : ''}
-    </button>
-  );
-};
-
-export default InteractiveButton;
-```
-
 ## 🚀 Next.js 15 ベストプラクティス
 
 ### 1. ルートグループの正しい使用

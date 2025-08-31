@@ -1,10 +1,7 @@
+import UnderConstruction from "@/components/ui/UnderConstruction";
+
 const AboutPage = () => {
-  return (
-    <div>
-      <h1>サークル紹介</h1>
-      <p>アコースティックギターサークルについてご紹介します。</p>
-    </div>
-  );
+  return <UnderConstruction />;
 };
 
 export default AboutPage;

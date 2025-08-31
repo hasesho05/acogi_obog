@@ -172,6 +172,10 @@ The project is for a Japanese acoustic guitar circle, so be prepared to work wit
 
 - Package manager is **pnpm** (not npm or yarn)
 - Uses Next.js 15 with Turbopack for development (`--turbopack` flag in dev script)
+- **Static Export Configuration**: Project is configured for static export (`output: 'export'` in next.config.ts)
+  - Images are unoptimized (`images: { unoptimized: true }`)
+  - Trailing slashes enabled (`trailingSlash: true`)
+  - Output directory is 'out' (`distDir: 'out'`)
 - No authentication system planned
 - Focus on concert information presentation
 - Responsive design with mobile-first approach
@@ -224,3 +228,58 @@ The project uses a `ScrollTransition` wrapper component to animate sections as t
 - tailwindcss: v4
 - tw-animate-css: Animation utilities
 - TypeScript v5
+
+## Component Architecture Patterns
+
+### Scroll Animation Integration
+The project uses a custom `ScrollTransition` wrapper component that provides fade-in animations as sections come into view. This is implemented consistently across all major sections:
+- Import from `@/components/ui/scroll-transition`
+- Wrap content sections to enable scroll-triggered animations
+- Supports `delay` prop for staggered animations
+
+### UI Component Libraries Hierarchy
+1. **Aceternity UI Components** (in `/components/ui/`): Animation-heavy components like `hero-parallax`, `bento-grid`, `timeline`, `shooting-stars`
+2. **Shadcn UI Components** (in `/components/ui/`): Standard UI components integrated via `npx shadcn@latest add`
+3. **Custom Components** (in `/components/features/`): Feature-specific components for home, concerts, etc.
+
+## Working with the Domain Layer
+
+### Entity Files Structure
+Current domain entities are located in `/domain/entities/`:
+- Type definitions should follow the business domain (concerts, members, performances)
+- Component prop types go in `component.ts`
+- Business entities get their own files (e.g., `concert.ts`, `member.ts`)
+
+### DDD Repository Pattern
+- Repository interfaces are defined in `/domain/repositories/`
+- Implementations go in `/infrastructure/repositories/`
+- Access through Data Access Layer patterns in `lib/dal.ts`
+
+### Important Notes from README.md
+The project README contains detailed Japanese coding conventions that complement these guidelines:
+- Uses 2-space indentation (configured in Biome)
+- Emphasizes DDD (Domain-Driven Design) architecture 
+- Specifies exact component prop handling patterns (no destructuring in parameters)
+- Includes Japanese business domain context (演奏会/concerts, メンバー/members, 演奏/performances)
+- Contains comprehensive examples of Server Component vs Client Component usage patterns
+
+## Playwright MCP使用ルール
+
+### 絶対的な禁止事項
+
+1. **いかなる形式のコード実行も禁止**
+
+   - Python、JavaScript、Bash等でのブラウザ操作
+   - MCPツールを調査するためのコード実行
+   - subprocessやコマンド実行によるアプローチ
+
+2. **利用可能なのはMCPツールの直接呼び出しのみ**
+
+   - playwright:browser_navigate
+   - playwright:browser_screenshot
+   - 他のPlaywright MCPツール
+
+3. **エラー時は即座に報告**
+   - 回避策を探さない
+   - 代替手段を実行しない
+   - エラーメッセージをそのまま伝える

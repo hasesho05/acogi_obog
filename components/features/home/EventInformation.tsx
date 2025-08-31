@@ -4,7 +4,7 @@ import SectionHeader from '../../ui/section-header';
 
 const EventInformation = () => {
   return (
-    <section className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white">
+    <section id="event-info" className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white">
       <div className="relative max-w-5xl mx-auto">
         <div className="text-center mb-12">
           <SectionHeader
@@ -42,7 +42,7 @@ const EventInformation = () => {
                     </div>
                     <div>
                       <p className="font-bold text-dark mb-1">参加費</p>
-                      <p className="text-base md:text-lg font-semibold text-secondary mb-2">¥1,700 + 1ドリンク</p>
+                      <p className="text-sm md:text-lg font-semibold text-secondary mb-2">¥1,700 + 1ドリンク</p>
                       <p className="text-xs md:text-sm text-gray-600">ドリンク代 ¥500</p>
                     </div>
                   </div>

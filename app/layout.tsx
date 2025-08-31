@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,21 +14,21 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "龍谷大学アコースティックギターサークル OBOG演奏会 2025",
-  description: "2025年10月12日(日)開催！龍谷大学アコースティックギターサークルOBOGによる特別演奏会。Second Roomsにて懐かしの楽曲をお届けします。",
-  keywords: ["龍谷大学", "アコースティックギター", "OBOG演奏会", "コンサート", "音楽", "Second Rooms"],
+  title: "龍谷大学アコースティックギターサークル",
+  description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
+  keywords: ["龍谷大学", "アコースティックギター", "サークル", "音楽", "学生"],
   authors: [{ name: "龍谷大学アコースティックギターサークル" }],
   openGraph: {
-    title: "龍谷大学アコースティックギターサークル OBOG演奏会 2025",
-    description: "2025年10月12日(日)開催！龍谷大学アコースティックギターサークルOBOGによる特別演奏会。Second Roomsにて懐かしの楽曲をお届けします。",
+    title: "龍谷大学アコースティックギターサークル",
+    description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
     url: "/",
-    siteName: "龍谷大学アコースティックギターサークル OBOG演奏会 2025",
+    siteName: "龍谷大学アコースティックギターサークル",
     images: [
       {
         url: "/ogp.png",
         width: 1200,
         height: 630,
-        alt: "龍谷大学アコースティックギターサークル OBOG演奏会 2025",
+        alt: "龍谷大学アコースティックギターサークル",
       },
     ],
     locale: "ja_JP",
@@ -35,23 +36,20 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "龍谷大学アコースティックギターサークル OBOG演奏会 2025",
-    description: "2025年10月12日(日)開催！龍谷大学アコースティックギターサークルOBOGによる特別演奏会。Second Roomsにて懐かしの楽曲をお届けします。",
+    title: "龍谷大学アコースティックギターサークル",
+    description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
     images: ["/ogp.png"],
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
+export default function RootLayout(props: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="ja">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-primary antialiased`}>
+        <div className="flex-1">{props.children}</div>
+        <Footer />
       </body>
     </html>
   );

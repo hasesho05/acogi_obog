@@ -31,21 +31,8 @@ const CallToAction = () => {
 
 
   return (
-    <section className="relative py-12 md:py-16 px-4 md:px-8 max-w-3xl mx-auto bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
-      {/* 装飾的な背景要素 */}
-      <div className="absolute inset-0 pointer-events-none">
-        {/* グラデーションオーバーレイ */}
-        
-        {/* 装飾的な円 */}
-        <div className="absolute -top-24 -right-24 w-96 h-96 bg-gradient-to-br from-secondary/10 to-accent/10 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-gradient-to-tr from-accent/10 to-secondary/10 rounded-full blur-3xl" />
-        
-        {/* パターン背景 */}
-        <div className="absolute inset-0 opacity-[0.02]" style={{
-          backgroundImage: `radial-gradient(circle at 2px 2px, var(--secondary) 1px, transparent 1px)`,
-          backgroundSize: '32px 32px'
-        }} />
-      </div>
+    <section id="cta" className="relative py-12 md:py-16 px-4 md:px-8 max-w-3xl mx-auto bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
+     
 
       <div className="relative max-w-5xl mx-auto">
 

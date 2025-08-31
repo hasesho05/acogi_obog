@@ -22,17 +22,17 @@ export const HeroContent = memo(({
         className="absolute will-change-transform"
       >
         <div className="text-center">
-          <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white/90 mb-2">
-            龍谷大学
-          </h1>
           <div className="my-4">
             <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold block mt-2 text-orange-500">
-              アコギサークル
+              アコースティック
+            </h2>
+            <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold block mt-2 text-orange-500">
+              ギターサークル
             </h2>
             <div className="w-32 h-1 bg-orange-500 mx-auto mt-2 rounded-full" />
           </div>
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white/90 mt-2">
-            OBOG演奏会 2025
+            OBOG LIVE 2025
           </h1>
         </div>
       </motion.div>

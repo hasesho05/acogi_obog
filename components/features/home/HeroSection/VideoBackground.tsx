@@ -64,7 +64,14 @@ export const VideoBackground = (props: {
         setNeedsFallback(true);
       }
     };
+
+    // 再生開始時のハンドリング
+    const handlePlayStart = () => {
+      setNeedsFallback(false);
+    };
     
+    video.addEventListener('play', handlePlayStart);
+    video.addEventListener('playing', handlePlayStart);
     video.addEventListener('pause', handlePlayStateChange);
     video.addEventListener('suspend', handlePlayStateChange);
     video.addEventListener('error', handlePlayStateChange);
@@ -88,6 +95,8 @@ export const VideoBackground = (props: {
     return () => {
       video.removeEventListener('canplaythrough', handleReady);
       video.removeEventListener('loadeddata', handleReady);
+      video.removeEventListener('play', handlePlayStart);
+      video.removeEventListener('playing', handlePlayStart);
       video.removeEventListener('pause', handlePlayStateChange);
       video.removeEventListener('suspend', handlePlayStateChange);
       video.removeEventListener('error', handlePlayStateChange);

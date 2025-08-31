@@ -12,8 +12,8 @@ export const HeroOverlay = (props: {
         style={{ opacity: props.overlayOpacity }}
       />
       
-      {/* 装飾的なグラデーション */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-secondary/20 via-transparent to-accent/20 mix-blend-overlay" />
+      {/* 装飾的なグラデーション（パフォーマンス最適化：mix-blend-overlay 削除） */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-secondary/10 via-transparent to-accent/10 opacity-60" />
       
       {/* 装飾的な角フレーム（デスクトップのみ） */}
       {!props.isMobile && <CornerFrames />}

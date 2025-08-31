@@ -285,3 +285,62 @@
     transition: none;
   }
 }
+
+/* CSS Scroll-Driven Animations for Hero Section Performance */
+@supports (animation-timeline: scroll()) {
+  .hero-scroll-container {
+    view-timeline-name: --hero;
+    view-timeline-axis: block;
+  }
+  
+  .hero-title {
+    animation: hero-title-scroll 1 both;
+    animation-timeline: --hero;
+    animation-range: entry 0% cover 30%;
+  }
+  
+  .hero-subtitle {
+    animation: hero-subtitle-scroll 1 both;
+    animation-timeline: --hero;
+    animation-range: cover 25% cover 60%;
+  }
+  
+  .hero-content-fade {
+    animation: hero-content-fade-scroll 1 both;
+    animation-timeline: --hero;
+    animation-range: entry 0% cover 50%;
+  }
+
+  @keyframes hero-title-scroll {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(0, -100px, 0) scale(0.8);
+    }
+  }
+  
+  @keyframes hero-subtitle-scroll {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 100px, 0) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+  
+  @keyframes hero-content-fade-scroll {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      opacity: 0.7;
+      transform: translate3d(0, -50px, 0);
+    }
+  }
+}

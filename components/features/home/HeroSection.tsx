@@ -27,7 +27,7 @@ const HeroSection = memo(() => {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative h-[400vh]">
+    <div ref={containerRef} className="relative h-[300vh] hero-scroll-container">
       {/* ローディング画面 */}
       <LoadingScreen isLoaded={isLoaded} />
 

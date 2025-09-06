@@ -14,18 +14,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://acogi-obog.pages.dev"),
   title: "龍谷大学アコースティックギターサークル",
-  description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
-  keywords: ["龍谷大学", "アコースティックギター", "サークル", "音楽", "学生"],
-  authors: [{ name: "龍谷大学アコースティックギターサークル" }],
+  description:
+    "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
   openGraph: {
     title: "龍谷大学アコースティックギターサークル",
-    description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
+    description:
+      "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
+    // ルートURL。各ページで上書き可
     url: "/",
     siteName: "龍谷大学アコースティックギターサークル",
     images: [
+      // ★先頭＝本命（横長 1200x630 を推奨）
       {
-        url: "/ogp2.png",
+        url: "https://acogi-obog.pages.dev/ogp_wide.png?v=20250906",
+        width: 1200,
+        height: 630,
+        alt: "龍谷大学アコースティックギターサークル",
+      },
+      // サブ（正方形でもOK）
+      {
+        url: "https://acogi-obog.pages.dev/ogp2.png?v=20250906",
         width: 600,
         height: 600,
         alt: "龍谷大学アコースティックギターサークル",
@@ -37,8 +47,9 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "龍谷大学アコースティックギターサークル",
-    description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
-    images: ["/ogp2.png"],
+    description:
+      "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
+    images: ["https://acogi-obog.pages.dev/ogp_wide.png?v=20250906"],
   },
 };
 

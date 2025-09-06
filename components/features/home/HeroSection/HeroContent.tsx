@@ -29,7 +29,7 @@ export const HeroContent = memo(({
             <h2 className="text-xl md:text-2xl lg:text-3xl font-extrabold block mt-2 text-orange-500">
               ギターサークル
             </h2>
-            <div className="w-32 h-1 bg-orange-500 mx-auto mt-2 rounded-full" />
+            <div className="w-38 lg:w-68 h-1 bg-orange-500 mx-auto mt-2 rounded-full" />
           </div>
           <h1 className="text-xl md:text-2xl lg:text-3xl font-bold text-white/90 mt-2">
             OBOG LIVE 2025
@@ -38,7 +38,8 @@ export const HeroContent = memo(({
       </motion.div>
 
       {/* サブタイトルセクション - transform3dとwill-changeで最適化 */}
-      <motion.div
+     {/* サブタイトルセクション */}
+     <motion.div
         style={{
           y: animations.subtitleY,
           opacity: animations.subtitleOpacity,
@@ -47,25 +48,50 @@ export const HeroContent = memo(({
         className="absolute text-center px-4 will-change-transform"
       >
         <div className="mb-6">
-          <Sparkles className="w-8 h-8 text-orange-400 mx-auto mb-4" />
-          <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-white mb-4">
+          {/* 1) Sparkles（1個） */}
+          <Sparkles
+            className="w-8 h-8 text-orange-400 mx-auto mb-3"
+            aria-hidden
+          />
+
+          {/* 2) おひるにゆるっと一緒に（左右に短いラインを常時表示） */}
+          <div className="flex items-center justify-center gap-2 sm:gap-3 md:gap-4 mb-1">
+            <span
+              className="h-px w-6 sm:w-8 md:w-16 bg-white/25 rounded-full"
+              aria-hidden
+            />
+            <h2
+              className="whitespace-nowrap text-lg md:text-2xl lg:text-3xl font-bold text-white
+                        tracking-[0.06em] sm:tracking-[0.12em] md:tracking-[0.24em]"
+              aria-label="おひるにゆるっと一緒に"
+            >
+              おひるにゆるっと一緒に
+            </h2>
+            <span
+              className="h-px w-6 sm:w-8 md:w-16 bg-white/25 rounded-full"
+              aria-hidden
+            />
+          </div>
+
+          {/* 3) 「久しぶり」から始まる */}
+          <div className="mt-6 text-sm md:text-base text-white/90 mb-1">
             「久しぶり」から始まる
-            <span className="block mt-2 text-orange-500">
-              音楽会
-            </span>
-          </h2>
-          <div className="w-24 h-1 bg-orange-500 mx-auto rounded-full" />
+          </div>
+
+          {/* 4) 音楽会（オレンジ＋下線） */}
+          <div className="text-sm md:text-base font-extrabold text-orange-500">
+            音楽会
+          </div>
+          {/* Tailwindに w-18 はないので w-20 に修正 */}
+          <div className="w-20 h-0.5 bg-orange-500 mx-auto rounded-full mt-2" />
         </div>
-        
-        <div className="text-lg md:text-xl lg:text-2xl text-white/90 max-w-3xl mx-auto leading-relaxed">
-          <span className="text-sm md:text-base">
-            あの頃の思い出を語りながら、
-          </span>
-          <span className="block mt-2 text-sm md:text-base">
-            一緒に音を紡ぎましょう。
-          </span>
-        </div>
+
+        {/* 既存の2行テキストは削除 */}
       </motion.div>
+
+
+
+
     </div>
   );
 });

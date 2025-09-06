@@ -8,7 +8,7 @@ const CallToAction = () => {
     title: "出演者募集中！",
     subtitle: "一緒に楽しい会にしましょう！",
     description: "ギターに自信がなくても大丈夫！代わりに伴奏を用意します。",
-    instagramUrl: "https://www.instagram.com/"
+    instagramUrl: "https://www.instagram.com/acoustic_concert_obog"
   };
 
   const features = [
@@ -31,13 +31,14 @@ const CallToAction = () => {
 
 
   return (
-    <section id="cta" className="relative py-12 md:py-16 px-4 md:px-8 max-w-3xl mx-auto bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden">
-     
-
+    <section
+      id="cta"
+      className="relative py-12 md:py-16 px-4 md:px-8 max-w-3xl mx-auto bg-gradient-to-b from-white via-primary/5 to-primary overflow-hidden sr-section"
+    >
       <div className="relative max-w-5xl mx-auto">
 
         {/* メインCTAカード */}
-        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden fade-in-up animation-delay-200">
+        <div className="bg-white rounded-3xl shadow-2xl border border-gray-100 overflow-hidden sr-reveal animation-delay-200">
           {/* ヘッダー部分 - グラデーション強化 */}
           <div className="relative bg-gradient-to-br from-secondary via-secondary/90 to-accent p-6 md:p-10 text-white text-center overflow-hidden">
             {/* 装飾的なパターン */}
@@ -93,7 +94,7 @@ const CallToAction = () => {
           </div>
         </div>
 
-        <div className="mt-8 text-center fade-in-up animation-delay-400">
+        <div className="mt-8 text-center sr-reveal animation-delay-400">
           <div className="inline-flex items-center gap-2 text-xs md:text-sm text-gray-500">
             <div className="flex -space-x-2">
               <div className="w-8 h-8 bg-gradient-to-br from-secondary to-accent rounded-full border-2 border-white" />

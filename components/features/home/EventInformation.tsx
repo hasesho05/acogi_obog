@@ -4,24 +4,24 @@ import SectionHeader from '../../ui/section-header';
 
 const EventInformation = () => {
   return (
-    <section id="event-info" className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white">
+    <section
+      id="event-info"
+      className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white sr-section"
+    >
       <div className="relative max-w-5xl mx-auto">
-        <div className="text-center mb-12">
           <SectionHeader
             icon={<Calendar className="w-5 h-5" />}
             title="演奏会情報"
             subtitle="EVENT INFORMATION"
           />
-        </div>
-
-        <div className="space-y-8">
+        <div className="space-y-8 sr-stagger">
           {/* 参加者向け重要情報カード */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto sr-reveal">
             <div className="bg-gradient-to-br from-secondary/5 to-accent/5 rounded-3xl p-8 md:p-10 border border-secondary/20">
               <h3 className="text-xl md:text-2xl font-bold text-dark mb-6 text-center">参加をご検討の方へ</h3>
               
               {/* 基本情報グリッド */}
-              <div className="grid md:grid-cols-2 gap-6 mb-8">
+              <div className="grid md:grid-cols-2 gap-6 mb-8 sr-stagger">
                 <div className="bg-white/80 backdrop-blur rounded-2xl p-6 shadow-sm">
                   <div className="flex items-start gap-4">
                     <div className="p-3 bg-secondary/10 rounded-xl">
@@ -77,24 +77,23 @@ const EventInformation = () => {
                   <AlertCircle className="w-5 h-5 text-accent" />
                   <p className="font-bold text-dark">参加申込締切</p>
                 </div>
-                <p className="text-base md:text-lg font-semibold text-accent mb-2">9月9日まで</p>
+                <p className="text-base md:text-lg font-semibold text-accent mb-2">9月12日まで</p>
                 <p className="text-xs md:text-sm text-gray-700">
-                  迷っている方はInstagramのDMでお気軽にご相談ください！<br />
-                  どんな質問でもお答えします。
+                  迷っている方はInstagramのDMでお気軽にご相談ください！ほんときて！
                 </p>
               </div>
             </div>
           </div>
 
           {/* 当日の流れ */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto sr-reveal">
             <div className="bg-white rounded-3xl shadow-lg p-8 md:p-10 border border-gray-100">
               <h3 className="text-lg md:text-xl font-bold text-dark mb-6 flex items-center gap-3">
                 <Clock className="w-6 h-6 text-secondary" />
                 当日のプログラム
               </h3>
               
-              <div className="space-y-4">
+              <div className="space-y-4 sr-stagger">
                 <div className="flex gap-4 items-start">
                   <div className="flex-shrink-0 w-20 text-right">
                     <span className="text-xs md:text-sm font-semibold text-secondary">11:00</span>
@@ -149,7 +148,7 @@ const EventInformation = () => {
           </div>
 
           {/* その他の情報 */}
-          <div className="max-w-3xl mx-auto">
+          <div className="max-w-3xl mx-auto sr-reveal">
             <div className="bg-gray-50 rounded-2xl p-6 md:p-8">
               <h4 className="font-bold text-dark mb-4 flex items-center gap-2">
                 <MapPin className="w-5 h-5 text-secondary" />

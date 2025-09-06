@@ -25,9 +25,9 @@ export const metadata: Metadata = {
     siteName: "龍谷大学アコースティックギターサークル",
     images: [
       {
-        url: "/ogp.png",
-        width: 1200,
-        height: 630,
+        url: "/ogp2.png",
+        width: 600,
+        height: 600,
         alt: "龍谷大学アコースティックギターサークル",
       },
     ],
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "龍谷大学アコースティックギターサークル",
     description: "龍谷大学アコースティックギターサークルの公式サイト。演奏会情報、メンバー紹介、活動内容などをご紹介しています。",
-    images: ["/ogp.png"],
+    images: ["/ogp2.png"],
   },
 };
 

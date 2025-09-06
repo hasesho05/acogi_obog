@@ -344,3 +344,60 @@
     }
   }
 }
+
+/* ===== Section reveal (CSS-only) ===== */
+@keyframes sr-reveal-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@layer utilities {
+  /* セクションの外枠は固定。view-timeline だけ宣言 */
+  .sr-section {
+    /* no transform here! */
+  }
+
+  /* スクロール連動が使える場合のみタイムラインを付与 */
+}
+
+/* Scroll-driven (progressive enhancement) */
+@supports (animation-timeline: scroll()) {
+  @layer utilities {
+    .sr-section {
+      view-timeline-name: --section;
+      view-timeline-axis: block;
+    }
+
+    /* 単体要素の穏やかな出現 */
+    .sr-reveal {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: sr-reveal-up 700ms var(--ease-fluid) both;
+      animation-timeline: --section;
+      animation-range: entry 10% cover 30%;
+      will-change: opacity, transform;
+    }
+
+    /* 子要素を段階的に出す（直下の子のみ） */
+    .sr-stagger > * {
+      opacity: 0;
+      transform: translateY(8px);
+      animation: sr-reveal-up 700ms var(--ease-fluid) both;
+      animation-timeline: --section;
+      animation-range: entry 10% cover 30%;
+      will-change: opacity, transform;
+    }
+    .sr-stagger > *:nth-child(2) { animation-delay: 80ms; }
+    .sr-stagger > *:nth-child(3) { animation-delay: 160ms; }
+    .sr-stagger > *:nth-child(4) { animation-delay: 240ms; }
+    .sr-stagger > *:nth-child(5) { animation-delay: 320ms; }
+  }
+}
+
+/* 未対応ブラウザ = 静的表示（違和感なし） */
+@supports not (animation-timeline: scroll()) {
+  @layer utilities {
+    .sr-reveal,
+    .sr-stagger > * { opacity: 1; transform: none; }
+  }
+}

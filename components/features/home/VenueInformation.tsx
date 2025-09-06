@@ -39,20 +39,23 @@ const VenueInformation = () => {
   ];
 
   return (
-    <section id="venue" className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden">
-      {/* セクションヘッダー */}
-      <SectionHeader
-        icon={<MapPin className="w-4 h-4" />}
-        title="会場情報"
-        subtitle="VENUE INFORMATION"
-      />
+    <section
+      id="venue"
+      className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden sr-section"
+    >
+      <div className="relative max-w-5xl mx-auto">
+        <SectionHeader
+          icon={<MapPin className="w-4 h-4" />}
+          title="会場情報"
+          subtitle="VENUE INFORMATION"
+        />
 
-      {/* メインコンテンツ */}
-      <div className="space-y-12 md:space-y-16">
+        {/* メインコンテンツ */}
+        <div className="space-y-12 md:space-y-16 sr-stagger">
         {/* 会場名と画像 - 縦並びレイアウト */}
         <div className="max-w-5xl mx-auto space-y-8">
           {/* 会場情報セクション */}
-          <div className="space-y-6 max-w-3xl mx-auto">
+          <div className="space-y-6 max-w-3xl mx-auto sr-reveal">
             {/* 会場名カード */}
             <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-6 md:p-8">
               <div className="flex items-start gap-4 mb-6">
@@ -96,11 +99,11 @@ const VenueInformation = () => {
             </div>
 
             {/* 特徴グリッド */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sr-stagger">
               {venueFeatures.map((feature, index) => (
                 <div
                   key={index}
-                  className={`bg-gradient-to-br from-white to-tertiary/30 rounded-xl p-4 border border-secondary/10 shadow-md hover:shadow-lg transition-shadow duration-300 fade-in-up animation-delay-${(index + 2) * 200}`}
+                  className={`bg-gradient-to-br from-white to-tertiary/30 rounded-xl p-4 border border-secondary/10 shadow-md hover:shadow-lg transition-shadow duration-300`}
                 >
                   <div className="text-secondary mb-2">{feature.icon}</div>
                   <h4 className="text-xs md:text-sm font-bold text-dark mb-1">{feature.title}</h4>
@@ -115,6 +118,7 @@ const VenueInformation = () => {
             venueInfo={venueInfo}
             venueImages={venueImages}
           />
+        </div>
         </div>
       </div>
     </section>

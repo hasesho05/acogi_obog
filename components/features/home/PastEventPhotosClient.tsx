@@ -52,13 +52,12 @@ const PastEventPhotosClient = ({ title, images, stats }: PastEventPhotosClientPr
       </div>
 
       <div className="relative max-w-5xl mx-auto">
-        {/* セクションヘッダー */}
-        <SectionHeader
-          icon={<Camera className="w-4 h-4" />}
-          title={title}
-          subtitle="PAST EVENT PHOTOS"
-        />
-
+          <SectionHeader
+            icon={<Camera className="w-4 h-4" />}
+            title={title}
+            subtitle="PAST EVENT PHOTOS"
+          />
+          
         {/* フォトギャラリー */}
         <div
           id="gallery-section"

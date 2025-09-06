@@ -38,7 +38,7 @@ const Footer = () => {
               <ul className="mt-3 space-y-2 text-sm">
                 <li>
                   <a
-                    href="https://www.instagram.com/"
+                    href="https://www.instagram.com/acoustic_concert_obog"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 hover:text-secondary/90 underline-offset-2 hover:underline"
@@ -52,7 +52,7 @@ const Footer = () => {
                     href="mailto:contact@example.com"
                     className="inline-flex items-center gap-2 hover:text-secondary/90 underline-offset-2 hover:underline"
                   >
-                    <Mail className="h-4 w-4" /> contact@example.com
+                    <Mail className="h-4 w-4" /> acogi.circle@gmail.com
                   </a>
                 </li>
               </ul>

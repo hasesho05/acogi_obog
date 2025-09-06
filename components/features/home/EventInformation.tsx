@@ -6,7 +6,7 @@ const EventInformation = () => {
   return (
     <section
       id="event-info"
-      className="relative py-16 md:py-24 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white sr-section"
+      className="relative mt-8 py-4 px-4 md:px-8 overflow-hidden bg-gradient-to-b from-primary via-white to-white sr-section"
     >
       <div className="relative max-w-5xl mx-auto">
           <SectionHeader

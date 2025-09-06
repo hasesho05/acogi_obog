@@ -6,7 +6,7 @@ const SectionHeader = (props: {
   subtitle: string;
 }) => {
   return (
-    <div className="text-center mb-12 md:mb-16 fade-in-up">
+    <div className="text-center fade-in-up">
       <div className="inline-flex flex-col items-center gap-2 bg-tertiary rounded-2xl border border-secondary/20 px-6 py-4 mb-6">
         <div className="flex items-center gap-2">
           <span className="text-secondary">{props.icon}</span>

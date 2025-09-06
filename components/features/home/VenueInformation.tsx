@@ -41,7 +41,7 @@ const VenueInformation = () => {
   return (
     <section
       id="venue"
-      className="relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden sr-section"
+      className="relative mt-4 py-4 px-4 md:px-8 bg-gradient-to-b from-white to-primary overflow-hidden sr-section"
     >
       <div className="relative max-w-5xl mx-auto">
         <SectionHeader

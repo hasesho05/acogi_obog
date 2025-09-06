@@ -9,6 +9,7 @@ import { useRef, useState, useEffect, useCallback, memo } from "react";
 import { LoadingScreen } from "./HeroSection/LoadingScreen";
 
 const HeroSection = memo(() => {
+  console.log("Rendering HeroSection");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [isVideoReady, setIsVideoReady] = useState(false);

@@ -45,7 +45,7 @@ const PastEventPhotosClient = ({ title, images, stats }: PastEventPhotosClientPr
   }, []);
 
   return (
-    <section id="photos" className="max-w-3xl mx-auto relative py-16 md:py-24 px-4 md:px-8 bg-gradient-to-b from-primary to-white overflow-hidden">
+    <section id="photos" className="max-w-3xl mx-auto relative mt-8 px-4 md:px-8 bg-gradient-to-b from-primary to-white overflow-hidden">
       {/* シンプルな背景 */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-b from-tertiary/10 via-transparent to-transparent" />

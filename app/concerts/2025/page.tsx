@@ -5,7 +5,7 @@ import PastEventPhotos from "@/components/features/home/PastEventPhotos";
 import CallToAction from "@/components/features/home/CallToAction";
 
 const Live2025Page = () => {
-
+  console.log("Rendering Live2025Page");
   return (
     <main className="min-h-screen bg-primary">
       <HeroSection />

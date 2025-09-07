@@ -3,6 +3,7 @@ import EventInformation from "@/components/features/home/EventInformation";
 import VenueInformation from "@/components/features/home/VenueInformation";
 import PastEventPhotos from "@/components/features/home/PastEventPhotos";
 import CallToAction from "@/components/features/home/CallToAction";
+import { ConcertPoster } from "@/components/features/home/ConcertPoster";
 
 const Live2025Page = () => {
   console.log("Rendering Live2025Page");
@@ -13,6 +14,7 @@ const Live2025Page = () => {
       <VenueInformation />
       <PastEventPhotos />
       <CallToAction />
+      <ConcertPoster />
     </main>
   );
 };

@@ -77,7 +77,7 @@ const EventInformation = () => {
                   <AlertCircle className="w-5 h-5 text-accent" />
                   <p className="font-bold text-dark">参加申込締切</p>
                 </div>
-                <p className="text-base md:text-lg font-semibold text-accent mb-2">9月12日まで</p>
+                <p className="text-base md:text-lg font-semibold text-accent mb-2">9月21日(日)まで</p>
                 <p className="text-xs md:text-sm text-gray-700">
                   迷っている方はInstagramのDMでお気軽にご相談ください！ほんときて！
                 </p>

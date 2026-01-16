@@ -9,12 +9,13 @@
   --color-accent: #e07548;         /* サーモンオレンジ（アクセント） */
   --color-dark: #8b3a1e;           /* ダークオレンジ（テキスト用） */
   --color-light: #ff9671;          /* ライトオレンジ（ハイライト） */
-  
+
   /* ブレークポイント */
   --breakpoint-3xl: 1920px;
-  
+
   /* フォント */
-  --font-family-display: "Inter", "sans-serif";
+  --font-family-display: "Playfair Display", "Georgia", serif;
+  --font-family-body: "Noto Sans JP", "Hiragino Sans", "sans-serif";
   
   /* カスタムアニメーション - より控えめに */
   --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);

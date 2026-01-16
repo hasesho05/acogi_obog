@@ -1,7 +1,7 @@
 "use client";
 
 import type { LazyImageProps } from "@/domain/entities/home";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Loader2 } from "lucide-react";
 import { useRef, useState, useEffect, useTransition } from "react";
 import Image from "next/image";

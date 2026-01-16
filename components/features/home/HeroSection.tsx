@@ -5,22 +5,18 @@ import { HeroContent } from "./HeroSection/HeroContent";
 import { HeroOverlay } from "./HeroSection/HeroOverlay";
 import { HeroUI } from "./HeroSection/HeroUI";
 import { useHeroAnimation } from "./HeroSection/useHeroAnimation";
-import { useRef, useState, useEffect, useCallback, memo } from "react";
+import { useRef, useState, useCallback } from "react";
 import { LoadingScreen } from "./HeroSection/LoadingScreen";
 
-const HeroSection = memo(() => {
-  console.log("Rendering HeroSection");
+// propsなし + 内部stateを持つコンポーネントなのでmemo不要
+const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // 初期ロードは即時trueでOK（SSRでも問題なし）
+  const [isLoaded] = useState(true);
   const [isVideoReady, setIsVideoReady] = useState(false);
 
   // カスタムフックでアニメーション管理
   const animations = useHeroAnimation(containerRef);
-
-  // 初期ロード
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
 
   // 動画準備完了のハンドラー
   const handleVideoReady = useCallback(() => {
@@ -60,7 +56,6 @@ const HeroSection = memo(() => {
       </div>
     </div>
   );
-});
-
+};
 
 export default HeroSection;

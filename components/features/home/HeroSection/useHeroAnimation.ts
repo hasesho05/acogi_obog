@@ -1,31 +1,35 @@
-import { useScroll, useTransform } from "framer-motion";
-import { RefObject, useEffect, useState } from "react";
+import { useScroll, useTransform } from "motion/react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useHeroAnimation = (containerRef: React.RefObject<HTMLDivElement | null>) => {
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
+  // メモ化されたモバイル判定関数
+  const checkMobile = useCallback(() => {
+    setIsMobile(window.innerWidth < 768);
+  }, []);
+
   useEffect(() => {
-    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
-    
+
     // デバウンス処理で最適化
     let timeoutId: NodeJS.Timeout;
     const handleResize = () => {
       clearTimeout(timeoutId);
       timeoutId = setTimeout(checkMobile, 150);
     };
-    
+
     window.addEventListener('resize', handleResize, { passive: true });
     return () => {
       window.removeEventListener('resize', handleResize);
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [checkMobile]);
 
   // タイミング調整: サブタイトルが表示された後、しばらく維持
   // タイトルセクション: 0-30%でフェードアウト

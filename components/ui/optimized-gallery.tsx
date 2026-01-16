@@ -1,7 +1,7 @@
 "use client";
 
 import type { OptimizedGalleryProps } from "@/domain/entities/home";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Camera } from "lucide-react";
 import { useRef, useState, useEffect, useCallback, useTransition } from "react";
 import LazyImage from "./lazy-image";

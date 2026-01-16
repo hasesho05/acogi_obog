@@ -1,8 +1,7 @@
-import { motion } from "framer-motion";
-import { useEffect, useRef, useState, useCallback } from "react";
-import { MotionValue } from "framer-motion";
+import { motion, MotionValue } from "motion/react";
+import { useEffect, useRef, useState, useCallback, memo } from "react";
 
-export const VideoBackground = (props: {
+export const VideoBackground = memo((props: {
   videoScale: MotionValue<number>;
   isVideoReady: boolean;
   onVideoReady: () => void;
@@ -54,10 +53,9 @@ export const VideoBackground = (props: {
       }
     };
 
-    // 複数のイベントをリッスンして確実性を向上
-    video.addEventListener('canplaythrough', handleReady);
+    // 必要最小限のイベントリスナー
     video.addEventListener('loadeddata', handleReady);
-    
+
     // 再生状態変更時のハンドリング
     const handlePlayStateChange = () => {
       if (video.paused && !video.ended) {
@@ -69,11 +67,10 @@ export const VideoBackground = (props: {
     const handlePlayStart = () => {
       setNeedsFallback(false);
     };
-    
-    video.addEventListener('play', handlePlayStart);
+
+    // 'playing' は 'play' の後に発火するため、'playing' のみで十分
     video.addEventListener('playing', handlePlayStart);
     video.addEventListener('pause', handlePlayStateChange);
-    video.addEventListener('suspend', handlePlayStateChange);
     video.addEventListener('error', handlePlayStateChange);
 
     // 既に再生可能な状態の場合は即座に実行
@@ -93,21 +90,19 @@ export const VideoBackground = (props: {
     }, 2000);
 
     return () => {
-      video.removeEventListener('canplaythrough', handleReady);
       video.removeEventListener('loadeddata', handleReady);
-      video.removeEventListener('play', handlePlayStart);
       video.removeEventListener('playing', handlePlayStart);
       video.removeEventListener('pause', handlePlayStateChange);
-      video.removeEventListener('suspend', handlePlayStateChange);
       video.removeEventListener('error', handlePlayStateChange);
       clearTimeout(fallbackTimer);
     };
-  }, [props.onVideoReady, tryAutoPlay]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps -- onVideoReadyは安定した参照なので依存配列から除外
+  }, [tryAutoPlay]);
 
   return (
-    <motion.div 
+    <motion.div
       style={{ scale: props.videoScale }}
-      className="absolute inset-0 will-change-transform"
+      className="absolute inset-0"
     >
       <video
         data-testid="hero-video"
@@ -115,7 +110,7 @@ export const VideoBackground = (props: {
         src={'/movies/hero.mp4'}
         className="absolute inset-0 w-full h-full object-cover"
         poster="/images/hero_poster.jpg"
-        preload="none"
+        preload="metadata"
         muted
         playsInline
         loop
@@ -145,4 +140,4 @@ export const VideoBackground = (props: {
       )}
     </motion.div>
   );
-};
+});

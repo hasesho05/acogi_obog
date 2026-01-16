@@ -1,4 +1,4 @@
-import { motion, MotionValue } from "framer-motion";
+import { motion, MotionValue } from "motion/react";
 import { Sparkles } from "lucide-react";
 import { memo } from "react";
 import { useHeroAnimation } from "./useHeroAnimation";
@@ -12,14 +12,14 @@ export const HeroContent = memo(({
 }) => {
   return (
     <div className="relative z-50 flex flex-col justify-center items-center h-full w-full px-4 md:px-8 lg:px-12">
-      {/* タイトルセクション - transform3dとwill-changeで最適化 */}
+      {/* タイトルセクション - Framer Motionが自動でGPU最適化 */}
       <motion.div
         style={{
           y: animations.titleY,
           opacity: animations.titleOpacity,
           scale: animations.titleScale,
         }}
-        className="absolute will-change-transform"
+        className="absolute"
       >
         <div className="text-center">
           <div className="my-4">
@@ -37,15 +37,14 @@ export const HeroContent = memo(({
         </div>
       </motion.div>
 
-      {/* サブタイトルセクション - transform3dとwill-changeで最適化 */}
-     {/* サブタイトルセクション */}
-     <motion.div
+      {/* サブタイトルセクション - Framer Motionが自動でGPU最適化 */}
+      <motion.div
         style={{
           y: animations.subtitleY,
           opacity: animations.subtitleOpacity,
           scale: animations.subtitleScale,
         }}
-        className="absolute text-center px-4 will-change-transform"
+        className="absolute text-center px-4"
       >
         <div className="mb-6">
           {/* 1) Sparkles（1個） */}

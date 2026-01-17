@@ -1,4 +1,6 @@
-export default function NotFound() {
+"use client";
+
+const NotFound = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-[--color-primary]">
       <div className="text-center">
@@ -13,4 +15,6 @@ export default function NotFound() {
       </div>
     </div>
   );
-}
+};
+
+export default NotFound;

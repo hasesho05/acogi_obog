@@ -4,15 +4,16 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is an acoustic guitar circle concert website built with Next.js 15 and follows Domain-Driven Design (DDD) architecture. The project is specifically for creating concert information pages without user authentication features.
+This is an acoustic guitar circle concert website built with Next.js 16 and follows Domain-Driven Design (DDD) architecture. The project is specifically for creating concert information pages without user authentication features.
 
 **Key Technologies:**
-- Next.js 15 with App Router
+- Next.js 16.1.2 with App Router (Turbopack)
+- React 19.2.3
 - TypeScript
 - Tailwind CSS v4 (custom theme configuration)
 - Shadcn UI components
 - Aceternity UI for animations
-- Framer Motion
+- Motion (旧 framer-motion) - `motion/react` からインポート
 - Biome for linting/formatting (configured with 2-space indentation)
 - pnpm as package manager
 - Lucide React icons
@@ -25,8 +26,8 @@ This is an acoustic guitar circle concert website built with Next.js 15 and foll
 # Development server with Turbopack
 pnpm dev
 
-# Build for production
-pnpm build
+# Build for production (NODE_ENV=production 必須)
+NODE_ENV=production pnpm build
 
 # Start production server
 pnpm start
@@ -95,7 +96,19 @@ function MyComponent({ title }: { title: string }) {
 - Business entity types go in respective `domain/entities/` files
 - Use descriptive type names with proper domain context
 
-### Next.js 15 Specific Patterns
+### Next.js 16 Specific Patterns
+
+**ビルド時の注意（重要）:**
+Next.js 16 では `NODE_ENV` が正しく設定されていないとビルドエラーが発生する。
+詳細: [Next.js 16 global-error issue #85668](https://github.com/vercel/next.js/issues/85668)
+
+```bash
+# 正しいビルドコマンド
+NODE_ENV=production pnpm build
+
+# CI環境（Cloudflare Pages等）では環境変数に設定
+NODE_ENV=production
+```
 
 **Async Params Handling:**
 ```typescript
@@ -134,7 +147,16 @@ The project uses a warm, acoustic-themed color palette defined in `app/globals.c
 - **Shadcn UI**: Base components (buttons, cards, forms)
 - **Aceternity UI**: Animation-focused components (hero parallax, bento grids)
 - **Tailwind CSS v4**: Utility-first styling
-- **Framer Motion**: Custom animations
+- **Motion**: Custom animations（`motion/react` からインポート）
+
+**Motion インポート方法:**
+```typescript
+// ✅ 正しい（motion パッケージ）
+import { motion } from "motion/react";
+
+// ❌ 古い（framer-motion は使用しない）
+import { motion } from "framer-motion";
+```
 
 ### Code Quality Tools
 
@@ -171,7 +193,8 @@ The project is for a Japanese acoustic guitar circle, so be prepared to work wit
 ## Key Implementation Notes
 
 - Package manager is **pnpm** (not npm or yarn)
-- Uses Next.js 15 with Turbopack for development (`--turbopack` flag in dev script)
+- Uses Next.js 16 with Turbopack for development (`--turbopack` flag in dev script)
+- **ビルド時は `NODE_ENV=production` 必須**
 - **Static Export Configuration**: Project is configured for static export (`output: 'export'` in next.config.ts)
   - Images are unoptimized (`images: { unoptimized: true }`)
   - Trailing slashes enabled (`trailingSlash: true`)
@@ -180,6 +203,18 @@ The project is for a Japanese acoustic guitar circle, so be prepared to work wit
 - Focus on concert information presentation
 - Responsive design with mobile-first approach
 - Performance optimized with static generation where possible
+
+### Static Export の制限
+
+| 機能 | 利用可否 |
+|------|----------|
+| API Routes (`/api/*`) | ❌ |
+| Server Actions | ❌ |
+| サーバーサイドでのfetch | ❌ |
+| Middleware | ❌ |
+| 動的ルート（事前生成不可） | ❌ |
+
+動的機能が必要になった場合は `@cloudflare/next-on-pages` の導入を検討。
 
 ## Current Implementation Architecture
 
@@ -220,7 +255,7 @@ The project uses a `ScrollTransition` wrapper component to animate sections as t
 - @tabler/icons-react: Additional icons
 - class-variance-authority: Component variants
 - clsx + tailwind-merge: Conditional styling
-- framer-motion + motion: Animations
+- motion: Animations（`motion/react` からインポート）
 - lucide-react: Primary icon library
 
 **Development dependencies:**

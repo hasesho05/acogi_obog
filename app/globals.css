@@ -10,6 +10,12 @@
   --color-dark: #8b3a1e;           /* ダークオレンジ（テキスト用） */
   --color-light: #ff9671;          /* ライトオレンジ（ハイライト） */
 
+  /* カラーパレット - 緑系（差し色） */
+  --color-green: #2d6a4f;          /* フォレストグリーン */
+  --color-green-light: #40916c;    /* ライトグリーン */
+  --color-green-pale: #b7e4c7;     /* ペールグリーン */
+  --color-green-dark: #1b4332;     /* ダークグリーン */
+
   /* ブレークポイント */
   --breakpoint-3xl: 1920px;
 
@@ -400,5 +406,54 @@
   @layer utilities {
     .sr-reveal,
     .sr-stagger > * { opacity: 1; transform: none; }
+  }
+}
+
+/* ===== Falling Leaves Animation ===== */
+@layer utilities {
+  /* 葉っぱの3D揺れエフェクト */
+  .leaf-flutter {
+    animation: leaf-flutter 2s ease-in-out infinite;
+    transform-style: preserve-3d;
+  }
+
+  @keyframes leaf-flutter {
+    0%, 100% {
+      transform: rotateY(0deg) rotateX(0deg);
+    }
+    25% {
+      transform: rotateY(25deg) rotateX(10deg);
+    }
+    50% {
+      transform: rotateY(0deg) rotateX(-5deg);
+    }
+    75% {
+      transform: rotateY(-25deg) rotateX(10deg);
+    }
+  }
+
+  /* 風に乗る動き */
+  .wind-sway {
+    animation: wind-sway 3s ease-in-out infinite;
+  }
+
+  @keyframes wind-sway {
+    0%, 100% {
+      transform: translateX(0) rotate(0deg);
+    }
+    33% {
+      transform: translateX(30px) rotate(5deg);
+    }
+    66% {
+      transform: translateX(-20px) rotate(-3deg);
+    }
+  }
+}
+
+/* Reduced motion - 葉のアニメーションを無効化 */
+@media (prefers-reduced-motion: reduce) {
+  .leaf-flutter,
+  .wind-sway {
+    animation: none;
   }
 }

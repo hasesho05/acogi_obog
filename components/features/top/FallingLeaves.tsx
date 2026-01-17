@@ -3,6 +3,20 @@
 import { motion, useReducedMotion } from "motion/react";
 import { memo, useEffect, useState } from "react";
 
+// モバイル判定フック
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const hasTouchScreen =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768;
+    setIsMobile(hasTouchScreen && isSmallScreen);
+  }, []);
+
+  return isMobile;
+};
+
 // 葉のSVGシェイプ - 楓、イチョウ、シンプルな葉
 const LeafShapes = {
   // 楓（もみじ）の葉
@@ -141,10 +155,14 @@ const FallingLeaves = (props: FallingLeavesProps) => {
   // パフォーマンス最適化: デフォルト15枚に削減（元30枚）
   const { leafCount = 15, playOnce = true } = props;
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
+
+  // モバイルでは葉の数を大幅削減（15→6）
+  const effectiveLeafCount = isMobile ? 6 : leafCount;
 
   // rerender-lazy-state-init: 初期化時のみ生成
   const [leaves] = useState(() =>
-    prefersReducedMotion ? [] : generateLeaves(leafCount)
+    prefersReducedMotion ? [] : generateLeaves(effectiveLeafCount)
   );
   const [isVisible, setIsVisible] = useState(true);
 

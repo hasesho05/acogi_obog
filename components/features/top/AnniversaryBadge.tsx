@@ -3,15 +3,6 @@
 import { motion, useReducedMotion, AnimatePresence } from "motion/react";
 import { useEffect, useState, useCallback } from "react";
 
-type Particle = {
-  id: number;
-  x: number;
-  y: number;
-  size: number;
-  duration: number;
-  delay: number;
-};
-
 type ClickParticle = {
   id: number;
   x: number;
@@ -25,13 +16,30 @@ type ClickParticle = {
 const SPARKLE_SYMBOLS = ["✦", "✧", "⋆", "♪", "♫", "♬"];
 const SPARKLE_COLORS = ["#d4502c", "#e07548", "#2d6a4f", "#40916c", "#ff9671"];
 
+// モバイル判定フック
+const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const hasTouchScreen =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    const isSmallScreen = window.innerWidth <= 768;
+    setIsMobile(hasTouchScreen && isSmallScreen);
+  }, []);
+
+  return isMobile;
+};
+
 const AnniversaryBadge = () => {
   const prefersReducedMotion = useReducedMotion();
-  const [particles, setParticles] = useState<Particle[]>([]);
+  const isMobile = useIsMobile();
   const [clickParticles, setClickParticles] = useState<ClickParticle[]>([]);
   const [isBouncing, setIsBouncing] = useState(false);
 
-  // Click handler for playful interaction
+  // モバイルまたはreduced-motionの場合、無限アニメーションを無効化
+  const shouldAnimate = !prefersReducedMotion && !isMobile;
+
+  // Click handler for playful interaction（モバイルでも軽量版で動作）
   const handleClick = useCallback(() => {
     if (prefersReducedMotion) return;
 
@@ -39,9 +47,10 @@ const AnniversaryBadge = () => {
     setIsBouncing(true);
     setTimeout(() => setIsBouncing(false), 500);
 
-    // Create sparkle particles radiating from center
-    const newParticles: ClickParticle[] = Array.from({ length: 16 }, (_, i) => {
-      const angle = (i / 16) * 360 + Math.random() * 20 - 10;
+    // モバイルではパーティクル数を削減（16→8）
+    const particleCount = isMobile ? 8 : 16;
+    const newParticles: ClickParticle[] = Array.from({ length: particleCount }, (_, i) => {
+      const angle = (i / particleCount) * 360 + Math.random() * 20 - 10;
       const distance = 60 + Math.random() * 50;
       const radian = (angle * Math.PI) / 180;
 
@@ -64,20 +73,7 @@ const AnniversaryBadge = () => {
         prev.filter((p) => !newParticles.find((np) => np.id === p.id))
       );
     }, 1500);
-  }, [prefersReducedMotion]);
-
-  useEffect(() => {
-    // Generate floating particles
-    const newParticles: Particle[] = Array.from({ length: 12 }, (_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1,
-      duration: Math.random() * 4 + 6,
-      delay: Math.random() * 2,
-    }));
-    setParticles(newParticles);
-  }, []);
+  }, [prefersReducedMotion, isMobile]);
 
   const strokeAnimation = prefersReducedMotion
     ? {}
@@ -150,33 +146,39 @@ const AnniversaryBadge = () => {
         ))}
       </AnimatePresence>
 
-      {/* Floating Particles */}
-      {!prefersReducedMotion &&
-        particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            className="absolute rounded-full"
-            style={{
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-              width: particle.size,
-              height: particle.size,
-              background: `radial-gradient(circle, rgba(212, 80, 44, 0.6) 0%, rgba(45, 106, 79, 0.3) 100%)`,
-            }}
-            animate={{
-              y: [0, -20, 0],
-              x: [0, Math.random() * 10 - 5, 0],
-              opacity: [0.2, 0.8, 0.2],
-              scale: [1, 1.2, 1],
-            }}
-            transition={{
-              duration: particle.duration,
-              delay: particle.delay,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "easeInOut",
-            }}
-          />
-        ))}
+      {/* Floating Particles - デスクトップのみ、数を削減（12→4） */}
+      {shouldAnimate && (
+        <>
+          {[
+            { x: 20, y: 25, size: 2 },
+            { x: 75, y: 30, size: 3 },
+            { x: 30, y: 70, size: 2 },
+            { x: 80, y: 75, size: 2 },
+          ].map((particle, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full"
+              style={{
+                left: `${particle.x}%`,
+                top: `${particle.y}%`,
+                width: particle.size,
+                height: particle.size,
+                background: `radial-gradient(circle, rgba(212, 80, 44, 0.6) 0%, rgba(45, 106, 79, 0.3) 100%)`,
+              }}
+              animate={{
+                y: [0, -15, 0],
+                opacity: [0.3, 0.7, 0.3],
+              }}
+              transition={{
+                duration: 8 + i * 2,
+                delay: i * 0.5,
+                repeat: Number.POSITIVE_INFINITY,
+                ease: "easeInOut",
+              }}
+            />
+          ))}
+        </>
+      )}
 
       {/* Main SVG */}
       <svg
@@ -249,7 +251,7 @@ const AnniversaryBadge = () => {
           transition={{ duration: 1.5, delay: 0.5 }}
         />
 
-        {/* Outer Ring - Dashed */}
+        {/* Outer Ring - Dashed（モバイルでは回転なし） */}
         <motion.circle
           cx="150"
           cy="150"
@@ -261,15 +263,17 @@ const AnniversaryBadge = () => {
           initial={{ opacity: 0, rotate: 0 }}
           animate={{
             opacity: 0.4,
-            rotate: prefersReducedMotion ? 0 : 360,
+            rotate: shouldAnimate ? 360 : 0,
           }}
           transition={{
             opacity: { duration: 1, delay: 1.5 },
-            rotate: {
-              duration: 60,
-              repeat: Number.POSITIVE_INFINITY,
-              ease: "linear",
-            },
+            rotate: shouldAnimate
+              ? {
+                  duration: 60,
+                  repeat: Number.POSITIVE_INFINITY,
+                  ease: "linear",
+                }
+              : { duration: 0 },
           }}
           style={{ transformOrigin: "150px 150px" }}
         />
@@ -513,18 +517,18 @@ const AnniversaryBadge = () => {
         </motion.text>
       </svg>
 
-      {/* Ambient Rotating Glow */}
-      {!prefersReducedMotion && (
+      {/* Ambient Rotating Glow - デスクトップのみ */}
+      {shouldAnimate && (
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "conic-gradient(from 0deg, transparent, rgba(212, 80, 44, 0.1), transparent, rgba(45, 106, 79, 0.1), transparent)",
+              "conic-gradient(from 0deg, transparent, rgba(212, 80, 44, 0.08), transparent, rgba(45, 106, 79, 0.08), transparent)",
             borderRadius: "50%",
           }}
           animate={{ rotate: 360 }}
           transition={{
-            duration: 20,
+            duration: 30,
             repeat: Number.POSITIVE_INFINITY,
             ease: "linear",
           }}

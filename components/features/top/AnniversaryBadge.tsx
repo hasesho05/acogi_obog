@@ -93,7 +93,7 @@ const AnniversaryBadge = () => {
 
   return (
     <motion.div
-      className="relative w-40 h-40 md:w-48 md:h-48 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none"
+      className="relative w-40 h-40 md:w-48 md:h-48 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none focus:ring-0 focus-visible:ring-0"
       onClick={handleClick}
       animate={
         isBouncing
@@ -329,14 +329,14 @@ const AnniversaryBadge = () => {
           filter="url(#glow)"
         />
 
-        {/* Decorative Dots - coordinates pre-calculated to avoid hydration mismatch */}
+        {/* Decorative Dots - rendering-svg-precision: 座標を整数に丸めてSVGサイズ削減 */}
         {[
-          { x: 275, y: 150 },      // 0°
-          { x: 212.5, y: 258.25 }, // 60°
-          { x: 87.5, y: 258.25 },  // 120°
-          { x: 25, y: 150 },       // 180°
-          { x: 87.5, y: 41.75 },   // 240°
-          { x: 212.5, y: 41.75 },  // 300°
+          { x: 275, y: 150 }, // 0°
+          { x: 213, y: 258 }, // 60°
+          { x: 88, y: 258 },  // 120°
+          { x: 25, y: 150 },  // 180°
+          { x: 88, y: 42 },   // 240°
+          { x: 213, y: 42 },  // 300°
         ].map((pos, i) => (
           <motion.circle
             key={i}

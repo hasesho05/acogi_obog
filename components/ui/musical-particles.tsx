@@ -91,7 +91,7 @@ const MusicalParticles = (props: MusicalParticlesProps) => {
 
   return (
     <div
-      className={`relative cursor-pointer select-none outline-none focus:outline-none ${className}`}
+      className={`relative cursor-pointer select-none outline-none focus:outline-none focus:ring-0 focus-visible:ring-0 ${className}`}
       onClick={handleClick}
     >
       {children}

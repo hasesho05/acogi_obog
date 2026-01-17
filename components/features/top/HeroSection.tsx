@@ -8,6 +8,13 @@ import { AcousticGuitarIcon } from "./icons";
 import AnniversaryBadge from "./AnniversaryBadge";
 import MusicalParticles from "@/components/ui/musical-particles";
 
+// rendering-hoist-jsx: 静的データをコンポーネント外に巻き上げ
+const TITLE_LINE_1 = "OB・OG";
+const TITLE_LINE_2 = "CONCERT";
+const TITLE_LINE_1_CHARS = TITLE_LINE_1.split("");
+const TITLE_LINE_2_CHARS = TITLE_LINE_2.split("");
+const CATCH_COPY = "A Decade of Harmony";
+
 const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
@@ -18,12 +25,6 @@ const HeroSection = () => {
   // コンテンツのフェードアウト効果のみ（背景パララックスは削除済み）
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
   const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
-  // Typography redesign: bilingual lockup for sophistication
-  const titleLine1 = "OB・OG";
-  const titleLine2 = "CONCERT";
-  const titleLine1Chars = titleLine1.split("");
-  const titleLine2Chars = titleLine2.split("");
-  const catchCopy = "A Decade of Harmony";
 
   return (
     <section
@@ -112,7 +113,7 @@ const HeroSection = () => {
               >
                 {/* 1行目: OB・OG */}
                 <span className="block sm:inline">
-                  {titleLine1Chars.map((char, index) => (
+                  {TITLE_LINE_1_CHARS.map((char, index) => (
                     <motion.span
                       key={`line1-${index}`}
                       initial={{ opacity: 0, y: 50, rotateX: -60 }}
@@ -132,14 +133,14 @@ const HeroSection = () => {
                 <span className="hidden sm:inline-block w-4 md:w-6" />
                 {/* 2行目: CONCERT */}
                 <span className="block sm:inline">
-                  {titleLine2Chars.map((char, index) => (
+                  {TITLE_LINE_2_CHARS.map((char, index) => (
                     <motion.span
                       key={`line2-${index}`}
                       initial={{ opacity: 0, y: 50, rotateX: -60 }}
                       animate={{ opacity: 1, y: 0, rotateX: 0 }}
                       transition={{
                         duration: 0.7,
-                        delay: 1.0 + (titleLine1Chars.length + 1 + index) * 0.08,
+                        delay: 1.0 + (TITLE_LINE_1_CHARS.length + 1 + index) * 0.08,
                         ease: [0.22, 1, 0.36, 1],
                       }}
                       className="inline-block"
@@ -158,7 +159,7 @@ const HeroSection = () => {
               transition={{ duration: 1, delay: 2.0, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-base sm:text-lg md:text-xl text-dark/60 tracking-widest"
             >
-              {catchCopy}
+              {CATCH_COPY}
             </motion.p>
 
             {/* 10周年バッジ - SVGアニメーション */}

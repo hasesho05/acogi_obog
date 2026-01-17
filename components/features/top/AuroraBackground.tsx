@@ -1,7 +1,6 @@
 "use client";
 
-import { motion } from "motion/react";
-
+// パフォーマンス最適化: Motionを削除してCSS animationのみ使用
 const AuroraBackground = () => {
   return (
     <div className="fixed inset-0 -z-10 overflow-hidden">
@@ -9,12 +8,7 @@ const AuroraBackground = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary via-tertiary to-primary" />
 
       {/* オーロラレイヤー1 - オレンジ系 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2 }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0s" }}>
         <div
           className="absolute top-0 left-1/4 w-[800px] h-[800px] rounded-full opacity-30 blur-[120px]"
           style={{
@@ -22,15 +16,10 @@ const AuroraBackground = () => {
             animation: "aurora-drift-1 25s ease-in-out infinite",
           }}
         />
-      </motion.div>
+      </div>
 
       {/* オーロラレイヤー2 - アクセントオレンジ */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.3 }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0.3s" }}>
         <div
           className="absolute top-1/3 right-0 w-[600px] h-[600px] rounded-full opacity-25 blur-[100px]"
           style={{
@@ -38,15 +27,10 @@ const AuroraBackground = () => {
             animation: "aurora-drift-2 20s ease-in-out infinite",
           }}
         />
-      </motion.div>
+      </div>
 
       {/* オーロラレイヤー3 - グリーン差し色 */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.6 }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0.6s" }}>
         <div
           className="absolute bottom-0 left-1/3 w-[700px] h-[700px] rounded-full opacity-20 blur-[130px]"
           style={{
@@ -54,15 +38,10 @@ const AuroraBackground = () => {
             animation: "aurora-drift-3 30s ease-in-out infinite",
           }}
         />
-      </motion.div>
+      </div>
 
       {/* オーロラレイヤー4 - ライトオレンジ */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 0.9 }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0.9s" }}>
         <div
           className="absolute top-1/2 left-0 w-[500px] h-[500px] rounded-full opacity-20 blur-[80px]"
           style={{
@@ -70,15 +49,10 @@ const AuroraBackground = () => {
             animation: "aurora-drift-4 22s ease-in-out infinite",
           }}
         />
-      </motion.div>
+      </div>
 
       {/* オーロラレイヤー5 - グリーンライト */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 2, delay: 1.2 }}
-        className="absolute inset-0"
-      >
+      <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "1.2s" }}>
         <div
           className="absolute bottom-1/4 right-1/4 w-[550px] h-[550px] rounded-full opacity-15 blur-[100px]"
           style={{
@@ -86,7 +60,7 @@ const AuroraBackground = () => {
             animation: "aurora-drift-5 28s ease-in-out infinite",
           }}
         />
-      </motion.div>
+      </div>
 
       {/* メッシュグラデーションオーバーレイ */}
       <div
@@ -111,6 +85,20 @@ const AuroraBackground = () => {
 
       {/* アニメーション定義 */}
       <style jsx>{`
+        @keyframes fade-in {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animate-fade-in {
+          animation: fade-in 2s ease-out forwards;
+          opacity: 0;
+        }
+
         @keyframes aurora-drift-1 {
           0%, 100% {
             transform: translate(0, 0) scale(1);

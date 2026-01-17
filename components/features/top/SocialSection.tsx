@@ -19,7 +19,7 @@ const socialLinks: SocialLinkData[] = [
     platform: "youtube",
     title: "YouTube",
     description: "過去の演奏動画を公開しています。ソロやアンサンブルなど、様々な演奏スタイルをお楽しみください。",
-    href: "https://www.youtube.com/@acoustic_concert_obog",
+    href: "https://www.youtube.com/@obog4633",
     accentColor: "#FF0000",
     iconBg: "from-red-500/20 to-red-600/10",
   },
@@ -149,7 +149,7 @@ const SocialSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden">
+    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden content-visibility-auto">
       {/* 装飾ライン */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green/20 to-transparent" />
 

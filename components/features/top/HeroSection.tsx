@@ -20,8 +20,10 @@ const HeroSection = () => {
   const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
 
   // Typography redesign: bilingual lockup for sophistication
-  const mainTitle = "OB・OG CONCERT";
-  const titleChars = mainTitle.split("");
+  const titleLine1 = "OB・OG";
+  const titleLine2 = "CONCERT";
+  const titleLine1Chars = titleLine1.split("");
+  const titleLine2Chars = titleLine2.split("");
   const catchCopy = "A Decade of Harmony";
 
   return (
@@ -76,14 +78,16 @@ const HeroSection = () => {
               <AcousticGuitarIcon className="w-12 h-12 md:w-16 md:h-16 text-secondary/60" />
             </motion.div>
 
-            {/* サークル名 */}
+            {/* サークル名 - レスポンシブ改行対応 */}
             <motion.p
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.7 }}
-              className="font-body text-xs md:text-sm tracking-[0.4em] text-dark/60 mb-4 md:mb-6 uppercase"
+              className="font-body text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] md:tracking-[0.4em] text-dark/60 mb-4 md:mb-6"
             >
-              龍谷大学アコースティックギターサークル
+              <span className="block sm:inline">龍谷大学</span>
+              <span className="hidden sm:inline">&nbsp;</span>
+              <span className="block sm:inline">アコースティックギターサークル</span>
             </motion.p>
 
             {/* 装飾ライン */}
@@ -105,21 +109,44 @@ const HeroSection = () => {
                 backgroundClip: "text",
               }}
             >
-              {titleChars.map((char, index) => (
-                <motion.span
-                  key={index}
-                  initial={{ opacity: 0, y: 50, rotateX: -60 }}
-                  animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                  transition={{
-                    duration: 0.7,
-                    delay: 1.0 + index * 0.08,
-                    ease: [0.22, 1, 0.36, 1],
-                  }}
-                  className={char === " " ? "inline-block w-4 md:w-6" : "inline-block"}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </motion.span>
-              ))}
+              {/* 1行目: OB・OG */}
+              <span className="block sm:inline">
+                {titleLine1Chars.map((char, index) => (
+                  <motion.span
+                    key={`line1-${index}`}
+                    initial={{ opacity: 0, y: 50, rotateX: -60 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 1.0 + index * 0.08,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
+              {/* sm以上でスペース表示 */}
+              <span className="hidden sm:inline-block w-4 md:w-6" />
+              {/* 2行目: CONCERT */}
+              <span className="block sm:inline">
+                {titleLine2Chars.map((char, index) => (
+                  <motion.span
+                    key={`line2-${index}`}
+                    initial={{ opacity: 0, y: 50, rotateX: -60 }}
+                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                    transition={{
+                      duration: 0.7,
+                      delay: 1.0 + (titleLine1Chars.length + 1 + index) * 0.08,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    className="inline-block"
+                  >
+                    {char}
+                  </motion.span>
+                ))}
+              </span>
             </h1>
 
             {/* キャッチコピー - 詩的で上品 */}

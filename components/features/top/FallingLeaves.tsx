@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useEffect, useState } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { memo, useEffect, useState } from "react";
 
 // 葉のSVGシェイプ - 楓、イチョウ、シンプルな葉
 const LeafShapes = {
@@ -68,7 +68,8 @@ const generateLeaves = (count: number): LeafData[] => {
   }));
 };
 
-const Leaf = (props: { leaf: LeafData }) => {
+// rerender-memo: 各葉をメモ化してre-renderを防止
+const Leaf = memo((props: { leaf: LeafData }) => {
   const { leaf } = props;
 
   return (
@@ -127,7 +128,9 @@ const Leaf = (props: { leaf: LeafData }) => {
       </motion.svg>
     </motion.div>
   );
-};
+});
+
+Leaf.displayName = "Leaf";
 
 type FallingLeavesProps = {
   leafCount?: number;
@@ -135,25 +138,30 @@ type FallingLeavesProps = {
 };
 
 const FallingLeaves = (props: FallingLeavesProps) => {
-  const { leafCount = 25, playOnce = true } = props;
-  const [leaves, setLeaves] = useState<LeafData[]>([]);
+  // パフォーマンス最適化: デフォルト15枚に削減（元30枚）
+  const { leafCount = 15, playOnce = true } = props;
+  const prefersReducedMotion = useReducedMotion();
+
+  // rerender-lazy-state-init: 初期化時のみ生成
+  const [leaves] = useState(() =>
+    prefersReducedMotion ? [] : generateLeaves(leafCount)
+  );
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    setLeaves(generateLeaves(leafCount));
+    if (prefersReducedMotion || !playOnce) return;
 
-    if (playOnce) {
-      // アニメーション終了後に非表示にする（最長の葉が落ちきる時間）
-      const maxDuration = 8 + 2.5; // 最大duration + 最大delay
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-      }, maxDuration * 1000);
+    // アニメーション終了後に非表示にする
+    const maxDuration = 8 + 2.5; // 最大duration + 最大delay
+    const timer = setTimeout(() => {
+      setIsVisible(false);
+    }, maxDuration * 1000);
 
-      return () => clearTimeout(timer);
-    }
-  }, [leafCount, playOnce]);
+    return () => clearTimeout(timer);
+  }, [playOnce, prefersReducedMotion]);
 
-  if (!isVisible) return null;
+  // reduced-motion対応: アニメーションなしで早期リターン
+  if (prefersReducedMotion || !isVisible || leaves.length === 0) return null;
 
   return (
     <div

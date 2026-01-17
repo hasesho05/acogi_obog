@@ -56,6 +56,12 @@
 
 /* カスタムユーティリティクラス */
 @layer utilities {
+  /* rendering-content-visibility: オフスクリーンレンダリング最適化 */
+  .content-visibility-auto {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 500px;
+  }
+
   /* グラデーションアニメーション - より控えめに */
   .animate-gradient {
     background-size: 200% 200%;

@@ -107,7 +107,7 @@ const SNSSection = () => {
             platform="youtube"
             title="YouTube"
             description="過去の演奏動画を公開しています。ソロやアンサンブルなど、様々な演奏スタイルをお楽しみください。"
-            href="https://www.youtube.com/@acoustic_concert_obog"
+            href="https://www.youtube.com/@obog4633"
             index={0}
           />
           <SNSCard

@@ -6,6 +6,7 @@ import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { AcousticGuitarIcon } from "./icons";
 import AnniversaryBadge from "./AnniversaryBadge";
+import MusicalParticles from "@/components/ui/musical-particles";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLElement>(null);
@@ -14,11 +15,9 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-  const imageScale = useTransform(scrollYProgress, [0, 1], [1, 1.1]);
+  // コンテンツのフェードアウト効果のみ（背景パララックスは削除済み）
   const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -100]);
-
+  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
   // Typography redesign: bilingual lockup for sophistication
   const titleLine1 = "OB・OG";
   const titleLine2 = "CONCERT";
@@ -31,11 +30,8 @@ const HeroSection = () => {
       ref={containerRef}
       className="relative min-h-screen w-full overflow-hidden flex items-center justify-center"
     >
-      {/* 背景画像レイヤー */}
-      <motion.div
-        className="absolute inset-0"
-        style={{ y: imageY, scale: imageScale }}
-      >
+      {/* 背景画像レイヤー - 静的（パララックス削除でパフォーマンス向上） */}
+      <div className="absolute inset-0">
         <Image
           src="/images/second_rooms.jpg"
           alt="ライブハウスの雰囲気"
@@ -48,9 +44,9 @@ const HeroSection = () => {
         {/* イメージオーバーレイ */}
         <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/90" />
         <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 via-transparent to-green/10" />
-      </motion.div>
+      </div>
 
-      {/* Glassmorphismフレーム */}
+      {/* Glassmorphismフレーム - スクロールでフェードアウト */}
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -98,56 +94,62 @@ const HeroSection = () => {
               className="w-16 h-px mx-auto mb-6 md:mb-8 bg-gradient-to-r from-transparent via-secondary/50 to-transparent"
             />
 
-            {/* メインタイトル - 洗練されたサイズとグラデーション */}
-            <h1
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 overflow-hidden leading-tight"
-              style={{
-                background:
-                  "linear-gradient(135deg, #8b3a1e 0%, #d4502c 40%, #8b3a1e 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
+            {/* メインタイトル - クリックで音符が飛び出す */}
+            <MusicalParticles
+              variant="notes"
+              particleCount={12}
+              className="inline-block"
             >
-              {/* 1行目: OB・OG */}
-              <span className="block sm:inline">
-                {titleLine1Chars.map((char, index) => (
-                  <motion.span
-                    key={`line1-${index}`}
-                    initial={{ opacity: 0, y: 50, rotateX: -60 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 1.0 + index * 0.08,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-              {/* sm以上でスペース表示 */}
-              <span className="hidden sm:inline-block w-4 md:w-6" />
-              {/* 2行目: CONCERT */}
-              <span className="block sm:inline">
-                {titleLine2Chars.map((char, index) => (
-                  <motion.span
-                    key={`line2-${index}`}
-                    initial={{ opacity: 0, y: 50, rotateX: -60 }}
-                    animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                    transition={{
-                      duration: 0.7,
-                      delay: 1.0 + (titleLine1Chars.length + 1 + index) * 0.08,
-                      ease: [0.22, 1, 0.36, 1],
-                    }}
-                    className="inline-block"
-                  >
-                    {char}
-                  </motion.span>
-                ))}
-              </span>
-            </h1>
+              <h1
+                className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 overflow-visible leading-tight transition-transform hover:scale-[1.02] active:scale-[0.98]"
+                style={{
+                  background:
+                    "linear-gradient(135deg, #8b3a1e 0%, #d4502c 40%, #8b3a1e 100%)",
+                  WebkitBackgroundClip: "text",
+                  WebkitTextFillColor: "transparent",
+                  backgroundClip: "text",
+                }}
+              >
+                {/* 1行目: OB・OG */}
+                <span className="block sm:inline">
+                  {titleLine1Chars.map((char, index) => (
+                    <motion.span
+                      key={`line1-${index}`}
+                      initial={{ opacity: 0, y: 50, rotateX: -60 }}
+                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: 1.0 + index * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+                {/* sm以上でスペース表示 */}
+                <span className="hidden sm:inline-block w-4 md:w-6" />
+                {/* 2行目: CONCERT */}
+                <span className="block sm:inline">
+                  {titleLine2Chars.map((char, index) => (
+                    <motion.span
+                      key={`line2-${index}`}
+                      initial={{ opacity: 0, y: 50, rotateX: -60 }}
+                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+                      transition={{
+                        duration: 0.7,
+                        delay: 1.0 + (titleLine1Chars.length + 1 + index) * 0.08,
+                        ease: [0.22, 1, 0.36, 1],
+                      }}
+                      className="inline-block"
+                    >
+                      {char}
+                    </motion.span>
+                  ))}
+                </span>
+              </h1>
+            </MusicalParticles>
 
             {/* キャッチコピー - 詩的で上品 */}
             <motion.p

@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { useEffect, useState } from "react";
+import { motion, useReducedMotion, AnimatePresence } from "motion/react";
+import { useEffect, useState, useCallback } from "react";
 
 type Particle = {
   id: number;
@@ -12,9 +12,59 @@ type Particle = {
   delay: number;
 };
 
+type ClickParticle = {
+  id: number;
+  x: number;
+  y: number;
+  symbol: string;
+  rotation: number;
+  color: string;
+  delay: number;
+};
+
+const SPARKLE_SYMBOLS = ["✦", "✧", "⋆", "♪", "♫", "♬"];
+const SPARKLE_COLORS = ["#d4502c", "#e07548", "#2d6a4f", "#40916c", "#ff9671"];
+
 const AnniversaryBadge = () => {
   const prefersReducedMotion = useReducedMotion();
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [clickParticles, setClickParticles] = useState<ClickParticle[]>([]);
+  const [isBouncing, setIsBouncing] = useState(false);
+
+  // Click handler for playful interaction
+  const handleClick = useCallback(() => {
+    if (prefersReducedMotion) return;
+
+    // Trigger bounce
+    setIsBouncing(true);
+    setTimeout(() => setIsBouncing(false), 500);
+
+    // Create sparkle particles radiating from center
+    const newParticles: ClickParticle[] = Array.from({ length: 16 }, (_, i) => {
+      const angle = (i / 16) * 360 + Math.random() * 20 - 10;
+      const distance = 60 + Math.random() * 50;
+      const radian = (angle * Math.PI) / 180;
+
+      return {
+        id: Date.now() + i,
+        x: 50 + Math.cos(radian) * (distance / 2),
+        y: 50 + Math.sin(radian) * (distance / 2),
+        symbol: SPARKLE_SYMBOLS[Math.floor(Math.random() * SPARKLE_SYMBOLS.length)],
+        rotation: Math.random() * 360,
+        color: SPARKLE_COLORS[Math.floor(Math.random() * SPARKLE_COLORS.length)],
+        delay: i * 0.02,
+      };
+    });
+
+    setClickParticles((prev) => [...prev, ...newParticles]);
+
+    // Clean up after animation
+    setTimeout(() => {
+      setClickParticles((prev) =>
+        prev.filter((p) => !newParticles.find((np) => np.id === p.id))
+      );
+    }, 1500);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     // Generate floating particles
@@ -42,7 +92,64 @@ const AnniversaryBadge = () => {
   };
 
   return (
-    <div className="relative w-40 h-40 md:w-48 md:h-48">
+    <motion.div
+      className="relative w-40 h-40 md:w-48 md:h-48 cursor-pointer select-none outline-none focus:outline-none focus-visible:outline-none"
+      onClick={handleClick}
+      animate={
+        isBouncing
+          ? {
+              scale: [1, 0.92, 1.08, 0.96, 1.02, 1],
+              rotate: [0, -3, 3, -1, 1, 0],
+            }
+          : {}
+      }
+      transition={{
+        duration: 0.5,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+    >
+      {/* Click Particles - Sparkles and Notes */}
+      <AnimatePresence>
+        {clickParticles.map((particle) => (
+          <motion.span
+            key={particle.id}
+            initial={{
+              opacity: 0,
+              scale: 0,
+              left: "50%",
+              top: "50%",
+            }}
+            animate={{
+              opacity: [0, 1, 1, 0],
+              scale: [0, 1.2, 1, 0],
+              left: `${particle.x}%`,
+              top: `${particle.y}%`,
+              rotate: particle.rotation,
+            }}
+            exit={{ opacity: 0, scale: 0 }}
+            transition={{
+              duration: 1,
+              delay: particle.delay,
+              ease: [0.22, 1, 0.36, 1],
+              opacity: {
+                times: [0, 0.15, 0.6, 1],
+                duration: 1,
+              },
+            }}
+            className="absolute text-lg md:text-xl pointer-events-none z-20"
+            style={{
+              color: particle.color,
+              textShadow: `0 0 12px ${particle.color}60`,
+              transform: "translate(-50%, -50%)",
+            }}
+          >
+            {particle.symbol}
+          </motion.span>
+        ))}
+      </AnimatePresence>
+
       {/* Floating Particles */}
       {!prefersReducedMotion &&
         particles.map((particle) => (
@@ -423,7 +530,7 @@ const AnniversaryBadge = () => {
           }}
         />
       )}
-    </div>
+    </motion.div>
   );
 };
 

@@ -5,35 +5,8 @@ import Link from "next/link";
 import { useRef } from "react";
 import { Calendar, MapPin, Clock, ArrowRight, Sparkles, Check } from "lucide-react";
 import { MusicNoteIcon } from "./icons";
-
-type ConcertData = {
-  year: number;
-  status: "completed" | "upcoming";
-  date?: string;
-  time?: string;
-  venue?: string;
-  detailLink?: string;
-};
-
-const concerts: ConcertData[] = [
-  {
-    year: 2025,
-    status: "completed",
-    date: "2025年1月26日（日）",
-    time: "13:00 開場 / 13:30 開演",
-    venue: "SECOND ROOMS",
-    detailLink: "/concerts/2025",
-  },
-  {
-    year: 2026,
-    status: "upcoming",
-  },
-];
-
-type ConcertCardProps = {
-  data: ConcertData;
-  index: number;
-};
+import type { ConcertCardProps } from "@/domain/entities/concert";
+import { concerts } from "@/infrastructure/repositories/concertRepository";
 
 const ConcertCard = (props: ConcertCardProps) => {
   const isCompleted = props.data.status === "completed";

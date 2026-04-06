@@ -28,6 +28,9 @@ const Footer = () => {
                   <Link href="/about" className="hover:text-secondary/90 underline-offset-2 hover:underline">このサイトについて</Link>
                 </li>
                 <li>
+                  <Link href="/concerts" className="hover:text-secondary/90 underline-offset-2 hover:underline">演奏会アーカイブ</Link>
+                </li>
+                <li>
                   <Link href="/concerts/2025" className="hover:text-secondary/90 underline-offset-2 hover:underline">2025年演奏会</Link>
                 </li>
               </ul>

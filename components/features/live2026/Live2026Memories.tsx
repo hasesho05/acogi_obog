@@ -19,8 +19,8 @@ const PhotoFigure = (props: Live2026PhotoFigureProps) => {
   return (
     <figure
       className={`shrink-0 snap-start ${
-        isPortrait ? 'w-[230px] md:w-[290px]' : 'w-[380px] md:w-[500px]'
-      }`}
+        isPortrait ? 'w-[190px] md:w-[230px]' : 'w-[300px] md:w-[380px]'
+      } ${props.index % 3 === 1 ? 'mt-7' : ''}`}
     >
       <div className="border border-dark/15 bg-white p-1.5">
         <Image
@@ -30,11 +30,11 @@ const PhotoFigure = (props: Live2026PhotoFigureProps) => {
           height={isPortrait ? 1477 : 1108}
           loading="lazy"
           quality={75}
-          className="h-[300px] w-full object-cover md:h-[380px]"
+          className="h-[250px] w-full object-cover md:h-[300px]"
         />
       </div>
-      <figcaption className="mt-3 flex items-baseline gap-3 font-body text-xs text-dark/55">
-        <span className="tracking-[0.18em] text-secondary">
+      <figcaption className="mt-2 flex items-baseline gap-2 font-body text-[0.625rem] text-dark/55">
+        <span className="tracking-[0.16em] text-secondary">
           {String(props.index + 1).padStart(2, '0')}
         </span>
         <span>{props.data.caption}</span>
@@ -73,7 +73,7 @@ const VideoEmbed = (props: Live2026VideoEmbedProps) => {
         loading="lazy"
         className="h-full w-full object-cover"
       />
-      <span className="absolute bottom-4 left-4 inline-flex items-center gap-2 bg-primary px-4 py-2 font-body text-xs tracking-[0.14em] text-dark transition-colors group-hover:text-secondary">
+      <span className="absolute bottom-3 left-3 inline-flex items-center gap-2 bg-primary px-3 py-2 font-body text-[0.625rem] tracking-[0.12em] text-dark transition-colors group-hover:text-secondary">
         <IconBrandYoutube className="h-4 w-4" />
         再生する
       </span>
@@ -86,21 +86,19 @@ const Live2026Memories = () => {
   const isInView = useInView(sectionRef, { once: true, margin: '-100px' });
 
   return (
-    <section ref={sectionRef} className="content-visibility-auto bg-tertiary/45 py-24 md:py-32">
-      <div className="mx-auto max-w-5xl px-6 sm:px-10">
+    <section ref={sectionRef} className="content-visibility-auto bg-tertiary/45 py-16 md:py-20">
+      <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-12 flex items-end justify-between gap-8 border-b border-dark/20 pb-7 md:mb-16"
+          transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-9 grid gap-5 border-t border-dark/25 pt-6 md:grid-cols-[13rem_1fr] md:gap-16"
         >
           <div>
-            <p className="mb-3 font-body text-[0.65rem] uppercase tracking-[0.24em] text-secondary">
-              02 / Archive
-            </p>
-            <h2 className="font-display text-4xl text-dark md:text-5xl">前回の記録</h2>
+            <p className="font-body text-[0.6rem] tracking-[0.2em] text-secondary">[ 02 ]</p>
+            <h2 className="mt-3 font-display text-2xl text-dark md:text-3xl">前回の記録</h2>
           </div>
-          <p className="hidden max-w-xs text-right font-body text-sm leading-6 text-dark/60 md:block">
+          <p className="max-w-md self-end font-body text-xs leading-6 text-dark/55">
             2025.10.12 SECOND ROOMS
             <br />
             「OBOG LIVE 2025」より
@@ -117,20 +115,20 @@ const Live2026Memories = () => {
           ease: [0.22, 1, 0.36, 1],
         }}
         aria-label="OBOG LIVE 2025 写真ギャラリー"
-        className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-6 pb-4 sm:px-10 lg:px-[max(2.5rem,calc((100vw-64rem)/2))]"
+        className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:px-10 lg:px-[max(2.5rem,calc((100vw-72rem)/2))]"
       >
         {live2025Photos.map((photo, index) => (
           <PhotoFigure key={photo.src} data={photo} index={index} />
         ))}
       </motion.div>
 
-      <div className="mx-auto mt-16 max-w-5xl px-6 sm:px-10">
+      <div className="mx-auto mt-12 max-w-6xl px-6 sm:px-10">
         {live2025Videos.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2">
             {live2025Videos.map((video) => (
               <div key={video.id}>
                 <VideoEmbed data={video} />
-                <p className="mt-3 font-body text-sm text-dark/70">{video.title}</p>
+                <p className="mt-2 font-body text-xs text-dark/70">{video.title}</p>
               </div>
             ))}
           </div>
@@ -145,18 +143,18 @@ const Live2026Memories = () => {
                 destination: 'youtube',
               })
             }
-            className="group block border-b border-t border-dark/20 py-7"
+            className="group block border-b border-t border-dark/20 py-5"
           >
-            <div className="flex items-center gap-6">
-              <span className="flex h-14 w-14 shrink-0 items-center justify-center border border-dark/20 transition-colors duration-300 group-hover:border-secondary">
-                <IconBrandYoutube className="h-7 w-7 text-dark" />
+            <div className="flex items-center gap-4">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center border border-dark/20 transition-colors duration-300 group-hover:border-secondary">
+                <IconBrandYoutube className="h-5 w-5 text-dark" />
               </span>
               <div className="min-w-0">
-                <p className="flex items-center gap-3 font-display text-xl text-dark md:text-2xl">
+                <p className="flex items-center gap-2 font-display text-lg text-dark md:text-xl">
                   龍大アコギOBOGの部屋
-                  <ExternalLink className="h-4 w-4 shrink-0 text-dark/35 transition-colors group-hover:text-secondary" />
+                  <ExternalLink className="h-3.5 w-3.5 shrink-0 text-dark/35 transition-colors group-hover:text-secondary" />
                 </p>
-                <p className="mt-1 font-body text-sm text-dark/60">
+                <p className="mt-1 font-body text-xs text-dark/60">
                   演奏の記録はYouTubeで公開しています。
                 </p>
               </div>

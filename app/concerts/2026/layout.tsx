@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 const title = '龍谷大学アコースティックギターサークル OBOG演奏会 2026';
 const description =
-  '2026年11月14日(土) 11:30開演。龍谷大学アコースティックギターサークル OBOG演奏会 2026 特設ページ。会場などの詳細は決まり次第お知らせします。';
+  '2026年11月14日(土) 11:30開演。SECOND ROOMS（京都・向日市）で開催する、龍谷大学アコースティックギターサークル OBOG演奏会 2026 特設ページ。';
 const ogImage = 'https://acogi-obog.pages.dev/images/ogp_live2026.jpg';
 
 export const metadata: Metadata = {

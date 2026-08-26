@@ -5,112 +5,83 @@ import Image from 'next/image';
 
 const Live2026Hero = () => {
   return (
-    <section className="relative border-b border-dark/15">
-      <div className="mx-auto grid min-h-[min(820px,100vh)] max-w-[1440px] lg:grid-cols-[1.05fr_0.95fr]">
-        <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative z-10 flex flex-col justify-between px-6 py-8 sm:px-10 sm:py-12 lg:px-16 lg:py-16"
-        >
-          <div className="flex items-center justify-between gap-6 font-body text-[0.65rem] uppercase tracking-[0.22em] text-dark/65">
-            <span>Ryukoku University</span>
-            <span className="hidden sm:inline">Acoustic Guitar Circle</span>
-          </div>
+    <section className="bg-dark px-4 py-5 text-primary sm:px-6 sm:py-7 lg:px-10">
+      <motion.div
+        initial={{ opacity: 0, y: 18 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+        className="mx-auto max-w-6xl"
+      >
+        <header className="flex items-center justify-between border-b border-primary/25 pb-4 font-body text-[0.6rem] uppercase tracking-[0.2em] text-primary/65">
+          <span>Ryukoku Acoustic Guitar Circle</span>
+          <span>Concert guide / 2026</span>
+        </header>
 
-          <div className="max-w-xl py-16 lg:py-0">
-            <p className="mb-8 font-body text-xs font-medium tracking-[0.32em] text-secondary">
-              OBOG演奏会 2026
+        <div className="grid gap-5 py-6 md:grid-cols-[1fr_auto] md:items-end md:gap-12 md:py-8">
+          <div>
+            <p className="mb-2 font-body text-[0.625rem] tracking-[0.22em] text-accent">
+              OBOG CONCERT
             </p>
-            <div className="relative -ml-1 w-fit">
-              <svg
-                aria-hidden="true"
-                viewBox="0 0 320 250"
-                className="pointer-events-none absolute -right-16 -top-10 h-[clamp(11rem,22vw,17rem)] w-[clamp(14rem,28vw,22rem)] text-secondary/20"
-                fill="none"
-              >
-                <circle cx="184" cy="124" r="104" stroke="currentColor" strokeWidth="1" />
-                <circle
-                  cx="184"
-                  cy="124"
-                  r="88"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  strokeDasharray="2 8"
-                />
-                <path
-                  d="M82 150c15-36 26 36 40 0s25-36 39 0 26 36 41 0 26-36 41 0 25 36 40 0"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M184 12v224M72 124h224"
-                  stroke="currentColor"
-                  strokeWidth="1"
-                  opacity=".45"
-                />
-              </svg>
-              <h1 className="relative z-10 font-display font-semibold leading-none tracking-[-0.06em] text-dark">
-                <span className="block text-[clamp(5.5rem,14vw,12rem)]">11.14</span>
-                <span className="mt-3 block pl-1 font-body text-[clamp(0.8rem,1.6vw,1.1rem)] font-medium tracking-[0.34em] text-secondary">
-                  SAT, 2026
-                </span>
-              </h1>
-            </div>
-            <div className="mt-10 flex max-w-md items-start gap-5 border-t border-dark/20 pt-5">
-              <span className="shrink-0 font-body text-xs font-medium tracking-[0.2em] text-secondary">
-                11:30
-              </span>
-              <p className="font-body text-sm leading-7 text-dark/70">
-                11:30 開演、14:45 ごろ終演予定。 会場・開場時間は決まり次第お知らせします。
-              </p>
-            </div>
+            <h1 className="font-display text-[clamp(2.25rem,5vw,4rem)] font-medium leading-[1.15] tracking-[-0.035em] text-primary">
+              OBOG演奏会
+            </h1>
           </div>
+          <p className="font-display text-xl tabular-nums text-primary/75 md:pb-1 md:text-2xl">
+            2026
+          </p>
+        </div>
 
-          <div className="flex items-end justify-between gap-8 border-t border-dark/15 pt-5 font-body text-xs text-dark/60">
-            <div>
-              <p className="mb-2 uppercase tracking-[0.22em]">Previous</p>
-              <p className="font-display text-xl text-dark">OBOG LIVE 2025 — Second Rooms</p>
-            </div>
-            <div className="hidden text-right sm:block">
-              <p>OBOG演奏会</p>
-              <p>2026</p>
-            </div>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, scale: 1.04 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            duration: 1.1,
-            delay: 0.1,
-            ease: [0.22, 1, 0.36, 1],
-          }}
-          className="relative min-h-[54vh] overflow-hidden lg:min-h-0"
-        >
+        <figure className="relative aspect-[4/3] overflow-hidden border border-primary/20 sm:aspect-[16/8] lg:aspect-[16/7]">
           <Image
-            src="/images/live2025/live2025-10.jpg"
-            alt="OBOG LIVE 2025でギターを弾き語る出演者"
+            src="/images/live2025/live2025-12.jpg"
+            alt="OBOG LIVE 2025終盤のトリオ演奏"
             fill
             priority
-            className="object-cover"
-            sizes="(max-width: 1023px) 100vw, 48vw"
+            className="object-cover object-center"
+            sizes="(max-width: 767px) 100vw, 1152px"
             quality={75}
           />
-          <div className="absolute inset-0 bg-dark/20" />
-          <div className="absolute bottom-6 left-6 border-b border-l border-primary/70 px-5 py-4 text-primary sm:bottom-10 sm:left-10">
-            <p className="font-body text-[0.65rem] uppercase tracking-[0.28em]">
-              2025.10.12 — Second Rooms
+          <div className="absolute inset-0 bg-dark/15" />
+          <figcaption className="absolute bottom-3 right-3 bg-dark px-3 py-2 font-body text-[0.6rem] tracking-[0.16em] text-primary sm:bottom-4 sm:right-4">
+            OBOG LIVE 2025 / SECOND ROOMS
+          </figcaption>
+        </figure>
+
+        <div className="mt-5 grid border-y border-primary/25 sm:grid-cols-2 lg:grid-cols-[1.05fr_1fr_1.35fr_0.8fr]">
+          <div className="border-b border-primary/20 py-4 sm:border-r sm:pr-5 lg:border-b-0">
+            <p className="font-body text-[0.6rem] uppercase tracking-[0.18em] text-primary/50">
+              Date
             </p>
-            <p className="mt-2 font-display text-2xl">前回の記録より</p>
+            <p className="mt-1.5 font-display text-2xl tabular-nums text-primary md:text-3xl">
+              11.14 <span className="font-body text-xs tracking-[0.14em]">SAT</span>
+            </p>
           </div>
-          <div className="absolute right-6 top-6 font-display text-5xl text-primary/80 sm:right-10 sm:top-10 sm:text-7xl">
-            &rsquo;26
+          <div className="border-b border-primary/20 py-4 sm:pl-5 lg:border-b-0 lg:border-r lg:pr-5">
+            <p className="font-body text-[0.6rem] uppercase tracking-[0.18em] text-primary/50">
+              Time
+            </p>
+            <p className="mt-2 font-body text-sm text-primary">11:30 開演</p>
+            <p className="mt-1 font-body text-xs text-primary/60">14:45 ごろ終演</p>
           </div>
-        </motion.div>
-      </div>
+          <div className="border-b border-primary/20 py-4 sm:border-b-0 sm:border-r sm:pr-5 lg:pl-5">
+            <p className="font-body text-[0.6rem] uppercase tracking-[0.18em] text-primary/50">
+              Venue
+            </p>
+            <p className="mt-2 font-display text-lg tracking-[0.04em] text-primary">SECOND ROOMS</p>
+            <p className="mt-1 font-body text-xs text-primary/60">京都・向日市</p>
+          </div>
+          <div className="py-4 sm:pl-5">
+            <p className="font-body text-[0.6rem] uppercase tracking-[0.18em] text-primary/50">
+              Admission
+            </p>
+            <p className="mt-2 font-body text-xs leading-5 text-primary/75">
+              料金は決まり次第
+              <br />
+              お知らせします
+            </p>
+          </div>
+        </div>
+      </motion.div>
     </section>
   );
 };

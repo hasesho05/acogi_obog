@@ -3,6 +3,7 @@ import {
   live2025Photos,
   live2025Videos,
   live2026Facts,
+  live2026Venue,
   YOUTUBE_CHANNEL_URL,
 } from '@/infrastructure/repositories/live2026Repository';
 
@@ -32,5 +33,11 @@ describe('live2026Repository', () => {
   it('should define videos array and channel url', () => {
     expect(Array.isArray(live2025Videos)).toBe(true);
     expect(YOUTUBE_CHANNEL_URL).toBe('https://www.youtube.com/@obog4633');
+  });
+
+  it('should provide the confirmed SECOND ROOMS venue', () => {
+    expect(live2026Venue?.name).toBe('SECOND ROOMS');
+    expect(live2026Venue?.address).toContain('向日市');
+    expect(live2026Venue?.mapUrl).toContain('google.com/maps');
   });
 });

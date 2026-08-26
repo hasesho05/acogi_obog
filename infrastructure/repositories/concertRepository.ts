@@ -16,6 +16,7 @@ export const concerts: ConcertData[] = [
     status: 'upcoming',
     date: '2026年11月14日（土）',
     time: '11:30 開演 / 14:45 ごろ終演',
+    venue: 'SECOND ROOMS',
     detailLink: '/concerts/2026',
     description: '第2回OBOG演奏会。詳細は決まり次第お知らせします。',
   },

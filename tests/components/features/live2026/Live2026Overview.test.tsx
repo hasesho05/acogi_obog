@@ -17,9 +17,9 @@ describe('Live2026Overview', () => {
     expect(screen.getByText('開場時間は決まり次第お知らせします')).toBeInTheDocument();
   });
 
-  it('should render venue fallback', () => {
+  it('should render the confirmed venue', () => {
     renderWithProviders(<Live2026Overview />);
 
-    expect(screen.getByText('決まり次第お知らせします')).toBeInTheDocument();
+    expect(screen.getByText('SECOND ROOMS')).toBeInTheDocument();
   });
 });

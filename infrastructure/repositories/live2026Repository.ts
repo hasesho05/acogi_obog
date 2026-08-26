@@ -15,15 +15,24 @@ export const live2026Facts: Live2026Fact[] = [
     value: '11:30 開演 / 14:45 ごろ終演',
     note: '開場時間は決まり次第お知らせします',
   },
-  { label: 'Venue', value: '決まり次第お知らせします' },
+  {
+    label: 'Venue',
+    value: 'SECOND ROOMS',
+    note: '京都府向日市・阪急東向日駅から徒歩約1分',
+  },
   {
     label: 'Performers',
     value: '龍谷大学アコースティックギターサークル OB・OG',
   },
 ];
 
-// 会場が確定したら name / address / mapUrl を設定する。
-export const live2026Venue: Live2026Venue | null = null;
+export const live2026Venue: Live2026Venue | null = {
+  name: 'SECOND ROOMS',
+  address: '京都府向日市寺戸町西田中瀬3-4 FORUM東向日Ⅰ 3F',
+  mapUrl:
+    'https://www.google.com/maps/search/?api=1&query=SECOND+ROOMS+%E4%BA%AC%E9%83%BD%E5%BA%9C%E5%90%91%E6%97%A5%E5%B8%82%E5%AF%BA%E6%88%B8%E7%94%BA%E8%A5%BF%E7%94%B0%E4%B8%AD%E7%80%AC3-4',
+  access: '阪急京都線「東向日」駅から徒歩約1分（84m）',
+};
 
 export const live2025Photos: Live2026Photo[] = [
   {

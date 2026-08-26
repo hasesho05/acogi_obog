@@ -5,6 +5,12 @@ const nextConfig = {
   // 静的エクスポート用の画像設定
   images: {
     unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.ytimg.com',
+      },
+    ],
   },
 
   // トレイリングスラッシュ

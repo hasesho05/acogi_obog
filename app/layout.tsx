@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
-import { Noto_Sans_JP, Playfair_Display } from "next/font/google";
+import { Noto_Sans_JP, Zen_Old_Mincho } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
 import AnalyticsProvider from "@/components/providers/AnalyticsProvider";
 import MotionProvider from "@/components/providers/MotionProvider";
 
-const playfairDisplay = Playfair_Display({
-  variable: "--font-playfair",
+const zenOldMincho = Zen_Old_Mincho({
+  variable: "--font-zen-old-mincho",
   subsets: ["latin"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
@@ -62,7 +63,7 @@ export default function RootLayout(props: {
 }) {
   return (
     <html lang="ja">
-      <body className={`${playfairDisplay.variable} ${notoSansJp.variable} min-h-screen flex flex-col bg-primary antialiased`}>
+      <body className={`${zenOldMincho.variable} ${notoSansJp.variable} min-h-screen flex flex-col bg-primary antialiased`}>
         <AnalyticsProvider />
         <MotionProvider>
           <div className="flex-1">{props.children}</div>

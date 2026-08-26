@@ -1,165 +1,95 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import Image from "next/image";
-import { useRef } from "react";
-import { ChevronDown } from "lucide-react";
-import { AcousticGuitarIcon } from "./icons";
-import AnniversaryBadge from "./AnniversaryBadge";
-
-// rendering-hoist-jsx: 静的データをコンポーネント外に巻き上げ
-const HERO_TITLE = "OB・OG 演奏会";
-const CATCH_COPY = "A Decade of Harmony";
 
 const HeroSection = () => {
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start start", "end start"],
-  });
-
-  // コンテンツのフェードアウト効果のみ（背景パララックスは削除済み）
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const contentY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
-
   return (
-    <section
-      ref={containerRef}
-      className="relative min-h-screen w-full overflow-hidden flex items-center justify-center"
-    >
-      {/* 背景画像レイヤー - 静的（パララックス削除でパフォーマンス向上） */}
-      <div className="absolute inset-0">
+    <section className="relative border-b border-dark/15">
+      <div className="mx-auto grid min-h-[min(860px,100vh)] max-w-[1440px] lg:grid-cols-[0.9fr_1.1fr]">
+        <motion.div
+          initial={{ opacity: 0, x: -24 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="relative z-10 flex flex-col justify-between px-6 py-8 sm:px-10 sm:py-12 lg:px-16 lg:py-16"
+        >
+          <div className="flex items-center justify-between gap-6 text-[0.65rem] font-body uppercase tracking-[0.22em] text-dark/65">
+            <span>Ryukoku University</span>
+            <span className="hidden sm:inline">Acoustic Guitar Circle</span>
+          </div>
+
+          <div className="max-w-xl py-20 lg:py-0">
+            <p className="mb-8 font-body text-xs font-medium tracking-[0.32em] text-secondary">
+              第10回 OBOG演奏会
+            </p>
+            <div className="relative -ml-2 w-fit">
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 320 250"
+                className="pointer-events-none absolute -right-20 -top-10 h-[clamp(12rem,24vw,19rem)] w-[clamp(15rem,30vw,24rem)] text-secondary/20"
+                fill="none"
+              >
+                <circle cx="184" cy="124" r="104" stroke="currentColor" strokeWidth="1" />
+                <circle cx="184" cy="124" r="88" stroke="currentColor" strokeWidth="1" strokeDasharray="2 8" />
+                <path
+                  d="M82 150c15-36 26 36 40 0s25-36 39 0 26 36 41 0 26-36 41 0 25 36 40 0"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                />
+                <path d="M184 12v224M72 124h224" stroke="currentColor" strokeWidth="1" opacity=".45" />
+              </svg>
+              <h1 className="relative z-10 font-display font-semibold leading-none tracking-[-0.08em] text-dark">
+                <span className="block text-[clamp(7rem,17vw,15rem)]">10</span>
+                <span className="mt-2 block pl-2 font-body text-[clamp(0.85rem,1.8vw,1.25rem)] font-medium tracking-[0.34em] text-secondary">
+                  TH ANNIVERSARY
+                </span>
+              </h1>
+            </div>
+            <div className="mt-10 flex max-w-md items-start gap-5 border-t border-dark/20 pt-5">
+              <span className="font-body text-xs font-medium tracking-[0.2em] text-secondary">2026</span>
+              <p className="font-body text-sm leading-7 text-dark/70">
+                卒業生と現役生が、アコースティックギターを囲んで再び集う演奏会。
+                詳細は決まり次第お知らせします。
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-end justify-between gap-8 border-t border-dark/15 pt-5 font-body text-xs text-dark/60">
+            <div>
+              <p className="mb-2 uppercase tracking-[0.22em]">Next performance</p>
+              <p className="font-display text-xl text-dark">Coming in 2026</p>
+            </div>
+            <div className="hidden text-right sm:block">
+              <p>OBOG演奏会</p>
+              <p>since 2025</p>
+            </div>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, scale: 1.04 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+          className="relative min-h-[54vh] overflow-hidden lg:min-h-0"
+        >
         <Image
           src="/images/second_rooms.jpg"
-          alt="ライブハウスの雰囲気"
+          alt="ライブハウスで演奏するアコースティックギター"
           fill
           priority
-          className="object-cover"
+          className="object-cover grayscale-[18%]"
           sizes="100vw"
-          quality={90}
+          quality={75}
         />
-        {/* イメージオーバーレイ */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/70 via-primary/50 to-primary/90" />
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary/10 via-transparent to-green/10" />
-      </div>
-
-      {/* Glassmorphismフレーム - スクロールでフェードアウト */}
-      <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 1.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        style={{ opacity: contentOpacity, y: contentY }}
-        className="relative z-10 mx-4 max-w-4xl w-full"
-      >
-        <div className="relative p-8 md:p-16 rounded-[2rem] md:rounded-[3rem] overflow-hidden">
-          {/* Glassmorphism背景 */}
-          <div className="absolute inset-0 bg-white/40 backdrop-blur-xl border border-white/30 rounded-[2rem] md:rounded-[3rem]" />
-
-          {/* 有機的な装飾シェイプ */}
-          <div className="absolute -top-20 -right-20 w-64 h-64 rounded-full bg-gradient-to-br from-secondary/20 to-accent/10 blur-3xl" />
-          <div className="absolute -bottom-20 -left-20 w-48 h-48 rounded-full bg-gradient-to-tr from-green/15 to-green-light/10 blur-3xl" />
-
-          {/* コンテンツ */}
-          <div className="relative z-10 text-center">
-            {/* ギターアイコン */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.5 }}
-              className="flex justify-center mb-6"
-            >
-              <AcousticGuitarIcon className="w-12 h-12 md:w-16 md:h-16 text-secondary/60" />
-            </motion.div>
-
-            {/* サークル名 - レスポンシブ改行対応 */}
-            <motion.p
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-              className="font-body text-xs md:text-sm tracking-[0.2em] sm:tracking-[0.3em] md:tracking-[0.4em] text-dark/60 mb-4 md:mb-6"
-            >
-              <span className="block sm:inline">龍谷大学</span>
-              <span className="hidden sm:inline">&nbsp;</span>
-              <span className="block sm:inline">アコースティックギターサークル</span>
-            </motion.p>
-
-            {/* 装飾ライン */}
-            <motion.div
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1, delay: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="w-16 h-px mx-auto mb-6 md:mb-8 bg-gradient-to-r from-transparent via-secondary/50 to-transparent"
-            />
-
-            {/* メインタイトル - 行単位の静かなフェード */}
-            <motion.h1
-              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight"
-              style={{
-                background:
-                  "linear-gradient(135deg, #8b3a1e 0%, #d4502c 40%, #8b3a1e 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
-            >
-              {HERO_TITLE}
-            </motion.h1>
-
-            {/* キャッチコピー - 詩的で上品 */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 1.6, ease: [0.22, 1, 0.36, 1] }}
-              className="font-display text-base sm:text-lg md:text-xl text-dark/60 tracking-widest"
-            >
-              {CATCH_COPY}
-            </motion.p>
-
-            {/* 10周年バッジ - SVGアニメーション */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 1.8 }}
-              className="mt-6 md:mt-10 flex justify-center"
-            >
-              <AnniversaryBadge />
-            </motion.div>
+          <div className="absolute inset-0 bg-dark/20" />
+          <div className="absolute bottom-6 left-6 border-l border-b border-primary/70 px-5 py-4 text-primary sm:bottom-10 sm:left-10">
+            <p className="font-body text-[0.65rem] uppercase tracking-[0.28em]">Live at SECOND ROOMS</p>
+            <p className="mt-2 font-display text-2xl">Acoustic guitar, together.</p>
           </div>
-        </div>
-      </motion.div>
-
-      {/* スクロールインジケーター */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-      >
-        <motion.div
-          className="w-6 h-10 rounded-full border-2 border-dark/30 flex justify-center pt-2"
-        >
-          <motion.div
-            animate={{ y: [0, 12, 0] }}
-            transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-            className="w-1.5 h-1.5 rounded-full bg-secondary/60"
-          />
+          <div className="absolute right-6 top-6 font-display text-5xl text-primary/80 sm:right-10 sm:top-10 sm:text-7xl">01</div>
         </motion.div>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.5, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut", delay: 0.2 }}
-        >
-          <ChevronDown className="w-5 h-5 text-dark/40" />
-        </motion.div>
-      </motion.div>
-
-      {/* 角の装飾 */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-l-2 border-t-2 border-secondary/20 rounded-tl-3xl" />
-      <div className="absolute top-8 right-8 w-16 h-16 border-r-2 border-t-2 border-green/20 rounded-tr-3xl" />
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-l-2 border-b-2 border-green/20 rounded-bl-3xl hidden md:block" />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-r-2 border-b-2 border-secondary/20 rounded-br-3xl hidden md:block" />
+      </div>
     </section>
   );
 };

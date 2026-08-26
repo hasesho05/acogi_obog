@@ -20,7 +20,7 @@
   --breakpoint-3xl: 1920px;
 
   /* フォント */
-  --font-display: var(--font-playfair), "Georgia", serif;
+  --font-display: var(--font-zen-old-mincho), "Hiragino Mincho ProN", serif;
   --font-body: var(--font-noto-sans-jp), "Hiragino Sans", sans-serif;
   
   /* カスタムアニメーション - より控えめに */

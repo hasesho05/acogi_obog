@@ -3,7 +3,7 @@
 import { motion, useInView } from "motion/react";
 import Link from "next/link";
 import { useRef } from "react";
-import { Calendar, MapPin, Clock, ArrowRight, Sparkles, Check } from "lucide-react";
+import { Calendar, MapPin, Clock, ArrowRight, Check } from "lucide-react";
 import { MusicNoteIcon } from "./icons";
 import type { ConcertCardProps } from "@/domain/entities/concert";
 import { concerts } from "@/infrastructure/repositories/concertRepository";
@@ -16,49 +16,35 @@ const ConcertCard = (props: ConcertCardProps) => {
   return (
     <motion.div
       ref={cardRef}
-      initial={{ opacity: 0, y: 60 }}
+      initial={{ opacity: 0, y: 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{
-        duration: 0.8,
-        delay: props.index * 0.2,
+        duration: 0.6,
+        delay: props.index * 0.08,
         ease: [0.22, 1, 0.36, 1],
       }}
       className="relative group"
     >
       {/* カードコンテナ */}
       <div
-        className={`relative overflow-hidden rounded-[2rem] p-8 md:p-10 transition-all duration-500 ${
+        className={`relative overflow-hidden border-t border-b p-7 md:p-10 transition-colors duration-300 ${
           isCompleted
-            ? "bg-white/30 backdrop-blur-md border border-dark/10"
-            : "bg-white/50 backdrop-blur-xl border border-secondary/20 hover:border-secondary/40"
+            ? "border-dark/15 bg-white/55"
+            : "border-secondary/70 bg-white/80 hover:bg-white"
         }`}
       >
-        {/* グロー効果（Coming Soon用） */}
-        {!isCompleted && (
-          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 via-accent/25 to-green/15 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
-        )}
-
-        {/* カード内部背景 */}
-        <div
-          className={`absolute inset-0 rounded-[2rem] ${
-            isCompleted
-              ? "bg-gradient-to-br from-tertiary/30 to-primary/50"
-              : "bg-gradient-to-br from-white/60 to-tertiary/40"
-          }`}
-        />
-
         {/* ステータスバッジ */}
-        <div className="relative z-10 flex justify-between items-start mb-6">
-          <div className="flex items-center gap-2">
+        <div className="relative z-10 mb-10 flex items-start justify-between gap-4">
+          <div className="flex items-center gap-3">
             <MusicNoteIcon
-              className={`w-5 h-5 ${isCompleted ? "text-dark/30" : "text-secondary"}`}
+              className={`h-5 w-5 ${isCompleted ? "text-dark/30" : "text-secondary"}`}
             />
             <span
-              className={`font-body text-xs tracking-wider ${
+              className={`font-body text-[0.65rem] uppercase tracking-[0.24em] ${
                 isCompleted ? "text-dark/40" : "text-secondary"
               }`}
             >
-              CONCERT
+              {isCompleted ? "Archive" : "Next concert"}
             </span>
           </div>
 
@@ -69,18 +55,17 @@ const ConcertCard = (props: ConcertCardProps) => {
             </span>
           ) : (
             <span
-              className="inline-flex items-center gap-1.5 font-body text-xs tracking-wider px-4 py-2 rounded-full bg-gradient-to-r from-secondary to-accent text-white shadow-lg shadow-secondary/20"
+              className="inline-flex items-center gap-1.5 border border-secondary/50 px-3 py-1.5 font-body text-[0.65rem] uppercase tracking-[0.14em] text-secondary"
             >
-              <Sparkles className="w-3 h-3" />
-              Coming Soon
+              Coming in 2026
             </span>
           )}
         </div>
 
         {/* 年度 */}
         <motion.p
-          className={`relative z-10 font-display text-7xl md:text-8xl font-bold mb-4 ${
-            isCompleted ? "text-dark/20" : "bg-gradient-to-r from-secondary via-accent to-green bg-clip-text text-transparent"
+          className={`relative z-10 mb-2 font-display text-7xl font-semibold leading-none tracking-[-0.08em] md:text-8xl ${
+            isCompleted ? "text-dark/25" : "text-secondary"
           }`}
         >
           {props.data.year}
@@ -88,7 +73,7 @@ const ConcertCard = (props: ConcertCardProps) => {
 
         {/* タイトル */}
         <h3
-          className={`relative z-10 font-display text-2xl md:text-3xl mb-8 ${
+          className={`relative z-10 mb-8 font-display text-2xl md:text-3xl ${
             isCompleted ? "text-dark/40" : "text-dark"
           }`}
         >
@@ -98,8 +83,8 @@ const ConcertCard = (props: ConcertCardProps) => {
         {/* 詳細情報 */}
         <div className="relative z-10 space-y-4 mb-8">
           <div className="flex items-center gap-4">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+              <div
+              className={`flex h-9 w-9 items-center justify-center border ${
                 isCompleted ? "bg-dark/5" : "bg-secondary/10"
               }`}
             >
@@ -117,8 +102,8 @@ const ConcertCard = (props: ConcertCardProps) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+              <div
+              className={`flex h-9 w-9 items-center justify-center border ${
                 isCompleted ? "bg-dark/5" : "bg-secondary/10"
               }`}
             >
@@ -136,8 +121,8 @@ const ConcertCard = (props: ConcertCardProps) => {
           </div>
 
           <div className="flex items-center gap-4">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+              <div
+              className={`flex h-9 w-9 items-center justify-center border ${
                 isCompleted ? "bg-dark/5" : "bg-secondary/10"
               }`}
             >
@@ -170,13 +155,6 @@ const ConcertCard = (props: ConcertCardProps) => {
           </p>
         ) : null}
 
-        {/* 有機的な装飾シェイプ */}
-        {!isCompleted && (
-          <>
-            <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full bg-gradient-to-br from-accent/15 to-secondary/10 blur-3xl" />
-            <div className="absolute -top-16 -left-16 w-32 h-32 rounded-full bg-gradient-to-tr from-green/10 to-green-light/5 blur-2xl" />
-          </>
-        )}
       </div>
     </motion.div>
   );
@@ -187,42 +165,22 @@ const ConcertSection = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   return (
-    <section ref={sectionRef} className="relative py-24 md:py-32 overflow-hidden content-visibility-auto">
-      {/* 装飾ライン */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-secondary/20 to-transparent" />
-
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6">
+    <section ref={sectionRef} className="relative overflow-hidden py-24 md:py-32 content-visibility-auto">
+      <div className="relative z-10 mx-auto max-w-5xl px-6 sm:px-10">
         {/* セクションヘッダー */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8 }}
-          className="text-center mb-16 md:mb-20"
+          className="mb-12 flex items-end justify-between gap-8 border-b border-dark/20 pb-7 text-left md:mb-16"
         >
-          {/* 装飾アイコン */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={isInView ? { opacity: 1, scale: 1 } : {}}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-secondary/10 to-green/10 mb-6"
-          >
-            <Calendar className="w-7 h-7 text-secondary" />
-          </motion.div>
-
-          <p className="font-body text-xs tracking-[0.4em] text-secondary mb-4 uppercase">
-            Concert Information
+          <div>
+            <p className="mb-3 font-body text-[0.65rem] uppercase tracking-[0.24em] text-secondary">01 / Program</p>
+            <h2 className="font-display text-4xl text-dark md:text-5xl">演奏会情報</h2>
+          </div>
+          <p className="hidden max-w-xs text-right font-body text-sm leading-6 text-dark/60 md:block">
+            これまでの音色と、これからの一日。<br />演奏会の記録をご案内します。
           </p>
-
-          <h2 className="font-display text-4xl md:text-5xl text-dark mb-4">
-            演奏会情報
-          </h2>
-
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : {}}
-            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="w-20 h-0.5 mx-auto bg-gradient-to-r from-transparent via-secondary/40 to-transparent"
-          />
         </motion.div>
 
         {/* カードグリッド */}
@@ -233,9 +191,6 @@ const ConcertSection = () => {
         </div>
       </div>
 
-      {/* 背景装飾 */}
-      <div className="absolute top-1/2 left-0 w-64 h-64 rounded-full bg-gradient-to-r from-secondary/5 to-transparent blur-3xl -translate-y-1/2" />
-      <div className="absolute top-1/3 right-0 w-48 h-48 rounded-full bg-gradient-to-l from-green/5 to-transparent blur-3xl" />
     </section>
   );
 };

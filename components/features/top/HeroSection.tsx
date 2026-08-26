@@ -8,8 +8,7 @@ import { AcousticGuitarIcon } from "./icons";
 import AnniversaryBadge from "./AnniversaryBadge";
 
 // rendering-hoist-jsx: 静的データをコンポーネント外に巻き上げ
-const TITLE_LINE_1 = "OB・OG";
-const TITLE_LINE_2 = "CONCERT";
+const HERO_TITLE = "OB・OG 演奏会";
 const CATCH_COPY = "A Decade of Harmony";
 
 const HeroSection = () => {
@@ -93,7 +92,10 @@ const HeroSection = () => {
             />
 
             {/* メインタイトル - 行単位の静かなフェード */}
-            <h1
+            <motion.h1
+              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight"
               style={{
                 background:
@@ -103,17 +105,8 @@ const HeroSection = () => {
                 backgroundClip: "text",
               }}
             >
-              <motion.span
-                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
-                className="inline-block"
-              >
-                <span className="block sm:inline">{TITLE_LINE_1}</span>
-                <span className="hidden sm:inline-block w-4 md:w-6" />
-                <span className="block sm:inline">{TITLE_LINE_2}</span>
-              </motion.span>
-            </h1>
+              {HERO_TITLE}
+            </motion.h1>
 
             {/* キャッチコピー - 詩的で上品 */}
             <motion.p

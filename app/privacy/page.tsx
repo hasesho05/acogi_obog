@@ -49,12 +49,14 @@ const PrivacyPage = () => {
             <p className="mt-3">
               個人情報の取り扱いに関するお問い合わせは、
               <a
-                href="mailto:acogi.circle@gmail.com"
+                href="https://www.instagram.com/acoustic_concert_obog"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="text-secondary underline-offset-2 hover:underline"
               >
-                acogi.circle@gmail.com
+                Instagram
               </a>
-              までご連絡ください。
+              からご連絡ください。
             </p>
           </section>
         </div>

@@ -20,8 +20,8 @@
   --breakpoint-3xl: 1920px;
 
   /* フォント */
-  --font-family-display: "Playfair Display", "Georgia", serif;
-  --font-family-body: "Noto Sans JP", "Hiragino Sans", "sans-serif";
+  --font-display: var(--font-playfair), "Georgia", serif;
+  --font-body: var(--font-noto-sans-jp), "Hiragino Sans", sans-serif;
   
   /* カスタムアニメーション - より控えめに */
   --ease-fluid: cubic-bezier(0.4, 0, 0.2, 1);
@@ -43,7 +43,7 @@
 /* カスタムベーススタイル */
 @layer base {
   body {
-    font-family: var(--font-family-display);
+    font-family: var(--font-body);
     background-color: var(--color-primary);
     overflow-x: hidden;
   }
@@ -62,29 +62,6 @@
     contain-intrinsic-size: auto 500px;
   }
 
-  /* グラデーションアニメーション - より控えめに */
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 6s ease infinite;
-  }
-  
-  @keyframes gradient {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
-  }
-  
-  /* パルスアニメーション（カスタム） - より控えめに */
-  .animate-pulse-slow {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-  
   /* パルスアニメーション（ping） */
   @keyframes ping {
     75%, 100% {
@@ -96,78 +73,34 @@
   .animate-ping {
     animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
   }
-  
-  /* フロートアニメーション - より控えめに */
-  .animate-float {
-    animation: float 8s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-  
-  /* グロー効果 - より控えめに */
+
   .glow {
     box-shadow: 0 0 15px rgba(224, 117, 72, 0.3),
                 0 0 30px rgba(212, 80, 44, 0.2),
                 0 0 45px rgba(224, 117, 72, 0.1);
   }
-  
-  /* テキストグラデーション */
+
   .text-gradient {
     background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-secondary) 50%, var(--color-dark) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
-  
-  /* ガラスモーフィズム - より繊細に */
+
   .glassmorphism {
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     border: 1px solid rgba(255, 255, 255, 0.3);
   }
-  
-  /* ネオモーフィズム - より繊細に */
-  .neumorphism {
-    background: linear-gradient(145deg, #ffffff, #f5f5f5);
-    box-shadow: 10px 10px 30px #e0e0e0,
-                -10px -10px 30px #ffffff;
-  }
-  
+
   /* アニメーション遅延 */
-  .animation-delay-100 {
-    animation-delay: 100ms;
-  }
-  
   .animation-delay-200 {
     animation-delay: 200ms;
   }
   
   .animation-delay-400 {
     animation-delay: 400ms;
-  }
-  
-  .animation-delay-600 {
-    animation-delay: 600ms;
-  }
-  
-  .animation-delay-700 {
-    animation-delay: 700ms;
-  }
-  
-  .animation-delay-800 {
-    animation-delay: 800ms;
-  }
-  
-  .animation-delay-2000 {
-    animation-delay: 2000ms;
   }
   
   /* スクロールバーのカスタマイズ - より控えめに */
@@ -203,16 +136,10 @@
     opacity: 0.9;
   }
   
-  /* フォーカスアウトライン - より控えめに */
-  *:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(212, 80, 44, 0.2);
-  }
-  
-  /* トランジション設定 - より自然に */
-  * {
-    transition-timing-function: var(--ease-fluid);
-    transition-duration: 200ms;
+  /* フォーカスリング - キーボード操作時のみ表示 */
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 2px;
   }
 }
 

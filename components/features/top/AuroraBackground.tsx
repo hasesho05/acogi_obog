@@ -35,7 +35,7 @@ const AuroraBackground = () => {
 
         {/* 静的なオーロラ風グラデーション（blur無し、アニメーション無し） */}
         <div
-          className="absolute inset-0 opacity-60"
+          className="absolute inset-0 opacity-50"
           style={{
             backgroundImage: `
               radial-gradient(ellipse 80% 60% at 20% 30%, rgba(212, 80, 44, 0.2) 0%, transparent 60%),
@@ -58,7 +58,7 @@ const AuroraBackground = () => {
       {/* オーロラレイヤー - デスクトップのみ3つに削減（5→3） */}
       <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0s" }}>
         <div
-          className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-25 blur-[80px]"
+          className="absolute top-0 left-1/4 w-[600px] h-[600px] rounded-full opacity-20 blur-[80px]"
           style={{
             background: "radial-gradient(circle, var(--color-secondary) 0%, transparent 70%)",
             animation: "aurora-drift-1 30s ease-in-out infinite",
@@ -68,7 +68,7 @@ const AuroraBackground = () => {
 
       <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "0.5s" }}>
         <div
-          className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-20 blur-[70px]"
+          className="absolute bottom-0 left-1/3 w-[500px] h-[500px] rounded-full opacity-15 blur-[70px]"
           style={{
             background: "radial-gradient(circle, var(--color-green) 0%, transparent 70%)",
             animation: "aurora-drift-2 35s ease-in-out infinite",
@@ -78,7 +78,7 @@ const AuroraBackground = () => {
 
       <div className="absolute inset-0 animate-fade-in" style={{ animationDelay: "1s" }}>
         <div
-          className="absolute top-1/2 right-1/4 w-[450px] h-[450px] rounded-full opacity-15 blur-[60px]"
+          className="absolute top-1/2 right-1/4 w-[450px] h-[450px] rounded-full opacity-10 blur-[60px]"
           style={{
             background: "radial-gradient(circle, var(--color-accent) 0%, transparent 70%)",
             animation: "aurora-drift-3 25s ease-in-out infinite",
@@ -88,7 +88,7 @@ const AuroraBackground = () => {
 
       {/* メッシュグラデーションオーバーレイ */}
       <div
-        className="absolute inset-0 opacity-40"
+        className="absolute inset-0 opacity-30"
         style={{
           backgroundImage: `
             radial-gradient(ellipse at 20% 30%, rgba(212, 80, 44, 0.15) 0%, transparent 50%),

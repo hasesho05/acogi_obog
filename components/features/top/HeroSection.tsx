@@ -6,13 +6,10 @@ import { useRef } from "react";
 import { ChevronDown } from "lucide-react";
 import { AcousticGuitarIcon } from "./icons";
 import AnniversaryBadge from "./AnniversaryBadge";
-import MusicalParticles from "@/components/ui/musical-particles";
 
 // rendering-hoist-jsx: 静的データをコンポーネント外に巻き上げ
 const TITLE_LINE_1 = "OB・OG";
 const TITLE_LINE_2 = "CONCERT";
-const TITLE_LINE_1_CHARS = TITLE_LINE_1.split("");
-const TITLE_LINE_2_CHARS = TITLE_LINE_2.split("");
 const CATCH_COPY = "A Decade of Harmony";
 
 const HeroSection = () => {
@@ -95,68 +92,34 @@ const HeroSection = () => {
               className="w-16 h-px mx-auto mb-6 md:mb-8 bg-gradient-to-r from-transparent via-secondary/50 to-transparent"
             />
 
-            {/* メインタイトル - クリックで音符が飛び出す */}
-            <MusicalParticles
-              variant="notes"
-              particleCount={12}
-              className="inline-block"
+            {/* メインタイトル - 行単位の静かなフェード */}
+            <h1
+              className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 leading-tight"
+              style={{
+                background:
+                  "linear-gradient(135deg, #8b3a1e 0%, #d4502c 40%, #8b3a1e 100%)",
+                WebkitBackgroundClip: "text",
+                WebkitTextFillColor: "transparent",
+                backgroundClip: "text",
+              }}
             >
-              <h1
-                className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 md:mb-8 overflow-visible leading-tight transition-transform hover:scale-[1.02] active:scale-[0.98]"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #8b3a1e 0%, #d4502c 40%, #8b3a1e 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
+              <motion.span
+                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 1, delay: 1, ease: [0.22, 1, 0.36, 1] }}
+                className="inline-block"
               >
-                {/* 1行目: OB・OG */}
-                <span className="block sm:inline">
-                  {TITLE_LINE_1_CHARS.map((char, index) => (
-                    <motion.span
-                      key={`line1-${index}`}
-                      initial={{ opacity: 0, y: 50, rotateX: -60 }}
-                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                      transition={{
-                        duration: 0.7,
-                        delay: 1.0 + index * 0.08,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-                {/* sm以上でスペース表示 */}
+                <span className="block sm:inline">{TITLE_LINE_1}</span>
                 <span className="hidden sm:inline-block w-4 md:w-6" />
-                {/* 2行目: CONCERT */}
-                <span className="block sm:inline">
-                  {TITLE_LINE_2_CHARS.map((char, index) => (
-                    <motion.span
-                      key={`line2-${index}`}
-                      initial={{ opacity: 0, y: 50, rotateX: -60 }}
-                      animate={{ opacity: 1, y: 0, rotateX: 0 }}
-                      transition={{
-                        duration: 0.7,
-                        delay: 1.0 + (TITLE_LINE_1_CHARS.length + 1 + index) * 0.08,
-                        ease: [0.22, 1, 0.36, 1],
-                      }}
-                      className="inline-block"
-                    >
-                      {char}
-                    </motion.span>
-                  ))}
-                </span>
-              </h1>
-            </MusicalParticles>
+                <span className="block sm:inline">{TITLE_LINE_2}</span>
+              </motion.span>
+            </h1>
 
             {/* キャッチコピー - 詩的で上品 */}
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 2.0, ease: [0.22, 1, 0.36, 1] }}
+              transition={{ duration: 1, delay: 1.6, ease: [0.22, 1, 0.36, 1] }}
               className="font-display text-base sm:text-lg md:text-xl text-dark/60 tracking-widest"
             >
               {CATCH_COPY}
@@ -166,7 +129,7 @@ const HeroSection = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 1, delay: 2 }}
+              transition={{ duration: 1, delay: 1.8 }}
               className="mt-6 md:mt-10 flex justify-center"
             >
               <AnniversaryBadge />
@@ -179,7 +142,7 @@ const HeroSection = () => {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2.5 }}
+        transition={{ duration: 1, delay: 2.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
         <motion.div

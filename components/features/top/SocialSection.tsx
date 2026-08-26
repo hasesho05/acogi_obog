@@ -122,12 +122,7 @@ const SocialCard = (props: SocialCardProps) => {
         {/* CTAテキスト */}
         <div className="relative z-10 flex items-center gap-2 font-body text-sm text-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <span>フォローする</span>
-          <motion.span
-            animate={{ x: [0, 4, 0] }}
-            transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
-          >
-            →
-          </motion.span>
+          <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
         </div>
 
         {/* ボトムライン */}

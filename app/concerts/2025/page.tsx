@@ -6,7 +6,6 @@ import CallToAction from "@/components/features/home/CallToAction";
 import { ConcertPoster } from "@/components/features/home/ConcertPoster";
 
 const Live2025Page = () => {
-  console.log("Rendering Live2025Page");
   return (
     <main className="min-h-screen bg-primary">
       <HeroSection />

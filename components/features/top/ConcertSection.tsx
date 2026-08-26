@@ -35,21 +35,7 @@ const ConcertCard = (props: ConcertCardProps) => {
       >
         {/* グロー効果（Coming Soon用） */}
         {!isCompleted && (
-          <>
-            <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 via-accent/30 to-green/20 rounded-[2rem] blur-xl opacity-60 group-hover:opacity-80 transition-opacity" />
-            <motion.div
-              animate={{
-                opacity: [0.3, 0.6, 0.3],
-                scale: [1, 1.02, 1],
-              }}
-              transition={{
-                duration: 3,
-                repeat: Number.POSITIVE_INFINITY,
-                ease: "easeInOut",
-              }}
-              className="absolute -inset-1 bg-gradient-to-r from-secondary/10 via-green/15 to-accent/10 rounded-[2rem] blur-2xl"
-            />
-          </>
+          <div className="absolute -inset-1 bg-gradient-to-r from-secondary/20 via-accent/25 to-green/15 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
         )}
 
         {/* カード内部背景 */}
@@ -82,14 +68,12 @@ const ConcertCard = (props: ConcertCardProps) => {
               終了しました
             </span>
           ) : (
-            <motion.span
-              animate={{ scale: [1, 1.03, 1] }}
-              transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+            <span
               className="inline-flex items-center gap-1.5 font-body text-xs tracking-wider px-4 py-2 rounded-full bg-gradient-to-r from-secondary to-accent text-white shadow-lg shadow-secondary/20"
             >
               <Sparkles className="w-3 h-3" />
               Coming Soon
-            </motion.span>
+            </span>
           )}
         </div>
 

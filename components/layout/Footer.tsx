@@ -33,6 +33,9 @@ const Footer = () => {
                 <li>
                   <Link href="/concerts/2025" className="hover:text-secondary/90 underline-offset-2 hover:underline">2025年演奏会</Link>
                 </li>
+                <li>
+                  <Link href="/privacy" className="hover:text-secondary/90 underline-offset-2 hover:underline">プライバシーポリシー</Link>
+                </li>
               </ul>
             </div>
 

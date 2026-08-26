@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/layout/Footer";
+import AnalyticsProvider from "@/components/providers/AnalyticsProvider";
 import MotionProvider from "@/components/providers/MotionProvider";
 
 const geistSans = Geist({
@@ -60,6 +61,7 @@ export default function RootLayout(props: {
   return (
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col bg-primary antialiased`}>
+        <AnalyticsProvider />
         <MotionProvider>
           <div className="flex-1">{props.children}</div>
           <Footer />

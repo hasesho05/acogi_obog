@@ -3,12 +3,14 @@
 
 import { Instagram, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { trackTrialCtaClick } from "@/lib/analytics/events";
 
 interface CTAButtonProps {
   instagramUrl: string;
+  location?: "hero" | "middle" | "footer";
 }
 
-export const CTAButton = ({ instagramUrl }: CTAButtonProps) => {
+export const CTAButton = ({ instagramUrl, location = "footer" }: CTAButtonProps) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPressed, setIsPressed] = useState(false);
 
@@ -22,6 +24,7 @@ export const CTAButton = ({ instagramUrl }: CTAButtonProps) => {
         onMouseLeave={() => setIsHovered(false)}
         onMouseDown={() => setIsPressed(true)}
         onMouseUp={() => setIsPressed(false)}
+        onClick={() => trackTrialCtaClick({ location })}
         className={`
           relative flex items-center justify-center gap-2 w-full px-6 py-3 
           bg-gradient-to-r from-secondary to-accent text-white 

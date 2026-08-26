@@ -373,7 +373,8 @@ const AnniversaryBadge = () => {
             letterSpacing: "-0.02em",
           }}
           initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{
             duration: 1,
             delay: 0.8,
@@ -397,7 +398,8 @@ const AnniversaryBadge = () => {
             letterSpacing: "0.1em",
           }}
           initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{
             duration: 0.8,
             delay: 1.2,

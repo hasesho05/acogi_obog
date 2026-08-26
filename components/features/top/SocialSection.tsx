@@ -4,6 +4,7 @@ import { motion, useInView } from "motion/react";
 import { useRef } from "react";
 import { Instagram, ExternalLink, Play, Heart } from "lucide-react";
 import { IconBrandYoutube } from "@tabler/icons-react";
+import { trackTrialCtaClick } from "@/lib/analytics/events";
 
 type SocialLinkData = {
   platform: "youtube" | "instagram";
@@ -57,6 +58,12 @@ const SocialCard = (props: SocialCardProps) => {
         ease: [0.22, 1, 0.36, 1],
       }}
       whileHover={{ y: -6, transition: { duration: 0.3 } }}
+      onClick={() =>
+        trackTrialCtaClick({
+          location: "footer",
+          destination: props.data.platform,
+        })
+      }
       className="group relative block"
     >
       {/* カード */}

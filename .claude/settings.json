@@ -1,19 +1,35 @@
 {
-  "hooks": {
-    "PreCompact": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/save-work-report.sh",
-            "timeout": 30
-          }
-        ]
-      }
-    ]
+  "env": {
+    "DISABLE_TELEMETRY": "1",
+    "DISABLE_ERROR_REPORTING": "1",
+    "DISABLE_BUG_COMMAND": "1",
+    "NODE_ENV": "development"
   },
+  "includeCoAuthoredBy": false,
   "permissions": {
-    "defaultMode": "bypassPermissions",
+    "allow": [
+      "Bash(make:*)",
+      "Bash(pnpm:*)",
+      "Bash(npm run:*)",
+      "Bash(flutter:*)",
+      "Bash(firebase emulators:*)",
+      "Edit(apps/**)",
+      "Edit(packages/**)",
+      "Edit(configs/**)",
+      "Read(**)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git pull:*)",
+      "Bash(node:*)",
+      "Bash(tsc:*)",
+      "Bash(eslint:*)",
+      "Bash(prettier:*)"
+    ],
     "deny": [
       "Bash(sudo:*)",
       "Bash(su:*)",
@@ -41,37 +57,22 @@
       "Bash(killall:*)",
       "Bash(pkill:*)"
     ],
-
-
-    "allow": [
-      "Bash(make:*)",
-      "Bash(pnpm:*)",
-      "Bash(npm run:*)",
-      "Bash(flutter:*)",
-      "Bash(firebase emulators:*)",
-      "Edit(apps/**)",
-      "Edit(packages/**)",
-      "Edit(configs/**)",
-      "Read(**)",
-      "Bash(git add:*)",
-      "Bash(git commit:*)",
-      "Bash(git status)",
-      "Bash(git diff:*)",
-      "Bash(git log:*)",
-      "Bash(git branch:*)",
-      "Bash(git checkout:*)",
-      "Bash(git pull:*)",
-      "Bash(node:*)",
-      "Bash(tsc:*)",
-      "Bash(eslint:*)",
-      "Bash(prettier:*)"
+    "defaultMode": "bypassPermissions"
+  },
+  "hooks": {
+    "PreCompact": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$CLAUDE_PROJECT_DIR\"/.claude/hooks/save-work-report.sh",
+            "timeout": 30
+          }
+        ]
+      }
     ]
   },
-  "includeCoAuthoredBy": false,
-  "env": {
-    "DISABLE_TELEMETRY": "1",
-    "DISABLE_ERROR_REPORTING": "1",
-    "DISABLE_BUG_COMMAND": "1",
-    "NODE_ENV": "development"
+  "enabledPlugins": {
+    "shiftleft-qa@shiftleft-qa": true
   }
 }

@@ -518,3 +518,52 @@ pnpm install
 - **Tailwind CSS**: スタイリング
 - **Framer Motion**: アニメーション
 
+## 広告計測・UTM運用
+
+本番環境でのみ、以下の環境変数が設定されている場合に解析・広告タグを読み込みます。未設定のIDに対応するタグは出力されません。
+
+```env
+NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+NEXT_PUBLIC_GOOGLE_ADS_ID=AW-XXXXXXXXXX
+NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL=XXXXXXXXXX
+NEXT_PUBLIC_META_PIXEL_ID=XXXXXXXXXX
+```
+
+LP流入時に `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term`, `gclid`, `fbclid` を30日間保存します。フォーム実装時は `buildFormAttribution()` を使い、送信データへ以下のように含めてください。
+
+```ts
+import { buildFormAttribution } from "@/lib/analytics/attribution";
+import { trackFormSubmit } from "@/lib/analytics/events";
+
+const payload = {
+  parentName,
+  email,
+  phone,
+  childGrade,
+  preferredDate,
+  message,
+  attribution: buildFormAttribution(),
+};
+
+trackFormSubmit({ attribution: payload.attribution });
+```
+
+送信完了後は `/thanks` へ遷移してください。サンクスページ到達時に、同一セッションで1回だけ GA4 `generate_lead`、Google Ads conversion、Meta Pixel `Lead` を発火します。
+
+### QRコード用URL例
+
+チラシや掲示場所ごとに `utm_content` を変えると、どの配布場所から問い合わせにつながったかを確認しやすくなります。
+
+```text
+https://example.com/hallo-yodoyabashi?utm_source=flyer&utm_medium=qr&utm_campaign=2026_summer_trial&utm_content=school_gate
+```
+
+配布場所別の例:
+
+```text
+utm_content=school_gate
+utm_content=event_booth
+utm_content=mansion_board
+utm_content=library
+utm_content=referral_card
+```

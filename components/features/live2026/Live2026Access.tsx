@@ -11,7 +11,14 @@ const Live2026Access = () => {
 
   return (
     <section ref={sectionRef} className="content-visibility-auto px-6 py-16 sm:px-10 md:py-20">
-      <div className="mx-auto max-w-6xl border-t border-dark/25 pt-6">
+      <div className="relative mx-auto max-w-6xl pt-6">
+        <motion.div
+          aria-hidden="true"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-0 top-0 h-px origin-left bg-dark/25"
+        />
         <motion.header
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -33,16 +40,22 @@ const Live2026Access = () => {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.55, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="border border-dark/15 bg-white p-1.5">
-              <Image
-                src="/images/live2025/live2025-01.jpg"
-                alt="SECOND ROOMSの店頭に置かれた看板"
-                width={1108}
-                height={1477}
-                loading="lazy"
-                quality={75}
-                className="h-[260px] w-full object-cover object-[center_58%] md:h-[330px]"
-              />
+            <div className="overflow-hidden border border-dark/15 bg-white p-1.5">
+              <motion.div
+                initial={{ scale: 1.025 }}
+                animate={isInView ? { scale: 1 } : {}}
+                transition={{ duration: 0.85, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <Image
+                  src="/images/live2025/live2025-01.jpg"
+                  alt="SECOND ROOMSの店頭に置かれた看板"
+                  width={1108}
+                  height={1477}
+                  loading="lazy"
+                  quality={75}
+                  className="h-[260px] w-full object-cover object-[center_58%] md:h-[330px]"
+                />
+              </motion.div>
             </div>
             <figcaption className="mt-2 font-body text-[0.625rem] text-dark/50">
               SECOND ROOMS — 2025年開催時の記録
@@ -73,14 +86,17 @@ const Live2026Access = () => {
                     </p>
                   ) : null}
                 </div>
-                <a
+                <motion.a
                   href={live2026Venue.mapUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  whileHover={{ x: 4 }}
+                  whileTap={{ scale: 0.98 }}
+                  transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
                   className="mt-7 inline-flex min-h-11 w-fit items-center border-b border-secondary/50 font-body text-xs text-secondary transition-colors hover:border-secondary"
                 >
                   Googleマップで開く ↗
-                </a>
+                </motion.a>
               </>
             ) : (
               <p className="font-display text-xl text-dark">決まり次第お知らせします</p>

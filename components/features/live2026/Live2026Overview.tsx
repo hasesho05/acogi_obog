@@ -10,7 +10,14 @@ const Live2026Overview = () => {
 
   return (
     <section ref={sectionRef} className="content-visibility-auto px-6 py-16 sm:px-10 md:py-20">
-      <div className="mx-auto grid max-w-6xl gap-10 border-t border-dark/25 pt-6 md:grid-cols-[13rem_1fr] md:gap-16">
+      <div className="relative mx-auto grid max-w-6xl gap-10 pt-6 md:grid-cols-[13rem_1fr] md:gap-16">
+        <motion.div
+          aria-hidden="true"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-0 top-0 h-px origin-left bg-dark/25"
+        />
         <motion.header
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}

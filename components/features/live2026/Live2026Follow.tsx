@@ -41,7 +41,14 @@ const Live2026Follow = () => {
       ref={sectionRef}
       className="content-visibility-auto bg-dark px-6 py-14 sm:px-10 md:py-16"
     >
-      <div className="mx-auto grid max-w-6xl gap-9 border-t border-primary/25 pt-6 md:grid-cols-[13rem_1fr] md:gap-16">
+      <div className="relative mx-auto grid max-w-6xl gap-9 pt-6 md:grid-cols-[13rem_1fr] md:gap-16">
+        <motion.div
+          aria-hidden="true"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : {}}
+          transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          className="absolute inset-x-0 top-0 h-px origin-left bg-primary/25"
+        />
         <motion.header
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -71,6 +78,8 @@ const Live2026Follow = () => {
                   destination: link.platform,
                 })
               }
+              whileHover={{ x: 4 }}
+              whileTap={{ scale: 0.99 }}
               className="group flex min-h-28 items-start gap-3 border-b border-primary/20 py-5 sm:first:border-r sm:first:pr-6 sm:last:pl-6"
             >
               {link.platform === 'youtube' ? (

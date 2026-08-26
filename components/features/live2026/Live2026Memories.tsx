@@ -13,11 +13,46 @@ import {
 } from '@/infrastructure/repositories/live2026Repository';
 import { trackTrialCtaClick } from '@/lib/analytics/events';
 
+const easeOut = [0.22, 1, 0.36, 1] as const;
+const filmstripVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.55,
+      ease: easeOut,
+      delayChildren: 0.08,
+      staggerChildren: 0.045,
+    },
+  },
+};
+const photoVariants = {
+  hidden: (index: number) => ({
+    opacity: 0,
+    y: 14,
+    rotate: index % 2 === 0 ? -0.6 : 0.6,
+  }),
+  visible: {
+    opacity: 1,
+    y: 0,
+    rotate: 0,
+    transition: { duration: 0.5, ease: easeOut },
+  },
+};
+
 const PhotoFigure = (props: Live2026PhotoFigureProps) => {
   const isPortrait = props.data.orientation === 'portrait';
 
   return (
-    <figure
+    <motion.figure
+      custom={props.index}
+      variants={photoVariants}
+      whileHover={{
+        y: -4,
+        rotate: 0,
+        transition: { duration: 0.25, ease: easeOut },
+      }}
       className={`shrink-0 snap-start ${
         isPortrait ? 'w-[190px] md:w-[230px]' : 'w-[300px] md:w-[380px]'
       } ${props.index % 3 === 1 ? 'mt-7' : ''}`}
@@ -39,7 +74,7 @@ const PhotoFigure = (props: Live2026PhotoFigureProps) => {
         </span>
         <span>{props.data.caption}</span>
       </figcaption>
-    </figure>
+    </motion.figure>
   );
 };
 
@@ -92,8 +127,15 @@ const Live2026Memories = () => {
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-9 grid gap-5 border-t border-dark/25 pt-6 md:grid-cols-[13rem_1fr] md:gap-16"
+          className="relative mb-9 grid gap-5 pt-6 md:grid-cols-[13rem_1fr] md:gap-16"
         >
+          <motion.div
+            aria-hidden="true"
+            initial={{ scaleX: 0 }}
+            animate={isInView ? { scaleX: 1 } : {}}
+            transition={{ duration: 0.65, ease: easeOut }}
+            className="absolute inset-x-0 top-0 h-px origin-left bg-dark/25"
+          />
           <div>
             <p className="font-body text-[0.6rem] tracking-[0.2em] text-secondary">[ 02 ]</p>
             <h2 className="mt-3 font-display text-2xl text-dark md:text-3xl">前回の記録</h2>
@@ -107,13 +149,9 @@ const Live2026Memories = () => {
       </div>
 
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
-        animate={isInView ? { opacity: 1, y: 0 } : {}}
-        transition={{
-          duration: 0.7,
-          delay: 0.1,
-          ease: [0.22, 1, 0.36, 1],
-        }}
+        initial="hidden"
+        animate={isInView ? 'visible' : 'hidden'}
+        variants={filmstripVariants}
         aria-label="OBOG LIVE 2025 写真ギャラリー"
         className="flex snap-x snap-mandatory gap-5 overflow-x-auto px-6 pb-4 sm:px-10 lg:px-[max(2.5rem,calc((100vw-72rem)/2))]"
       >
@@ -133,7 +171,7 @@ const Live2026Memories = () => {
             ))}
           </div>
         ) : (
-          <a
+          <motion.a
             href={YOUTUBE_CHANNEL_URL}
             target="_blank"
             rel="noopener noreferrer"
@@ -143,6 +181,9 @@ const Live2026Memories = () => {
                 destination: 'youtube',
               })
             }
+            whileHover={{ x: 4 }}
+            whileTap={{ scale: 0.995 }}
+            transition={{ duration: 0.22, ease: easeOut }}
             className="group block border-b border-t border-dark/20 py-5"
           >
             <div className="flex items-center gap-4">
@@ -159,7 +200,7 @@ const Live2026Memories = () => {
                 </p>
               </div>
             </div>
-          </a>
+          </motion.a>
         )}
       </div>
     </section>

@@ -1,0 +1,5 @@
+# Next.js と Vitest が使用する依存関係のみビルドスクリプトを許可する。
+allowBuilds:
+  core-js-pure: true
+  esbuild: true
+  sharp: true

@@ -1,303 +1,224 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Claude Code when working in this repository.
+Last checked against the repository: 2026-10-04.
 
 ## Project Overview
 
-This is an acoustic guitar circle concert website built with Next.js 16 and follows Domain-Driven Design (DDD) architecture. The project is specifically for creating concert information pages without user authentication features.
+Japanese concert information website for the Ryukoku University acoustic guitar
+circle's OB/OG community. It uses Next.js App Router and static export, with no
+authentication or runtime backend. The configured site URL is
+`https://acogi-obog.pages.dev`; source code alone does not confirm deployment status.
 
-**Key Technologies:**
-- Next.js 16.1.2 with App Router (Turbopack)
-- React 19.2.3
-- TypeScript
-- Tailwind CSS v4 (custom theme configuration)
-- Shadcn UI components
-- Aceternity UI for animations
-- Motion (旧 framer-motion) - `motion/react` からインポート
-- Biome for linting/formatting (configured with 2-space indentation)
-- pnpm as package manager
-- Lucide React icons
+Versions declared in `package.json`:
 
-**Note**: This project does NOT use ESLint - it uses Biome instead for all linting and formatting.
+- Next.js 16.1.2, React / React DOM 19.2.3, TypeScript 5
+- Tailwind CSS 4 and `tw-animate-css`
+- Motion (`motion/react`), Lucide React, and Tabler icons
+- Vitest 4, Testing Library, Playwright, and Storybook 8
+- pnpm package manager
 
-## Development Commands
+## Commands and Tooling
 
 ```bash
-# Development server with Turbopack
+# Development server (Turbopack)
 pnpm dev
 
-# Build for production (NODE_ENV=production 必須)
+# Production build / static export
 NODE_ENV=production pnpm build
 
-# Start production server
-pnpm start
+# Unit and component tests
+pnpm test
+pnpm test:watch
 
-# Lint with Next.js (basic linting only)
-pnpm lint
+# Selected tests
+pnpm exec vitest run tests/unit/infrastructure/live2026Repository.test.ts
 
-# Format and lint code with Biome
-npx biome check --write
+# Type checking
+pnpm exec tsc --noEmit
 
-# Add Shadcn UI components
-npx shadcn@latest add [component-name]
+# Storybook
+pnpm storybook
+pnpm build-storybook
 
-# Add Aceternity UI components
-npx shadcn@latest add https://ui.aceternity.com/registry/[component-name].json
+# Existing Playwright E2E suite (CLI, not MCP)
+pnpm exec playwright test
 ```
 
-## Architecture & Code Conventions
+`pnpm lint` currently maps to `next lint`, which is absent from the installed
+Next.js CLI. Do not report it as a working lint check. The repository has
+`biome.json` (schema 2.1.1), but Biome is not declared in `package.json` or
+available in the local `node_modules/.bin` at this update. When Biome is available,
+use `biome check` on the relevant files; do not introduce ESLint as a substitute.
+Its configuration specifies two spaces, single JavaScript quotes, a 100-character
+line width, ES5 trailing commas, and required semicolons.
 
-### Directory Structure (DDD Pattern)
-The project follows Domain-Driven Design with this current structure:
-```
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Home page
-│   ├── layout.tsx         # Root layout
-│   ├── globals.css        # Global styles with custom Tailwind theme
-│   ├── concerts/          # Concert pages
-│   ├── about/             # About page
-│   └── contact/           # Contact page
-├── components/             # UI components
-│   ├── ui/                # Shadcn/Aceternity UI components
-│   ├── features/          # Feature-specific components
-│   │   └── home/          # Home page specific components
-│   └── layout/            # Layout components
-├── domain/                # Domain layer (entities, types)
-│   └── entities/          # Type definitions (currently only home.ts)
-├── infrastructure/        # Infrastructure layer (repos, external APIs)
-├── application/           # Application layer (use cases, services)
-└── lib/                   # Utilities and configurations
-```
+`pnpm start` maps to `next start`. This site is configured for static export;
+preview the exported files with a static file server rather than treating
+`pnpm start` as the static deployment workflow.
 
-### Component Development Rules
+## Current Routes and Structure
 
-**Function Declaration:**
-- ALWAYS use arrow functions, never `function` declarations
-- Import types from `domain/entities/` files
-- Pass props as a single object parameter (no destructuring in parameters)
-- Do NOT declare return types (let TypeScript infer)
-
-```typescript
-// ✅ Correct
-import type { ComponentProps } from '@/domain/entities/component';
-
-const MyComponent = (props: ComponentProps) => {
-  return <div>{props.title}</div>;
-};
-
-// ❌ Avoid
-function MyComponent({ title }: { title: string }) {
-  return <div>{title}</div>;
-};
-```
-
-**Type Definitions:**
-- All component props types must be defined in `domain/entities/component.ts`
-- Business entity types go in respective `domain/entities/` files
-- Use descriptive type names with proper domain context
-
-### Next.js 16 Specific Patterns
-
-**ビルド時の注意（重要）:**
-Next.js 16 では `NODE_ENV` が正しく設定されていないとビルドエラーが発生する。
-詳細: [Next.js 16 global-error issue #85668](https://github.com/vercel/next.js/issues/85668)
-
-```bash
-# 正しいビルドコマンド
-NODE_ENV=production pnpm build
-
-# CI環境（Cloudflare Pages等）では環境変数に設定
-NODE_ENV=production
+```text
+app/
+  page.tsx                 # Top page: HeroSection, ConcertSection, SocialSection
+  layout.tsx               # Fonts, metadata, analytics, MotionProvider, Footer
+  globals.css              # Tailwind theme and global styles
+  about/page.tsx
+  concerts/page.tsx        # Concert archive
+  concerts/2025/           # 2025 concert page and metadata layout
+  concerts/2026/           # Implemented 2026 special page and metadata layout
+  privacy/page.tsx
+  thanks/                  # Thank-you page and lead tracking
+components/
+  features/top/            # Current top-page components
+  features/home/           # 2025 concert components (not the current top page)
+  features/live2026/       # 2026 special-page components
+  features/concerts/       # Archive components
+  features/about/
+  features/shared/         # Shared PageHero
+  layout/                  # Footer
+  providers/               # Analytics, motion, UTM tracking
+  ui/                      # Custom and registry-derived UI components
+domain/entities/           # home.ts, concert.ts, component.ts, live2026.ts
+infrastructure/repositories/
+  concertRepository.ts     # Concert list and lookup helpers
+  live2026Repository.ts    # Event facts, venue, 2025 photos/videos, social URLs
+lib/
+  utils.ts                 # cn() helper
+  analytics/               # Events and attribution
+public/images/             # Concert photos and OGP assets
+tests/
+  unit/                    # Repository, analytics, utility tests
+  components/              # Component tests
+  e2e/                     # Playwright 2025 hero tests
+.storybook/                # Storybook configuration
 ```
 
-**Async Params Handling:**
-```typescript
-// Dynamic routes require awaiting params and searchParams
-const Page = async (props: {
-  params: Promise<{ id: string }>;
-  searchParams: Promise<{ tab?: string }>;
-}) => {
-  const params = await props.params;
-  const searchParams = await props.searchParams;
-  
-  // Use params.id and searchParams.tab
-};
-```
+There is currently no `/contact` route, `application/` layer,
+`domain/repositories/` directory, `lib/dal.ts`, or `scroll-transition` component.
+Do not assume these exist from older documentation or architectural examples.
+The implementation separates types, static data, and UI; add further layers only
+when the task calls for them.
 
-**Data Fetching:**
-- Use Server Components by default for data fetching
-- Implement Data Access Layer patterns in `lib/dal.ts`
-- Use Suspense boundaries for streaming content
-- Client Components only when interactivity is needed
+## 2026 Concert Page
 
-### Color Scheme
-The project uses a warm, acoustic-themed color palette defined in `app/globals.css` using Tailwind CSS v4's @theme directive:
+`/concerts/2026/` is already implemented. Its page renders, in order:
+
+1. `Live2026Hero`
+2. `Live2026Overview`
+3. `Live2026Memories`
+4. `Live2026Access`
+5. `Live2026Follow`
+
+The current design uses a compact concert-ticket motif, warm colors, bordered
+information blocks, and a photo filmstrip. The top-page hero and concert/archive
+cards link to the page. Metadata lives in `app/concerts/2026/layout.tsx`, with
+`public/images/ogp_live2026.jpg` as the OGP image.
+
+Current data in `infrastructure/repositories/live2026Repository.ts`:
+
+- Date: 2026年11月14日（土）
+- Time: 11:30 開演 / 14:45 ごろ終演; opening time is still to be announced
+- Venue: SECOND ROOMS, 京都府向日市寺戸町西田中瀬3-4 FORUM東向日Ⅰ 3F
+- Access: 阪急京都線「東向日」駅から徒歩約1分
+- Memories: 2025 concert photos and a configurable video list
+
+Update event facts, venue/access, memories, and social URLs in
+`live2026Repository.ts`. Also keep `concertRepository.ts` synchronized because it
+supplies the top-page concert cards and archive. Date/venue text also appears in
+the top hero, 2026 hero, and metadata; inspect those when event details change.
+
+The top hero says 「第10回」 while repository descriptions say 「第1回」/「第2回」.
+These labels are inconsistent; confirm the intended numbering before changing
+them. The 2026 special page uses 「OBOG演奏会 2026」.
+
+## Coding Conventions
+
+Follow the repository's conventions for new feature code:
+
+- Prefer arrow functions, including components.
+- Pass component props as one object and access `props.name`; avoid parameter
+  destructuring in new components.
+- Put shared component props in `domain/entities/component.ts`; feature-specific
+  types belong in the corresponding entity file, such as `live2026.ts`.
+- Use `import type` for type-only imports and infer component return types.
+- Use `@/` imports; the alias points to the repository root, not `src/`.
+- TypeScript is strict and targets ES2017.
+- Use Server Components unless browser APIs, state, or animations require
+  `'use client'`. The current top page is a Client Component.
+- Keep Japanese copy, dates, accessible labels, and metadata consistent.
+
+Existing code has some exceptions (for example, the root layout is a function
+declaration). Avoid unrelated rewrites merely to enforce a convention.
+
+## Styling and Motion
+
+Theme tokens are defined with Tailwind CSS 4's `@theme` in `app/globals.css`:
+
 ```css
---color-primary: #fff5f0        /* ウォームホワイト（背景） */
---color-secondary: #d4502c      /* バーントオレンジ（メイン） */
---color-tertiary: #fae8e0       /* ライトピーチ（セクション背景） */
---color-accent: #e07548         /* サーモンオレンジ（アクセント） */
---color-dark: #8b3a1e           /* ダークオレンジ（テキスト用） */
---color-light: #ff9671          /* ライトオレンジ（ハイライト） */
+--color-primary: #fff5f0;      /* Warm background */
+--color-secondary: #d4502c;    /* Main orange */
+--color-tertiary: #fae8e0;     /* Section background */
+--color-accent: #e07548;
+--color-dark: #8b3a1e;         /* Text */
+--color-light: #ff9671;
+--color-green: #2d6a4f;        /* Secondary palette */
+--color-green-light: #40916c;
+--color-green-pale: #b7e4c7;
+--color-green-dark: #1b4332;
 ```
 
-**Important**: Colors are accessed as Tailwind utilities (e.g., `bg-primary`, `text-secondary`) through the custom theme configuration.
+Use theme utilities such as `bg-primary`, `text-dark`, and `text-secondary`.
+Display text uses Zen Old Mincho (`font-display`); body text uses Noto Sans JP
+(`font-body`), configured via `next/font/google` in the root layout.
 
-### UI Libraries Integration
-- **Shadcn UI**: Base components (buttons, cards, forms)
-- **Aceternity UI**: Animation-focused components (hero parallax, bento grids)
-- **Tailwind CSS v4**: Utility-first styling
-- **Motion**: Custom animations（`motion/react` からインポート）
+Import animation APIs from `motion/react`, not `framer-motion`.
+`MotionProvider` wraps the site with `LazyMotion` using `domAnimation` and
+`MotionConfig reducedMotion="user"`. Sections use Motion directly, including
+in-view and staggered animations. There is no shared `ScrollTransition` wrapper.
+Preserve reduced-motion support and mobile usability when changing animations.
 
-**Motion インポート方法:**
-```typescript
-// ✅ 正しい（motion パッケージ）
-import { motion } from "motion/react";
+`components.json` configures Shadcn's `new-york` style, zinc base, RSC, and Lucide
+icons. Existing UI components include registry-derived Aceternity components;
+reuse actual components rather than assuming every library example is installed.
 
-// ❌ 古い（framer-motion は使用しない）
-import { motion } from "framer-motion";
-```
+## Static Export and Metadata
 
-### Code Quality Tools
+`next.config.ts` sets `output: 'export'`, `trailingSlash: true`,
+`distDir: 'out'`, and `images.unoptimized: true`. YouTube thumbnail images from
+`i.ytimg.com` are allowed by `remotePatterns`.
 
-**Biome Configuration (biome.json):**
-- 2-space indentation
-- Single quotes for JavaScript
-- 100 character line width
-- ES5 trailing commas
-- Semicolons always required
-- Strict linting with unused import detection
-- Auto-formatting enabled
-- noNonNullAssertion rule disabled
+Keep features compatible with static hosting: there is no runtime server for API
+handlers, Server Actions, request-time rendering, or middleware. Server
+Components can resolve data at build time; dynamic routes need statically
+generated paths. Do not describe all server-side data fetching as unsupported.
+If a task requires a backend, assess the hosting change explicitly.
 
-**Important Biome Commands:**
-```bash
-# Check and fix all issues (primary command to use)
-npx biome check --write
+The root layout defines default Open Graph/Twitter metadata; concert layouts
+override it. Keep page URLs, Japanese descriptions, and public image paths
+aligned with the route and supplied event information.
 
-# Format only
-npx biome format --write
+## Analytics and Verification
 
-# Lint only
-npx biome lint
-```
+Analytics providers and helpers live in `components/providers/` and
+`lib/analytics/`. Configuration uses `NEXT_PUBLIC_GA_ID`,
+`NEXT_PUBLIC_GOOGLE_ADS_ID`, `NEXT_PUBLIC_GOOGLE_ADS_CONVERSION_LABEL`, and
+`NEXT_PUBLIC_META_PIXEL_ID`. Analytics scripts are enabled in production when
+configured. Preserve existing CTA event and attribution behavior when editing
+links; the `/thanks/` page also tracks leads.
 
-**Important**: Always use Biome commands for code formatting and linting, not ESLint.
+Vitest uses jsdom, `tests/setup.ts`, and the `@/` alias. `tests/utils.tsx` supplies
+component test helpers. Run tests relevant to behavioral changes, and use the
+production build when route/export compatibility needs verification. Do not
+claim a check passed unless it ran successfully.
 
-### Japanese Content Context
-The project is for a Japanese acoustic guitar circle, so be prepared to work with:
-- Japanese text content and metadata
-- Concert (演奏会), member (メンバー), and performance (演奏) related features
-- Japanese date formatting and cultural conventions
+Playwright CLI tests exist in `tests/e2e/`; the config starts/reuses the development
+server on port 3000 and covers desktop and mobile browser profiles.
+**Do not use Playwright MCP in this project.** If browser confirmation is needed
+and cannot be obtained through authorized tooling, ask the user to verify it.
 
-## Key Implementation Notes
-
-- Package manager is **pnpm** (not npm or yarn)
-- Uses Next.js 16 with Turbopack for development (`--turbopack` flag in dev script)
-- **ビルド時は `NODE_ENV=production` 必須**
-- **Static Export Configuration**: Project is configured for static export (`output: 'export'` in next.config.ts)
-  - Images are unoptimized (`images: { unoptimized: true }`)
-  - Trailing slashes enabled (`trailingSlash: true`)
-  - Output directory is 'out' (`distDir: 'out'`)
-- No authentication system planned
-- Focus on concert information presentation
-- Responsive design with mobile-first approach
-- Performance optimized with static generation where possible
-
-### Static Export の制限
-
-| 機能 | 利用可否 |
-|------|----------|
-| API Routes (`/api/*`) | ❌ |
-| Server Actions | ❌ |
-| サーバーサイドでのfetch | ❌ |
-| Middleware | ❌ |
-| 動的ルート（事前生成不可） | ❌ |
-
-動的機能が必要になった場合は `@cloudflare/next-on-pages` の導入を検討。
-
-## Current Implementation Architecture
-
-### Actual Component Structure
-The home page (`app/page.tsx`) uses this structure:
-```typescript
-const HomePage = () => {
-  return (
-    <main className="min-h-screen bg-primary">
-      <HeroSection />
-      <ScrollTransition><EventInformation /></ScrollTransition>
-      <ScrollTransition><VenueInformation /></ScrollTransition>
-      <ScrollTransition><PastEventPhotos /></ScrollTransition>
-      <ScrollTransition><CallToAction /></ScrollTransition>
-    </main>
-  );
-};
-```
-
-### Scroll Animations
-The project uses a `ScrollTransition` wrapper component to animate sections as they come into view.
-
-### TypeScript Configuration
-- Path mapping uses `@/*` pointing to project root (not src/)
-- Target: ES2017
-- Strict mode enabled
-- Next.js plugin included
-
-### Shadcn UI Configuration
-- Style: "new-york"
-- Base color: "zinc"  
-- CSS variables: enabled
-- RSC (React Server Components): enabled
-- Icon library: Lucide React
-
-### Package Dependencies
-**Production dependencies:**
-- @tabler/icons-react: Additional icons
-- class-variance-authority: Component variants
-- clsx + tailwind-merge: Conditional styling
-- motion: Animations（`motion/react` からインポート）
-- lucide-react: Primary icon library
-
-**Development dependencies:**
-- @tailwindcss/postcss: PostCSS plugin for Tailwind v4
-- tailwindcss: v4
-- tw-animate-css: Animation utilities
-- TypeScript v5
-
-## Component Architecture Patterns
-
-### Scroll Animation Integration
-The project uses a custom `ScrollTransition` wrapper component that provides fade-in animations as sections come into view. This is implemented consistently across all major sections:
-- Import from `@/components/ui/scroll-transition`
-- Wrap content sections to enable scroll-triggered animations
-- Supports `delay` prop for staggered animations
-
-### UI Component Libraries Hierarchy
-1. **Aceternity UI Components** (in `/components/ui/`): Animation-heavy components like `hero-parallax`, `bento-grid`, `timeline`, `shooting-stars`
-2. **Shadcn UI Components** (in `/components/ui/`): Standard UI components integrated via `npx shadcn@latest add`
-3. **Custom Components** (in `/components/features/`): Feature-specific components for home, concerts, etc.
-
-## Working with the Domain Layer
-
-### Entity Files Structure
-Current domain entities are located in `/domain/entities/`:
-- Type definitions should follow the business domain (concerts, members, performances)
-- Component prop types go in `component.ts`
-- Business entities get their own files (e.g., `concert.ts`, `member.ts`)
-
-### DDD Repository Pattern
-- Repository interfaces are defined in `/domain/repositories/`
-- Implementations go in `/infrastructure/repositories/`
-- Access through Data Access Layer patterns in `lib/dal.ts`
-
-### Important Notes from README.md
-The project README contains detailed Japanese coding conventions that complement these guidelines:
-- Uses 2-space indentation (configured in Biome)
-- Emphasizes DDD (Domain-Driven Design) architecture 
-- Specifies exact component prop handling patterns (no destructuring in parameters)
-- Includes Japanese business domain context (演奏会/concerts, メンバー/members, 演奏/performances)
-- Contains comprehensive examples of Server Component vs Client Component usage patterns
-
-## Playwright MCP
-
-**このプロジェクトではPlaywright MCPを使用しない。** ブラウザでの確認が必要な場合は、ユーザーに確認を依頼すること。
+`README.md` contains additional Japanese coding guidance, but some examples are
+architectural templates rather than implemented files. Check current source and
+configuration before relying on them. More specific guidance also exists in
+`app/CLAUDE.md` and `components/features/top/CLAUDE.md`.

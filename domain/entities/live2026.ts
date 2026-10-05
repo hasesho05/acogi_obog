@@ -1,3 +1,8 @@
+export type Live2026RecruitmentProps = {
+  deadline: string;
+  deadlineDateTime: string;
+};
+
 export type Live2026Fact = {
   label: string;
   value: string;

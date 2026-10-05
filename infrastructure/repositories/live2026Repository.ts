@@ -1,12 +1,18 @@
 import type {
   Live2026Fact,
   Live2026Photo,
+  Live2026RecruitmentProps,
   Live2026Venue,
   Live2026Video,
 } from '@/domain/entities/live2026';
 
 export const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/@obog4633';
 export const INSTAGRAM_URL = 'https://www.instagram.com/acoustic_concert_obog';
+
+export const live2026Recruitment: Live2026RecruitmentProps = {
+  deadline: '10月11日（日）',
+  deadlineDateTime: '2026-10-11',
+};
 
 export const live2026Facts: Live2026Fact[] = [
   { label: 'Date', value: '2026年11月14日（土）' },

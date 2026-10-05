@@ -3,11 +3,17 @@ import Live2026Follow from '@/components/features/live2026/Live2026Follow';
 import Live2026Hero from '@/components/features/live2026/Live2026Hero';
 import Live2026Memories from '@/components/features/live2026/Live2026Memories';
 import Live2026Overview from '@/components/features/live2026/Live2026Overview';
+import Live2026Recruitment from '@/components/features/live2026/Live2026Recruitment';
+import { live2026Recruitment } from '@/infrastructure/repositories/live2026Repository';
 
 const Live2026Page = () => {
   return (
     <main className="min-h-screen bg-primary">
       <Live2026Hero />
+      <Live2026Recruitment
+        deadline={live2026Recruitment.deadline}
+        deadlineDateTime={live2026Recruitment.deadlineDateTime}
+      />
       <Live2026Overview />
       <Live2026Memories />
       <Live2026Access />
